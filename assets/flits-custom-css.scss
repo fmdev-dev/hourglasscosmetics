@@ -1,0 +1,190 @@
+.flits-list-group-item.flits-bg-theme,
+.flits-nav{
+  
+  
+}
+.flits-page-heading{	          
+  
+  
+}
+.flits-list-group-item.active, 
+.flits-list-group-item.active:hover, 
+.flits-list-group-item.active:focus{
+  
+  
+  
+} 
+a.flits-list-group-item:hover,
+a.flits-list-group-item:focus
+{
+  
+  
+}
+.flits-pages{
+  
+  
+}
+.flits-content,
+.flits-text-muted,
+.flits-empty-history-msg,
+.flits-empty-order-msg{
+  
+}
+.flits-content,
+.flits-text-muted,
+.flits-empty-history-msg,
+.flits-empty-order-msg{
+  
+}
+@media only screen and (max-width: 992px){
+  .flits-wsl-view-empty {
+    position: relative !important;
+    top: 0% !important;
+    left: 0% !important; 
+    -moz-transform: translate(0%, 0%) !important;
+    -o-transform: translate(0%, 0%) !important;
+    -ms-transform: translate(0%, 0%) !important;
+    -webkit-transform: translate(0%, 0%) !important;
+    transform: translate(0%, 0%) !important;
+  }
+}
+@media only screen and (max-width: 600px){
+  .flits-order-details-btn {
+    margin-top: 10px !important;
+  }
+}
+.flits-nav-bar{
+  z-index:2 !important;
+}
+.flits-page-content{
+  z-index:1 !important;
+}
+
+.flits-btn-custom.flits-btn-primary{
+  color: #4c5667 !important;
+  background: #ebeff2 !important;
+  border-color: #4c5667 !important;
+}
+.flits-btn-custom.flits-btn-primary:hover,
+.flits-btn-custom.flits-btn-primary:focus,
+.flits-btn-custom.flits-btn-primary:active
+{
+  color: #ebeff2 !important;
+  background-color: #4c5667 !important;
+}
+
+.flits-btn-custom.flits-btn-default{
+  color: #5fbeaa !important;
+  background: #ebeff2 !important;
+  border-color: #5fbeaa !important;
+}
+.flits-btn-custom.flits-btn-default:hover,
+.flits-btn-custom.flits-btn-default:focus,
+.flits-btn-custom.flits-btn-default:active{
+  color: #ebeff2 !important;
+  background-color: #5fbeaa !important;
+}
+
+.flits-btn-custom.flits-btn-danger{
+  color: #d9534f !important;
+  background: #ebeff2 !important;
+  border-color: #d9534f !important;
+}
+.flits-btn-custom.flits-btn-danger:hover,
+.flits-btn-custom.flits-btn-danger:focus,
+.flits-btn-custom.flits-btn-danger:active{
+  color: #ebeff2 !important;
+  background-color: #d9534f !important;
+}
+.flits-subscription-content .flits-general-subscription-label{
+  top:0px !important;
+}
+.flits-subscription-content .flits-btn{
+  margin-left:0px !important;
+}
+.flits-address-caps{
+  text-transform: uppercase;
+  font-family:gotham bold;
+}
+.flits-address-details{
+  font-family:gotham lighter;
+}
+.flits-account-information{
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  font-size:20px;
+}
+.flits-requied-account-information{
+  text-align:right;
+  color:red;
+  font-size:13px;
+/*   margin-left:57% */
+}
+.flits-row .flits-req-label{
+ color:red !important;
+}
+.flits_first_name_label{
+/* padding-top:18px; */
+}
+.flits_first_name{
+  padding-top:18px;
+}
+
+.cmnmy-account{
+  .flits-div-seperate-line{
+    border: 0.5px solid #C0C0C0;
+    margin: 10px 0 !important;
+  }
+  .flits-credit-history-div .flits-row:not(:last-child) {
+    border-bottom: 0.5px solid #C0C0C0;
+    /*   margin: 10px 0 !important; */
+  }
+  .flits-nav{
+    background-color: #ffffff !important;
+  }
+  .flits-pages .flits-row label {
+    width:100%;
+  }
+  .flits-pages #flits-page-address .flits-row input {
+    outline: none;
+    border: none;
+    font-weight: 200;
+    font-size: 13px;
+    letter-spacing: .01em;
+    /*     line-height: 2.1em; */
+    background: none;
+    /*     -webkit-appearance: none; */
+    border: none;
+    border-radius: 0;
+    outline: none;
+    font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif;
+  }
+  .flits-pages .flits-new-address-cancel-btn {
+    background-color: #696969 !important;
+  }
+  .flits-pages .flits-row .flits-col-md-9{
+    padding: 18px 0;
+    /* margin-top: 0px !important; */
+    /* border-bottom: 1px solid #C0C0C0; */
+  }
+  .flits-pages .flits-row .flits-col-md-4{
+    padding: 18px 0;
+    /* margin-top: 0px !important; */
+    /* border-bottom: 1px solid #C0C0C0; */
+  }
+  .flits-order-row {
+    padding-bottom: 20px;
+    border-bottom: 2px solid #C0C0C0 !important;
+    .flits-order-cost-breakup {
+      .flits-order-subtotal,
+      .flits-order-discount,
+      .flits-order-tax,
+      .flits-order-shipping-price,
+      .flits-order-grand-total,
+      .flits-order-payment-type{
+        margin-top:10px!important;
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+<div class="red0_pdp_imagewithcontent_section">
+  <div class="left-section">
+    <div class="content-inner">      
+      {% if section.settings.left_desk_image != blank or section.settings.left_mob_image != blank  %}
+        <img class="desktop_view lazyload" data-src="{{ section.settings.left_desk_image | img_url: 'master' }}" src="{{ section.settings.left_desk_image | img_url: '100x' }}" alt="{{ section.settings.left_title1 }} - {{ section.settings.left_title2 }}">
+        <img class="mobile_view lazyload" data-src="{{ section.settings.left_mob_image | img_url: 'master' }}" src="{{ section.settings.left_mob_image | img_url: '100x' }}" alt="{{ section.settings.left_title1 }} - {{ section.settings.left_title2 }}">
+      {% endif %}      
+    </div>
+  </div>   
+  <div class="right-section">
+    <div class="banner-content">
+      <div class="content-inner">
+
+        {% if section.settings.left_title != blank %}<div class="title">{{ section.settings.left_title }}</div>{% endif %} 
+        {% if section.settings.left_desc != blank %}<div class="desc">{{ section.settings.left_desc }}</div>{% endif %} 
+      
+      </div>
+    </div>
+  </div>  
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Red0 - Image Text Overlay"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "left_desk_image",
+        "label": { "en": "Desktop Image" }
+      },
+	  {
+        "type": "image_picker",
+        "id": "left_mob_image",
+        "label": { "en": "Mobile Image" }
+      },
+	  {
+        "type":"text",
+        "id":"left_title",
+        "label":{ "en":"Title" }
+      },
+	  {
+        "type":"textarea",
+        "id":"left_desc",
+        "label":{ "en":"Description" }
+      }
+    ]
+  }
+{% endschema %}

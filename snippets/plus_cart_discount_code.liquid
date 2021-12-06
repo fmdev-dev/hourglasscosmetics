@@ -1,0 +1,41 @@
+<!-- Snippet plus_cart_discount_code --> 
+{% if plus_cart_discount_code %} 
+<script> 
+(function($) {
+  $(document).on('click','.applyCopon', function() {
+    var $discountCode = $('input[name="discount"]').val(); 
+    var data11 = {
+          storedDiscount: $discountCode,
+    };
+    $.ajax({
+          type: 'post',
+          url: '/cart',
+          data: $('#CartForm').serialize(),
+          success: function(data){
+            // run template view
+            console.log(data);
+          },
+          fail: function() {
+            alert('request fail..');
+          },
+          dataType: 'json'
+     });
+  });
+  /*$(document).on('page:load page:change', function () {
+    if (localStorage.getItem('storedDiscount')){  
+      var discountStored = localStorage.getItem('storedDiscount');   
+      $('input[name="discount"]').val(localStorage.getItem('storedDiscount'));  
+    }  
+    $('form[action="/cart"]').on('submit', function(){ 
+      var $discountCode = $('input[name="discount"]').val(); 
+      localStorage.setItem('storedDiscount', $discountCode);  
+    });
+  }); */     
+})(jQuery);   
+</script> 
+<div class="discountcodefield">
+  <label for="discount">DISCOUNT CODE - APPLIED AT CHECKOUT</label>
+  <input autocomplete="off" type="text" name="discount" />
+  <button type="button" title="Apply Coupon" class="button applyCopon" value="Apply Coupon"><span><span>Apply Code</span></span></button>
+</div> 
+{% endif %}

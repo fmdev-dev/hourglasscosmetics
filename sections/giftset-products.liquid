@@ -1,0 +1,147 @@
+<div class="section fullheightblock holiday-product-bar-section homepage-product-bar-section rwh-giftset-products-section">
+  <div class="product-bar-fix product-section">
+    {% for block in section.blocks %}
+      <div class="product-grid" style="width: 24.5%;">        
+        {% if forloop.index == 2 %}
+		  <div class="product-non-human">
+            {% if section.settings.non_human_title != blank %}
+              <div class="non_human_title">{{ section.settings.non_human_title }}</div>
+            {% endif %}
+            {% if section.settings.non_human_image != blank %}
+              <img class="non_human_image" src="{{ section.settings.non_human_image | img_url: 'master' }}" alt="Hourglass Cosmetics">
+            {% endif %}
+          </div>
+        {% endif %}
+        
+        <a class="product_link" href="{{ block.settings.product_url }}">
+            <div class="product-deskimg">
+              <img class="product-desk-img lazyload" data-src="{{ block.settings.product_image | img_url: 'master' }}" src="{{ block.settings.product_image | img_url: '50x50' }}" alt="Hourglass Cosmetics" >
+            </div>
+            <div class="product-mobimg">
+              <img class="product-mobile-img lazyload" data-src="{{ block.settings.product_image_mobile | img_url: 'master' }}" src="{{ block.settings.product_image_mobile | img_url: '50x50' }}" alt="Hourglass Cosmetics" >
+            </div>
+          {% if block.settings.title != blank %}
+            <div class="title">{{ block.settings.title }}</div>
+          {% endif %}
+        </a>
+        
+        {% if block.settings.price != blank %}
+          <div class="price">{{ block.settings.price }}</div>
+        {% endif %}        
+        
+        {% assign handle = block.settings.product_url | remove: "/products/" %}
+        {% assign product_object = all_products[handle] %}
+        {% assign current_variant = product_object.selected_or_first_available_variant %}
+		{% assign variant_id = product_object.selected_or_first_available_variant.id %}
+                
+        {% if variant_id != blank %}
+          <form method="post" action="/cart/add" id="product_form_{{ variant_id }}" accept-charset="UTF-8" enctype="multipart/form-data">
+            <input type="hidden" name="form_type" value="product">
+            <input type="hidden" name="utf8" value="✓">
+            <input name="id" type="hidden" value="{{ variant_id }}" >            
+            <div class="product-quantity-box">
+                <span class="qty-minus">-</span>
+                	<input type="text" name="quantity" value="1" title="Qty" class="Quantity-selector product-form__input" min="1" max="4" step="1">
+                <span class="qty-plus">+</span>
+            </div>            
+            <button type="submit" name="add" id="AddToCart-{{ variant_id }}" class="btn product-form__cart-submit"  {% if current_variant.available %}{% else %}disabled="disabled"{% endif %} >
+            {% if current_variant.available and current_variant.inventory_quantity> 0 %}
+              	{{ 'products.product.add_to_cart' | t }}
+              {% elsif current_variant.inventory_policy == "continue" %}
+             	 PREORDER
+              {% else %}
+              	{{ 'products.product.sold_out' | t }}
+              {% endif %}
+            </button>
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Giftset Product Bar",
+      "de": "Giftset Product Bar",
+      "fr": "Giftset Product Bar"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+      
+    ],
+    "max_blocks":4,
+    "blocks" : [
+    {
+      "type": "image",
+      "name": {
+        "en": "Product",
+        "de": "Product",
+        "fr": "Product"
+      },
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": {
+            "en": "Desktop Image",
+            "de": "Desktop Image",
+            "fr": "Desktop Image"
+          }
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_mobile",
+          "label": {
+            "en": "Mobile Image",
+            "de": "Mobile Image",
+            "fr": "Mobile Image"
+          }
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": {
+          "en": "Title",
+          "de": "Title",
+          "fr": "Title"
+          }
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": {
+            "en": "Price",
+            "de": "Price",
+            "fr": "Price"
+          }
+        },
+		{
+          "type": "url",
+          "id": "product_url",
+          "label": {
+          "en": "Product URL",
+          "de": "Product URL",
+          "fr": "Product URL"
+          }
+        }
+      ]
+     }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Giftset Product Bar",
+          "de": "Giftset Product Bar",
+          "fr": "Giftset Product Bar"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

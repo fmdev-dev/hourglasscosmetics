@@ -1,0 +1,23 @@
+<div class="form-message form-message--success hide contact-message" id="SuccessMsg"></div>
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth">
+      <div class="section-header text-center">
+        <h1>{{ page.title }}</h1>
+      </div>
+      <pre>
+      {{ browser_ip }}
+      </pre>
+      <div class="rte">
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+  $("#contactiframe").load("https://migration.hourglasscosmetics.com/contact.html");
+  //$("#contactiframe").load("https://www.escorpien.com/shopy/public/contact.html");
+  //$("#contactiframe1").load("https://migration.hourglasscosmetics.com/contact.html");
+});
+</script>

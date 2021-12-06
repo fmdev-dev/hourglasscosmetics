@@ -1,0 +1,154 @@
+<div id="bgimage_with_rightcontent_section" class="bgimage_with_rightcontent_section fullheightblock curator-lp-banner">
+
+    {% if section.settings.desk_image != blank %}
+    	<img class="banner-desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: 'master' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+         {% if section.settings.desk_image %}
+         data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+         {% endif %}> 
+    {% endif %}
+  	{% if section.settings.mob_image != blank %}
+    <img class="banner-mob-img lazyload" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x' }}" alt="Hourglass Cosmetics"
+         {% if section.settings.mob_image %}
+         data-bgset="{% include 'bgset', image: section.settings.mob_image %}"
+         {% endif %}> 
+    {% endif %}
+    <div class="banner-content {{ section.settings.content_position }}">
+        <a href="{{ section.settings.button_link }}"> 
+          <div class="content-inner">    
+              {% if section.settings.badge != blank %}
+              <div class="badge">{{ section.settings.badge }}</div>
+              {% endif %}           
+
+              {% if section.settings.title != blank %}
+              	<div class="title">{{ section.settings.title }}</div>
+              {% endif %}
+            
+              {% if section.settings.sub_title != blank %}
+              	<div class="sub_title">{{ section.settings.sub_title }}</div>
+              {% endif %}
+            
+              {% if section.settings.description != blank %}
+              <div class="description">{{ section.settings.description }}</div>
+              {% endif %}
+            
+              {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+              <div class="actions">
+                   <a href="{{ section.settings.button_link }}"> <span>{{ section.settings.button_label | escape }}</span> </a>
+              </div>
+              {% endif %}
+
+           </div> 
+        </a>
+    </div>
+  
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Curator Banner"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+      {
+        "type": "select",
+        "id": "content_position",
+        "label": {  "en": "Content position" },
+        "default": "right",
+        "options": [
+          {
+            "label": { "en": "Left" },
+            "value": "left"
+          },
+          {
+            "label": { "en": "Right" },
+            "value": "right"
+          }
+        ]
+      },
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	  {
+           "type":"text",
+           "id":"badge",
+           "label":{ 
+              "en":"Badge",
+              "de":"Badge",
+              "fr":"Badge"
+           }
+      },
+	  {
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+	  {
+           "type":"text",
+           "id":"sub_title",
+           "label":{ 
+              "en":"Sub Title",
+              "de":"Sub Title",
+              "fr":"Sub Title"
+           }
+      },
+      {
+           "type":"textarea",
+           "id":"description",
+           "label":{ 
+              "en":"Description",
+              "de":"Description",
+              "fr":"Description"
+           }
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Curator Banner"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        } 
+      }
+    ]
+  }
+{% endschema %}

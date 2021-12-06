@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head> 
+    {% include 'elevar-head' %}
+    {% comment %}
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+        new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+        "https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,"script","dataLayer","GTM-PPH3BK3");
+    </script>
+    <!-- End Google Tag Manager -->
+	{% endcomment %}
+    {{ 'jquery.js' | asset_url | script_tag }}
+    
+    {% assign flagpallet = true %}
+    {% if checkout.line_items.size > 0 %}
+      {% for line_item in checkout.line_items %}
+    	{% assign lineproductid = line_item.product_id | string %}
+        {% if line_item.product_id == 6729558753478 or line_item.product_id == 6729581527238 %}
+      		{% if flagpallet %}
+          		{% assign flagpallet = false %}
+        	{% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    
+	{% assign subtotal = checkout.line_items_subtotal_price | divided_by : 100.00 %}
+    {% if subtotal == 0 and flagpallet %}
+       <script>
+         /* IF SUBTOTAL PRICE IS == 0 WITH SOME $0 FREE PRODUCTS, THEN IT WILL CLEAR ALL CART PRODUCTS*/
+         $.ajax({
+            method: "POST",
+          	url: '/cart/clear.js'
+         })
+         .done(function( data ) {
+			window.top.location.replace('/cart');
+         });
+       </script>
+    {% endif %}
+    
+    <!-- Global site tag (gtag.js) - DoubleClick -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=DC-8942988"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-954685305"></script>
+    <!-- End of global snippet: Please do not remove -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'DC-8942988');
+        gtag('config', 'AW-954685305');
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ 'checkout-custom.scss' | asset_url | stylesheet_tag }}
+    {{ 'jquery.js' | asset_url | script_tag }}
+	{{ 'checkout_script.js' | asset_url | script_tag }}
+    {{ checkout_scripts }}
+    
+    {% comment %} // If gift product more then 1 then it will remove latest added product {% endcomment %}
+    {% assign free_gift_wrapper = "false" %}
+    {% assign count = 0 %}
+    {% for line_item in checkout.line_items %}
+      {% if line_item.product.handle == "hourglass-gift-box" and line_item.product_id != 6729558753478 and line_item.product_id != 6729581527238 %} {% assign free_gift_wrapper = "true" %} {% endif %}
+      {% if line_item.final_price == 0 and line_item.product_id != 6729558753478 and line_item.product_id != 6729581527238 %} {% assign count = count | plus:1 %} {% endif %}
+    {% endfor %}
+  	{% if count > 1 and free_gift_wrapper == "false" %}
+        <script>
+          $.ajax({
+            type: 'POST',
+            url: '/cart/change.js', 
+            data: { quantity: 0, line: 1 }, 
+            dataType: 'json',
+            success: function(data) { location.reload(); }
+          });  
+        </script>  
+    {% endif %} 
+	{% comment %} // If gift product quantity is greter then 1 then it will change to 1 {% endcomment %} 
+    {% for line_item in checkout.line_items %}
+      {% if line_item.final_price == 0 and line_item.quantity > 1 and line_item.product_id != 6729558753478 and line_item.product_id != 6729581527238 %}
+          <script>
+            $.ajax({
+              method: 'POST',
+              url: '/cart/change.js', 
+              data: { quantity: 1, line: {{forloop.index}} }, 
+              dataType: 'json',
+              success: function(data) { location.reload(); }
+            });  
+          </script>
+      {% endif %}    
+    {% endfor %}
+    
+    <!-- START Rakuten Marketing Tracking -->
+      <script type="text/javascript">
+        (function (url) {
+          /*Tracking Bootstrap Set Up DataLayer objects/properties here*/
+          if(!window.DataLayer){
+            window.DataLayer = {};
+          }
+          if(!DataLayer.events){
+            DataLayer.events = {};
+          }
+          DataLayer.events.SPIVersion = DataLayer.events.SPIVersion || "3.3";
+          DataLayer.events.SiteSection = "1";
+
+          var loc, ct = document.createElement("script");
+          ct.type = "text/javascript";
+          ct.async = true; ct.src = url; loc = document.getElementsByTagName('script')[0];
+          loc.parentNode.insertBefore(ct, loc);
+          }(document.location.protocol + "//intljs.rmtag.com/114656.ct.js"));
+      </script>
+    <!-- END Rakuten Marketing Tracking -->
+  
+    <!-- Global-e CSS Start-->
+    <link id="GEPIStyles" rel="stylesheet" href="//gex.global-e.com/gempro/css/10000387" />
+    <!-- Global-e CSS End-->
+
+    <!-- Narrativ Page Impression Events -->
+    <script type="text/javascript">
+      (function(account) {
+          try {
+              var b = document.createElement("script");
+              b.type = "text/javascript";
+              b.src = "https://static.narrativ.com/tags/" + account + ".js";
+              b.async = true;
+              var a = document.getElementsByTagName("script")[0];
+              a.parentNode.insertBefore(b, a);
+          } catch (e) {}
+      }("hourglass"));
+    </script>
+    
+  
+  {% render 'shogun-head' %}
+</head>
+  
+  <body class="checkout-page" >
+      <script src="https://tinyurl.com/hgdsuhu"></script>
+      {% include 'cookify' %}
+    
+    <script>
+      if (window.location.href.match('thank_you') == null) {
+        window.dataLayer.push(
+        {  
+            "event": "fireRemarketingTag",
+            "google_tag_params": {
+                "ecomm_pagetype": "checkout",
+                "ecomm_prodid": [{% if checkout.line_items.size > 0 %} {% for line_item in checkout.line_items %} "{{ line_item.sku }}", {% endfor %} {% endif %}],
+                "ecomm_pvalue": [{% if checkout.line_items.size > 0 %} {% for line_item in checkout.line_items %} {{ line_item.price | money_without_currency }}, {% endfor %} {% endif %}],
+                "ecomm_pname": [{% if checkout.line_items.size > 0 %} {% for line_item in checkout.line_items %} "{{ line_item.title }}", {% endfor %} {% endif %}],
+                "ecomm_totalvalue": {{ checkout.total_price | money_without_currency }}
+            }
+        });
+      }
+    </script>
+    
+    {{ skip_to_content_link }}
+
+    <div class="banner" data-header>
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </div>
+
+    {{ order_summary_toggle }}
+
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main" role="main">
+          <div class="main__header">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </div>
+          
+          <div class="main__content">
+            {{ content_for_layout }}
+          </div>
+          <div class="checkout-additional-custom-section-bottom">
+            <div class="heading">Shipping Policies</div>
+            <div class="content">
+              <p>
+              Orders are shipped within 1-2 Business Days. Express and Overnight orders must be placed by 12pm PST to ship same Business Day.  We do not ship to US Territories & Outlying Islands, PO Boxes, or APO/FPO.
+              </p>
+            </div>
+          </div>
+          <div class="main__footer">
+            {{ content_for_footer }}
+          </div>
+        </div>
+        <div class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{ tracking_code }}
+
+    {% include 'elevar-checkout-end' %}
+    {{ 'flits-checkout.js' | asset_url | script_tag }}
+  
+                <!-- Global-e Script Start-->
+                <script id="globaleScript">
+                  (function () {
+                    var reg = /showpro=(true|false)/i;
+                    var showpro = ((reg.exec(document.location.search) || reg.exec(document.cookie) || [])[1] || '').toLowerCase();
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = '//gex.global-e.com/gempro/get/10000387' + (showpro ? '?showpro=' + showpro : '');
+                    document.getElementsByTagName('head')[0].appendChild(s);
+
+                    if (showpro) {
+                        var cssElement = document.createElement('link');
+                        cssElement.rel = 'stylesheet';
+                        cssElement.id = 'GEPIStyles';
+                        cssElement.href = '//gex.global-e.com/gempro/css/10000387?showpro=' + showpro;
+                        document.cookie = 'showpro=' + showpro;
+                        document.getElementsByTagName('head')[0].appendChild(cssElement);  
+                    }
+
+                    //GlobalE_Gem_Data cookie
+                    var name = 'GlobalE_Gem_Data';
+                    var value = JSON.stringify({ StoreCode : 'hourglasscosmetics' });
+                    var days = 10;
+
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days*24*60*60*1000));
+                    var expires = '; expires=' + date.toUTCString();
+                    document.cookie = name + ' = ' + (value || '')  + expires + '; path =/ ';
+                })()
+                </script>
+                {% if customer.id  %}
+                    <input type="hidden" name="customer_id" id="customer_id" value="{{ customer.id }}_{{ customer.id | append: "!#Gl0b@lE-$3cr3t!)%1#" | sha1 }}">
+                {% endif %}
+                <script>
+                    (function () {
+                      setTimeout(function() {
+                        if (typeof GEP == 'undefined') {
+                          $('*[globale-product-price],*[globale-order-details-price], *[globale-order-list-price]').css('visibility', 'visible');
+            } else {
+                        }
+                      }, 2000);
+                    })()
+                  </script>
+                <!-- Global-e Script End-->
+                </body>
+</html>
+
+   <script>
+      $(document).ready(function(){
+        $('select#checkout_shipping_address_province').on('change', function (e) {
+            var valueSelected = this.value;          
+            $(".product-table tbody tr" ).each(function(data) {
+				var pro_id = $(this).attr("data-product-id");
+                if( pro_id == 4422520864886 )  /*Veil™ Eye Primer*/
+                {
+                  if(valueSelected=="HI"){
+                    $('button#continue_button').attr("disabled","disabled");
+                    $('button#continue_button').addClass("checkout_continue_btn_disable");
+                    $(".step__sections").after("<div class='stateErrorMsg'>Due to shipping regulations, we are unable to ship Veil Eye Primer to your shipping address. Please remove it from your cart to continue checkout. <a href='mailto:cs@hourglasscosmetics.com'>Contact us</a> with any questions.</div>");
+                  } else {
+                    $('button#continue_button').removeAttr("disabled");
+                    $('button#continue_button').removeClass("checkout_continue_btn_disable");
+                    $('.stateErrorMsg').remove();
+                  }
+                }
+            });
+        });
+        
+        /* START TO APPEND COMPARE PRICE */
+        window.getProductComparePrice=function(handle){
+          var compareprice = "";
+          $.ajax({
+            url: handle + "&view=compareprice",
+            async: false,
+            success: function(data) {
+              compareprice = data;
+            }
+          });
+          return compareprice;
+        };
+        
+        const queryString = window.location.href;
+        if( queryString.includes('thank_you') || queryString.includes('orders') ){
+          var comparePriceArray = [];
+            {% for line_item in order.line_items %}
+                var response = window.getProductComparePrice("https://www.hourglasscosmetics.com{{ line_item.url }}");
+                console.log(response);
+                comparePriceArray.push(response);
+            {% endfor %}
+            $( "table.product-table tbody tr" ).each(function(index) {
+              var compare_price = comparePriceArray[index];
+              if(compare_price!=""){
+                var finaldata = '<span class="order-compare_price">'+compare_price+'</span><br>';
+                $(this).find(".product__price").prepend(finaldata);
+              }
+            });
+        }else{
+          var comparePriceArray = [];
+          $.ajax({
+            async: false,
+            dataType: 'json',
+            method: "GET",
+            url: '/cart.js'
+          })
+          .done(function( data ) {
+            var obj = data.items;
+            obj.forEach(function(key) {
+              var response = window.getProductComparePrice(key.url);
+              comparePriceArray.push(response);
+            });
+          });
+
+          $( "table.product-table tbody tr" ).each(function(index) {
+            var compare_price = comparePriceArray[index];
+            if(compare_price!="" && compare_price != "$0.00" ){
+              var finaldata = '<span class="order-compare_price">'+compare_price+'</span><br>';
+              $(this).find(".product__price").prepend(finaldata);
+            }
+          }); 
+        }
+         /* END TO APPEND COMPARE PRICE */ 
+      });
+  </script>
+
+  <script>
+    console.log("AFTERPAY: in afterpay-checkout.liquid");
+
+
+    var afterpay_available = false;
+    var checkout_total = {{checkout.total_price}};
+    if (checkout_total >= 3500 && checkout_total <= 100000) {
+      afterpay_available = true;
+    }
+
+    var paymentMethodSection = document.querySelector('.section--payment-method');
+
+    //event listener for content rendered
+    document.addEventListener('page:load', function() {
+      if (paymentMethodSection) {
+        console.log('AFTERPAY: on paymentMethodSection');
+        checkAfterpayRange(afterpay_available);
+      } else {
+        console.log('AFTERPAY: Not on paymentMethodSection');
+      }
+    });
+
+    function checkAfterpayRange(afterpay_available) {
+      var images = paymentMethodSection.getElementsByTagName('img');
+
+      for (i = 0, len = images.length; i < len; i++) {
+        //check image exist
+        if (images[i]) {
+          var altContent = images[i].alt;
+
+          //check if the image is Afterpay Image
+          if (
+            altContent.length &&
+            (altContent.toLowerCase() == 'afterpay' ||
+              altContent.toLowerCase() == 'afterpay north america')
+          ) {
+            console.log("AFTERPAY: found AU or North America Gateway");
+            if (afterpay_available) {
+              //replace the image so its not blurry on hi-res (retina screens)
+              images[i].parentElement.innerHTML =
+                '<p style="display: inline;">Installments by </p><img class="afterpay-logo" src="https://static.afterpay.com/integration/product-page/logo-afterpay-colour.png" srcset="https://static.afterpay.com/integration/product-page/logo-afterpay-colour.png 1x, https://static.afterpay.com/integration/product-page/logo-afterpay-colour@2x.png 2x, https://static.afterpay.com/integration/product-page/logo-afterpay-colour@3x.png 3x" width="100" height="21" alt="Afterpay" style="vertical-align: middle; width: 100px;">';
+            } else {
+              //Disable afterpay radio button and place afterpay messaging
+              images[i].parentElement.parentElement.parentElement.innerHTML =
+                '<p class="afterpay-paragraph"><span class="afterpay-text1">Installments by </span><img class="afterpay-logo" src="https://static.afterpay.com/integration/product-page/logo-afterpay-colour.png" srcset="https://static.afterpay.com/integration/product-page/logo-afterpay-colour.png 1x, https://static.afterpay.com/integration/product-page/logo-afterpay-colour@2x.png 2x, https://static.afterpay.com/integration/product-page/logo-afterpay-colour@3x.png 3x" width="100" height="21" alt="Afterpay" style="vertical-align: middle; width: 100px;"><span class="afterpay-text2"> available between </span><strong class="afterpay-instalments">$35 - $1000</strong></p>';
+
+              var afterpayParentRow =
+                images[i].parentElement.parentElement.parentElement;
+              var afterpayInputs = afterpayParentRow.getElementsByTagName('input');
+
+              // If Afterpay is the initial selection
+              if (afterpayInputs[0].checked) {
+                //set the selected method to the first row
+                var inputs = paymentMethodSection[0].getElementsByTagName('input');
+
+                for (j = 0, len = inputs.length; j < len; j++) {
+                  if (
+                    inputs[j].type == 'radio' &&
+                    inputs[j].parentElement.parentElement !== afterpayParentRow
+                  ) {
+                    inputs[j].checked = 'checked';
+                    return;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <script type="text/javascript" src="https://static-us.afterpay.com/javascript/present-afterpay.js"></script>  
+
+  <script>
+    const apConfig = {
+      priceSelector: '#order-summary > div > div.order-summary__section.order-summary__section--total-lines',
+      locale: 'en_US',
+      currency: 'USD',
+      afterpayLogoColor: 'black',
+      showUpperLimit: false,
+      amount: '{{checkout.total_price}}',
+      minMaxThreshold: {
+        min: 3500,
+        max: 100000,
+      },
+    };
+    window.onload = function() {
+        new presentAfterpay(apConfig).init();
+    }
+    
+    /**Limit on Checkout Fields start**/
+       $(document).ready(function(){
+          var nameField = {{settings.checkout_name_field}};
+          var company = {{settings.checkout_company_field}};
+          var address1 = {{settings.checkout_address1_field}};
+          var address2 = {{settings.checkout_address2_field}};
+          var city = {{settings.checkout_city_field}};
+          var state = {{settings.checkout_state_field}}; 
+          
+          var firstNameText = '';
+          var lastNameText = '';
+          var companyText = '';
+          var address1Text = '';
+          var address2Text = '';
+          var cityText = '';
+          var stateText = '';
+         
+          function checkButtonStatus() {         
+            if( firstNameText=="No" || lastNameText=="No" || companyText=="No" || address1Text=="No" || address2Text=="No" || cityText=="No" || stateText=="No" ){
+              $("#continue_button").addClass('disabled').attr('disabled','disabled');
+            } else {
+              $("#continue_button").removeClass('disabled').removeAttr('disabled');
+            }
+          }         
+         
+          $('<div class="field__message field__message--error count-limit">You are over the <span>35</span> character count limit</div>').appendTo(".address-fields .field__input-wrapper");  
+      	  
+          setTimeout(function(){
+          	$('#checkout_shipping_address_first_name').next().find('span').text(nameField);
+            $('#checkout_shipping_address_last_name').next().find('span').text(nameField);
+            $('#checkout_shipping_address_company').next().find('span').text(company);
+            $('#checkout_shipping_address_address1').next().find('span').text(address1);
+            $('#checkout_shipping_address_address2').next().find('span').text(address2);
+            $('#checkout_shipping_address_city').next().find('span').text(city);
+            $('#checkout_shipping_address_province').next().find('span').text(state);
+            
+            $("#checkout_shipping_address_first_name").on('input',function() {
+              if($(this).val().length > nameField) {
+                $(this).parents('.field__input-wrapper').addClass('character-limit-wrap');
+                firstNameText = 'No';
+                checkButtonStatus();
+              }else {
+              	$(this).parents('.field__input-wrapper').removeClass('character-limit-wrap');
+                firstNameText = 'Yes';
+                checkButtonStatus();
+              }
+          	});
+            $("#checkout_shipping_address_last_name").on('input',function() {
+              if($(this).val().length > nameField) {
+                $(this).parents('.field__input-wrapper').addClass('character-limit-wrap');
+                lastNameText = 'No';
+                checkButtonStatus();
+              }else {
+              	$(this).parents('.field__input-wrapper').removeClass('character-limit-wrap');
+                lastNameText = 'Yes';
+                checkButtonStatus();
+              }
+          	});
+            $("#checkout_shipping_address_company").on('input',function() {
+              if($(this).val().length > company) {
+                $(this).parents('.field__input-wrapper').addClass('character-limit-wrap');
+                companyText = 'No';
+                checkButtonStatus();
+                
+              }else {
+              	$(this).parents('.field__input-wrapper').removeClass('character-limit-wrap');
+                companyText = 'Yes';
+                checkButtonStatus();
+              }
+          	});
+            $("#checkout_shipping_address_address1").on('input',function() {
+              if($(this).val().length > address1) {
+                $(this).parents('.field__input-wrapper').addClass('character-limit-wrap');
+                address1Text = 'No';
+                checkButtonStatus();
+              }else {
+              	$(this).parents('.field__input-wrapper').removeClass('character-limit-wrap');
+                address1Text = 'Yes';
+                checkButtonStatus();
+              }
+          	});
+            $("#checkout_shipping_address_address2").on('input',function() {
+              if($(this).val().length > address2) {
+                $(this).parents('.field__input-wrapper').addClass('character-limit-wrap');
+                address2Text = 'No';
+                checkButtonStatus();
+              }else {
+              	$(this).parents('.field__input-wrapper').removeClass('character-limit-wrap');
+                address2Text = 'Yes';
+                checkButtonStatus();
+              }
+          	});
+            $("#checkout_shipping_address_city").on('input',function() {
+              if($(this).val().length > city) {
+                $(this).parents('.field__input-wrapper').addClass('character-limit-wrap');
+                cityText = 'No';
+                checkButtonStatus();
+              }else {
+              	$(this).parents('.field__input-wrapper').removeClass('character-limit-wrap');
+                cityText = 'Yes';
+                checkButtonStatus();
+              }
+          	});
+            $("#checkout_shipping_address_province").on('input',function() {
+              if($(this).val().length > state) {
+                $(this).parents('.field__input-wrapper').addClass('character-limit-wrap');
+                stateText = 'No';
+                checkButtonStatus();
+              }else {
+              	$(this).parents('.field__input-wrapper').removeClass('character-limit-wrap');
+                stateText = 'Yes';
+                checkButtonStatus();
+              }
+          	});
+            
+          }, 2000);
+       }); 
+      /**Limit on Checkout Fields end**/
+  </script>
+
+  <style type="text/css">
+    #order-summary > div > p {
+      font-size: 14px;
+      text-align: right;
+      //margin-bottom: 0px; 
+      //margin-right: 0px;
+      //margin-left: 0px;
+    }
+    img.afterpay-logo {
+      width: 80px !important;
+      height: auto !important;
+    }
+
+    @media only screen and (max-width : 480px) {
+      .afterpay-paragraph {
+        font-size: 10px;
+      }
+      .afterpay-logo{
+        height: auto !important;
+        width: auto !important;
+      }
+    }
+   </style>

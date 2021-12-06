@@ -1,0 +1,13 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. THIS FILE WILL BE OVERWRITTEN.
+  YOU CAN MODIFY THE LIQUID CODE FOR THIS CUSTOM FIELD HERE:
+  https://customfields.bonify.io/dashboard/hourglasscosmetics.myshopify.com/products/edit-field/37487
+{% endcomment %}
+{% if product.metafields.custom_fields["test"] != blank %}
+  <div class="custom-field custom-field__test custom-field__type--text">
+    <h3 class="custom-field--title">Test</h3>
+    <div class="custom-field--value">
+      {{ product.metafields.custom_fields["test"] }}
+    </div>
+  </div>
+{% endif %}

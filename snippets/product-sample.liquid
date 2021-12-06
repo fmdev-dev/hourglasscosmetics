@@ -1,0 +1,673 @@
+<div class="pdt-detail-page">
+  <div id="messages_product_view">
+      <ul class="messages" style="display: none;">
+          <li class="success-msg">
+              <ul>
+                  <li>
+                      <span>{{ product.title }} - Unlocked was added to your shopping cart.</span><a class="msg-close" href="javascript:;">X</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+  </div>
+  <div class="product-template__container"
+  id="ProductSection-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="product"
+  data-enable-history-state="true"
+  >
+  {% comment %}
+  Get first variant, or deep linked one
+  {% endcomment %}
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign product_image_zoom_size = '1024x1024' -%}
+  {%- assign product_image_scale = '2' -%}
+  {%- assign enable_zoom = section.settings.enable_zoom -%}
+  {%- assign compare_at_price = current_variant.compare_at_price -%}
+  {%- assign price = current_variant.price -%}
+  {% case section.settings.image_size %}
+  {% when 'small' %}
+  {%- assign product_image_width = 'medium-up--one-third' -%}
+  {%- assign product_description_width = 'medium-up--two-thirds' -%}
+  {%- assign product_thumbnail_width = 'medium-up--one-third' -%}
+  {%- assign height = 345 -%}
+  {% when 'medium' %}
+  {%- assign product_image_width = 'medium-up--one-half' -%}
+  {%- assign product_description_width = 'medium-up--one-half' -%}
+  {%- assign product_thumbnail_width = 'medium-up--one-quarter' -%}
+  {%- assign height = 700 -%}
+  {% when 'large' %}
+  {%- assign product_image_width = 'medium-up--two-thirds' -%}
+  {%- assign product_description_width = 'medium-up--one-third' -%}
+  {%- assign product_thumbnail_width = 'medium-up--one-fifth' -%}
+  {%- assign height = 720 -%}
+  {% when 'full' %}
+  {%- assign product_image_width = '' -%}
+  {%- assign product_description_width = '' -%}
+  {%- assign product_thumbnail_width = 'medium-up--one-eighth' -%}
+  {%- assign height = 1090 -%}
+  {%- assign enable_zoom = false -%}
+  {% endcase %}
+    
+  {% assign widthfull = 'widthfull' %}
+  {% assign is_color = false %}
+  <div class="product-info-main">
+    <div class="product-name">
+      <h1 class="product-single__title">{{ product.title }}</h1>
+      <div class="product__price regular-price">
+        {% include 'product-price', variant: current_variant %}
+      </div>
+    </div>
+  </div>
+  
+  <div class="product-img-box {% if product.type == 'Shade' %}shade-pallet{% endif %}" >
+    <div class="grid product-single{% if section.settings.enable_payment_button %} product-single--{{ section.settings.image_size }}-image{% endif %}">
+      
+      {% if product.type == 'Shade' %}
+      <div class="shade-pallet-main">
+          <span class="shade-pallet-img-main"><img src="{{ 'shade-pallet-img.png' | asset_img_url: '' }}" alt="Color Shade"></span>
+          <div class="shade-boxs-main">
+              <div class="shade-img1-box"><img id="shade-img1" src=""></div>
+              <div class="shade-img2-box"><img id="shade-img2" src=""></div>
+              <div class="shade-img3-box"><img id="shade-img2" src=""></div>
+          </div>
+    </div>
+      {% endif %}
+      
+      <div class="grid__item product-single__photos {{ product_image_width }}{% if section.settings.image_size == 'full' %} product-single__photos--full{% endif %}">
+        {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+        {% for image in product.images %}
+        {% capture img_id %}FeaturedImage-{{ section.id }}-{{ image.id }}{% endcapture %}
+        {% capture img_class %}product-featured-img{% endcapture %}
+        {% capture zoom_img_id %}FeaturedImageZoom-{{ section.id }}-{{ image.id }}{% endcapture %}
+        {% capture img_wrapper_id %}{{ zoom_img_id }}-wrapper{% endcapture %}
+        {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        {% include 'image-style' with small_style: true, width: height, height: height, wrapper_id: img_wrapper_id, img_id: img_id %}
+        
+        <div id="{{ img_wrapper_id }}" class="product-single__photo-wrapper js {%if image.height > 961 %}product-big-img{% endif %}">
+          <div
+          id="{{ zoom_img_id }}"
+          style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;"
+          class="product-single__photo{% if enable_zoom %} js-zoom-enabled{% endif %}{% if product.images.size > 1 %} product-single__photo--has-thumbnails{% endif %}{% unless featured_image == image %} hide{% endunless %}"
+          data-image-id="{{ image.id }}"
+          {% if enable_zoom %} data-zoom="{{ image | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+          <img id="{{ img_id }}"
+          class="feature-row__image {{ img_class }} lazyload{% unless featured_image == image %} lazypreload{% endunless %}"
+          src="{{ image | img_url: '300x300' }}"
+          data-src="{{ img_url }}"
+          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+          data-aspectratio="{{ image.aspect_ratio }}"
+          data-sizes="auto"
+          alt="{{ image.alt | escape }}">
+        </div>
+      </div>
+      {% endfor %}
+      <noscript>
+        {% capture product_image_size %}{{ height }}x{% endcapture %}
+        <img src="{{ featured_image | img_url: product_image_size, scale: product_image_scale }}" alt="{{ featured_image.alt }}" id="FeaturedImage-{{ section.id }}" class="product-featured-img" style="max-width: {{ height }}px;">
+      </noscript>
+      {% if product.images.size > 1 %}
+      {% if product.images.size > 3 %}
+      {%- assign enable_thumbnail_slides = true -%}
+      {% endif %}
+      <div class="thumbnails-wrapper{% if enable_thumbnail_slides == true %} thumbnails-slider--active{% endif %}">
+        <ul class="gird-sid grid grid--uniform productsingle-thumbnails">
+          {% assign featured_alt = product.selected_or_first_available_variant.option1 %}
+      {% assign current_varient_id = product.selected_variant.id %}
+          
+          {% for image in product.images %}
+          
+          {% if image.alt == featured_alt or image == featured_image or image.alt == '' or image.alt == product.title %}
+            {% if image.alt == featured_alt and current_varient_id != blank and image.alt != blank  %}
+              <li class="grid__item {{ product_thumbnail_width }} js">
+                    <a href="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"
+                class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+                data-thumbnail-id="{{ image.id }}"
+                {% if enable_zoom %}data-zoom="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+                <img class="product-single__thumbnail-image" src="{{ image.src | img_url: '59x75', scale: 2 }}" alt="{{ image.alt | escape }}">
+                </a>
+              </li>
+            {% elsif current_varient_id == blank and image.alt == '' or image.alt == product.title %}
+              <li class="grid__item {{ product_thumbnail_width }} js">
+                    <a href="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"
+                class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+                data-thumbnail-id="{{ image.id }}"
+                {% if enable_zoom %}data-zoom="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+                <img class="product-single__thumbnail-image" src="{{ image.src | img_url: '59x75', scale: 2 }}" alt="{{ image.alt | escape }}">
+                </a>
+              </li>
+            {% else %}
+              <li class="grid__item {{ product_thumbnail_width }} js" style="display:none" >
+                    <a href="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"
+                class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+                data-thumbnail-id="{{ image.id }}"
+                {% if enable_zoom %}data-zoom="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+                <img class="product-single__thumbnail-image" src="{{ image.src | img_url: '59x75', scale: 2 }}" alt="{{ image.alt | escape }}">
+                </a>
+              </li>
+            {% endif %}
+          {% else %}
+          <li class="grid__item {{ product_thumbnail_width }} js" style="display:none">
+            <a href="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"
+            class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+            data-thumbnail-id="{{ image.id }}"
+            {% if enable_zoom %}data-zoom="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+            <img class="product-single__thumbnail-image" src="{{ image.src | img_url: '59x75', scale: 2 }}" alt="{{ image.alt | escape }}">
+          </a>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+    
+<div class="product info grid__item {{ product_description_width }} {% if product.type == 'Shade' %}right-shade-pallet{% endif %}">
+  <div class="product-single__meta">
+    <div class="accordion-container">
+      <div class="accordion-block">
+        <div class="block-title active"><h3>details</h3></div>
+        <div class="block-content" style="display: block;">
+          <div class="short-description">
+            <div class="std">{{ product.description | replace: '<u>', '<span style="text-decoration: underline;">' }}</div>
+          </div></div></div>
+          {% unless product.metafields.hourprod.features_and_benefits == blank %}
+          <div class="accordion-block"><div class="block-title"><h3>features and benefits</h3></div>
+          <div class="block-content">
+            {{ product.metafields.hourprod.features_and_benefits | replace: "•", "<br>•" | replace: '<u>', '<span style="text-decoration: underline;">' | remove_first: "<br>" }}
+          </div>
+        </div>
+        {% endunless %}
+        {% unless product.metafields.hourprod.how_to_use == blank %}
+        <div class="accordion-block">
+          <div class="block-title"><h3>how to use</h3></div>
+          <div class="block-content">
+            {{ product.metafields.hourprod.how_to_use | replace: "•", "<br>•" | replace: '<u>', '<span style="text-decoration: underline;">' | remove_first: "<br>" }}
+          </div>
+        </div>
+        {% endunless %} 
+        {% unless product.metafields.hourprod.free_of == blank %}
+        <div class="accordion-block">
+          <div class="block-title">
+            <h3>Formulated Without</h3>
+          </div>
+          <div class="block-content">
+            {{ product.metafields.hourprod.free_of | replace: "•", "<br>•" | replace: '<u>', '<span style="text-decoration: underline;">' | remove_first: "<br>" }}
+          </div>
+        </div>
+        {% endunless %}
+      </div>
+      {% capture "form_classes" -%}
+        product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %}{% if section.settings.enable_payment_button and product.has_only_default_variant%} product-form--payment-button-no-variants{% endif %}
+      {%- endcapture %}
+    
+      {% form 'product', product, class:form_classes %}
+    
+    	
+        {% assign variantStock = "" %}
+        {% for variant in product.variants %}
+              {% if variant.available %}
+                  {% assign variantStock = "true" %}
+              {% endif %}
+        {% endfor %}
+    
+        {% if variantStock %} 
+        		<div class="qty-wrapper qty-control-wrapper {% if product.options.size > 1 %}more-options{% endif %}">
+
+        {% endif %}
+        
+      {% assign selected_varient = product.selected_variant.id %}
+        
+      {% if selected_varient == blank %}
+        {% if product.variants.size > 1 %}
+          {% assign selected_varient = product.selected_or_first_available_variant.id %}
+        {% else %}
+          {% assign selected_varient = product.selected_or_first_available_variant.id %}
+        {% endif %}
+      {% endif %}
+      
+      {% comment %} Staring Unless {% endcomment %}
+      {% unless product.has_only_default_variant %}
+        
+      {% assign x = 1 %}
+    
+      {% for option in product.options_with_values %}
+
+        {% assign stock_ary = '' %}
+        {% assign varids_ary = '' %}
+    
+          {% if option.name == "Color" %}
+              {% for vrnt in product.variants %}
+                {% assign vrnt_apd = '' %}
+                {% case x %}
+                      {% when 1 %}
+                   {% assign vrnt_apd = vrnt.option1 %}
+                      {% when 2 %}
+                   {% assign vrnt_apd = vrnt.option2 %}
+                      {% when 3 %}
+                   {% assign vrnt_apd = vrnt.option3 %}
+                    {% endcase %}
+            
+            {% assign vrnt_aid = vrnt.id %}
+    
+            {% if varids_ary == '' %}
+                      {% assign varids_ary = varids_ary | append: vrnt_aid %}
+                    {% else %}
+                      {% assign varids_ary = varids_ary | append: '#' | append: vrnt_aid %}
+                    {% endif %}
+    
+            {% if vrnt.available == false %}
+              {% if stock_ary == '' %}
+                {% assign stock_ary = stock_ary | append: vrnt_apd %}
+              {% else %}
+                {% assign stock_ary = stock_ary | append: '#' | append: vrnt_apd %}
+              {% endif %}
+            {% endif %}
+    
+              {% endfor %}
+            {% endif %}
+            {% assign x = x | plus: 1 %}
+          
+        {% assign widthfull = '' %}
+      
+        {% unless product.metafields.hourprod.comming_soon == 1 %}
+
+          {% if option.name == "Shade 1" or option.name == "Shade 2" or option.name == "Shade 3" %}
+
+              <div class="selector-wrapper js product-form__item normal-option">
+            <select style="display: none;" class="single-option-selector single-option-selector-{{ section.id }} product-form__input single-option-{{ option.name | handleize }}" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+              {% assign varids = varids_ary | split:'#' %}
+
+              {% assign k = 0 %}
+              {% for value in option.values %}
+
+              {% comment %}For Waitlist{% endcomment %}
+
+              <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %} data-productid="{{ product.id }}">{{ value }}</option>
+
+              {% assign k = k | plus: 1 %}
+              {% endfor %}
+            </select>
+
+            {% assign is_color = true %}
+            <label class="colorsltShare" id="{{ option.name | handleize }}-select">
+              <span>{{ option.name }}</span>
+              <div id="option-{{ option.name | handleize }}-name"></div>
+              <div id="option-{{ option.name | handleize }}-image" class="option-shade-img">
+                <img id="{{ option.name | handleize }}-dynamicimgsrc" src="">
+              </div>
+            </label>
+            <div class="color-pallets-wrap {{ option.name | handleize }}-pallets-wrap"></div>
+          </div>
+
+          {% else %}
+
+              <div class="selector-wrapper js product-form__item {% if option.name != "Color" %} normal-option {% endif %}">
+            <select style="{% if option.name == "Color" %}display: none;{% endif %}" class="single-option-selector single-option-selector-{{ section.id }} product-form__input single-option-{{ option.name }}" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+              {% assign varids = varids_ary | split:'#' %}
+
+              {% assign k = 0 %}
+              {% for value in option.values %}
+
+              {% assign is_in_stock = true %}
+              {% if option.name == "Color" %}
+                {% assign outstocks = stock_ary | split:'#' %}
+                {% for outstock in outstocks %}
+                    {% if outstock == value %}
+                        {% assign is_in_stock = false %}
+                    {% endif %}
+                {% endfor %}
+              {% endif %}
+
+              <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %} data-instock={% if is_in_stock == false %}"0"{% else %}"1"{% endif %} {% if option.name == "Color" %}data-id="{{ varids[k] }}"{% else %}data-productid="{{ product.id }}"{% endif %} >{{ value }}</option>
+              {% assign k = k | plus: 1 %}
+              {% endfor %}
+            </select>
+
+            {% if option.name == "Color" %}
+            {% assign is_color = true %}
+            <label class="colorsltShare" id="colorselect">
+              <span>Shade</span>
+              <div id="option-color-name"></div>
+              <div id="option-color-image" class="option-shade-img">
+                <img id="dynamicimgsrc" src="https://cdn.shopify.com/s/files/1/0081/1660/0950/files/default-shade.png" alt="Color Shade">
+              </div>
+            </label>
+            <div class="color-pallets-wrap"></div>
+            {% endif %}
+          </div>
+
+          {% endif %}
+
+        {% endunless %}
+        
+        {% endfor %}
+        {% endunless %}
+        
+                  {% if variantStock %} 
+        
+                         <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
+                            {% for variant in product.variants %}
+                            {% if variant.available %}
+                            <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                              {{ variant.title }}
+                            </option>
+                            {% else %}
+                            <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+                            {% endif %}
+                            {% endfor %}
+                          </select>
+
+                  {% endif %}
+                  
+              {% if variantStock %}    
+                  {% unless product.metafields.hourprod.comming_soon == 1 %}
+
+                    {% if section.settings.show_quantity_selector %}
+                  	  {% if current_variant.available %}
+                        <div class="product-form__item product-form__item--quantity {{ widthfull }}">
+                          <!--<label for="Quantity">{{ 'products.product.quantity' | t }}</label>-->
+                          <!-- input type="number" id="Quantity" name="quantity" value="1" min="1" class="product-form__input" pattern="[0-9]*" -->
+                          <span class="qty-minus">-</span>
+                            <input type="text" pattern="\d*" id="Quantity" name="quantity" value="1" min="1" maxlength="12" title="Qty" class="product-form__input" pattern="[0-9]*">
+                          <span class="qty-plus">+</span>
+                        </div>
+                  	  {% endif %}
+                    {% endif %}
+
+                  {% endunless %}
+              {% endif %}
+
+      </div>
+     <input type="hidden" name="varids" id="varID" value="{{ selected_varient }}">
+      <div class="product-form__item product-form__item--submit{% if section.settings.enable_payment_button %} product-form__item--payment-button{% endif %}{% if product.has_only_default_variant %} product-form__item--no-variants{% endif %}">
+        
+        {% unless product.metafields.hourprod.comming_soon == 1 %}
+          <button type="submit" name="add" id="AddToCart-{{ section.id }}" {% unless current_variant.available %}disabled="disabled"{% endunless %} class="btn product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" name="add">
+            <span id="AddToCartText-{{ section.id }}">
+              {% assign isAvailable = 'disnon' %}
+              {% unless current_variant.available %}
+                {{ 'products.product.sold_out' | t }}
+                {%comment%}OUT OF STOCK{%endcomment%}
+                {% assign isAvailable = '' %}
+              {% else %}
+              {{ 'products.product.add_to_cart' | t }}
+              {% endunless %}
+            </span>
+          </button>
+        {% else %}
+          {% assign isAvailable = '' %}
+        <div class="product-out-stock-status"><strong><center>COMING SOON</center></strong></div>
+        {% endunless %}
+        <div id="mydiv" class="{{ isAvailable }}" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" data-src="https://migration.hourglasscosmetics.com/waitlist/{{ product.id }}/{{ selected_varient }}" data-url="https://migration.hourglasscosmetics.com/waitlist/{{ product.id }}" ></div>
+        {% if section.settings.enable_payment_button %}
+          {{ form | payment_button }}
+        {% endif %}
+      </div>
+      {% endform %}
+    </div>
+    {%- comment -%}
+    Live region for announcing updated price and availability to screen readers
+    {%- endcomment -%}
+    <p class="visually-hidden" data-product-status
+    aria-live="polite"
+    role="status"
+    ></p>
+    <div class="favorite-share-main">
+      <ul class="add-to-links">
+        <li>
+          {% include 'wishl-wishlist' %}
+        </li>
+      </ul>
+      <div class="share-container">
+        <div id="share-block" class="share-block">
+         <div class="share-block-title">{% include 'addthis' %}</div>
+       </div>
+       <div class="share-block-content">
+        {% if section.settings.show_share_buttons %}
+        {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% unless product.metafields.hourprod.prod_note == Blank %}
+    {{ product.metafields.hourprod.prod_note }}
+  {% endunless %}
+  <div class="sticky-addtocart"></div>
+</div>
+</div>
+{% if collection %}
+<div class="text-center return-link-wrapper">
+  <a href="{{ collection.url }}" class="btn btn--secondary btn--has-icon-before return-link">
+    {% include 'icon-arrow-left' %}
+    {{ 'products.product.back_to_collection' | t: title: collection.title }}
+  </a>
+</div>
+{% endif %}
+{% unless product == empty %}
+<script type="text/javascript">
+  $divsrc = $('#mydiv').data('src');
+  $('#mydiv').load($divsrc, function(response, status, xhr) {
+      if (status == "error") {
+          var msg = "Sorry but there was an error: ";
+          console.log(msg + xhr.status + " " + xhr.statusText);
+        }
+  });
+</script> 
+{% if widthfull == 'widthfull' %}
+<script type="text/javascript">
+  $('.product-template__container > .product').addClass('product_width');
+</script>
+{% endif %}
+  
+{% if is_color == true %}
+<script type="text/javascript">
+  
+  var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+          sParameterName = sURLVariables[i].split('=');
+
+          if (sParameterName[0] === sParam) {
+              return sParameterName[1] === undefined ? true : sParameterName[1];
+          }
+      }
+  };
+  
+  var variant = getUrlParameter('variant');
+  
+  if(variant !== undefined) {
+    
+    var color_value = $(".single-option-Color option:selected").val();
+    var imgurl = $('img[alt="'+color_value+'-color"]').attr('src');
+    $('#dynamicimgsrc').attr('src',imgurl);
+    $('#colorselect >span').text(color_value);
+    
+    var shade1_value = $(".single-option-shade-1 option:selected").val();
+    var imgurl = $('img[alt="'+shade1_value+'-shade-1"]').attr('src');
+    $('#shade-1-dynamicimgsrc').attr('src',imgurl);
+    $('#shade-1-select >span').text(shade1_value);
+    
+    var shade2_value = $(".single-option-shade-2 option:selected").val();
+    var imgurl = $('img[alt="'+shade2_value+'-shade-2"]').attr('src');
+    $('#shade-2-dynamicimgsrc').attr('src',imgurl);
+    $('#shade-2-select >span').text(shade2_value);
+    
+    var shade3_value = $(".single-option-shade-3 option:selected").val();
+    var imgurl = $('img[alt="'+shade3_value+'-shade-3"]').attr('src');
+    $('#shade-3-dynamicimgsrc').attr('src',imgurl);
+    $('#shade-3-select >span').text(shade3_value); 
+  }
+</script>
+{% endif %}
+<script type="text/javascript">
+  // For Simple Option 1 Click
+  jQuery(document).on('change','#SingleOptionSelector-0', function(event){
+      event.preventDefault();
+      $product_id = $("#SingleOptionSelector-0 option:selected").data('productid');
+      $listtxt = $("#SingleOptionSelector-0 option:selected").val();
+      $get_url = '/admin/products/'+$product_id+'/variants.json?limit=250';
+      var data = {{product.variants | json}};
+      //console.log($data);
+      
+      var option1 = $("#SingleOptionSelector-0 option:selected").val();
+
+      var current_title = option1;
+
+      var inventory = 0;
+      var varientid = 0;
+
+      jQuery.each(data, function(index, item) {
+        if( item.title ==  current_title){
+          inventory = item.inventory_quantity;
+          varientid = item.id;
+        }
+      });
+
+      /*simple Load*/
+      $waitsrc = jQuery('#mydiv').data('url');
+      $waitsrc = $waitsrc+'/'+varientid;
+      //$waitsrc = $waitsrc+'/'+varientid;
+      waitlistingframe($waitsrc);
+    
+      $('#varID').val(varientid);
+
+      if($(this).data('available') == 0){
+        jQuery('#mydiv').removeClass('disnon');
+      }else{
+        jQuery('#mydiv').addClass('disnon');
+      }
+      /*endsimple Load*/
+
+      if($('img[alt="'+$listtxt+'"]').length > 0){
+        jQuery('.gird-sid > .grid__item').css("display", "none");
+        jQuery('img[alt="'+$listtxt+'"]').parent().parent('li').css("display", "block");
+      }
+  });
+  function waitlistingframe($waitsrc) {
+    $('#mydiv').attr('data-src','');
+    $('#mydiv').attr('data-src',$waitsrc);
+    //console.log($waitsrc);
+    $('#mydiv').load($waitsrc, function(response, status, xhr) {
+        if (status == "error") {
+            var msg = "Sorry but there was an error: ";
+            console.log(msg + xhr.status + " " + xhr.statusText);
+          }
+    });
+  }
+  
+  function getAvailable($product_id){
+    
+    var data = {{product.variants | json}};
+    
+    var shade1 = $(".single-option-shade-1 option:selected").val();
+    var shade2 = $(".single-option-shade-2 option:selected").val();
+    var shade3 = $(".single-option-shade-3 option:selected").val();
+    var current_title = shade1+' / '+shade2+' / '+shade3;
+
+    var inventory = 0;
+    var varientid = 0;
+    var inventory_management = '';
+
+    jQuery.each(data, function(index, item) {
+      if( item.title ==  current_title){
+        inventory_management = item.inventory_management;
+        inventory = item.inventory_quantity;
+        varientid = item.id;
+      }
+    });
+
+    /*simple Load*/
+    $waitsrc = jQuery('#mydiv').data('url');
+    $waitsrc = $waitsrc+'/'+varientid;
+    waitlistingframe($waitsrc);
+    
+    $('#varID').val(varientid);
+
+    if($(this).data('available') == 0){
+      jQuery('#mydiv').removeClass('disnon');
+    }else{
+      jQuery('#mydiv').addClass('disnon');
+    }
+    /*endsimple Load*/   
+        
+  }
+    
+  // Shade 1 Palette On Click
+  jQuery(document).on('click','.shade-1-palette a', function(){
+      
+      jQuery('.shade-1-pallets-wrap').slideUp();
+      $listimg = $(this).find('img').attr('src')
+      $listtxt = $(this).data('title');
+    
+      $product_id = $(this).data('productid');
+      
+      getAvailable($product_id);
+    
+      //jQuery('.single-option-shade-1').val($listtxt).trigger('change');
+      var select = document.querySelector('.single-option-shade-1');
+      select.value = $listtxt;
+      select.dispatchEvent(new Event('change'));
+    
+      jQuery('.shade-img1-box > img').attr('src',$listimg);
+      jQuery('#shade-1-dynamicimgsrc').attr('src',$listimg);
+      jQuery('#shade-1-select > span').text($listtxt);
+    
+  });
+    
+  // Shade 2 Palette On Click
+  jQuery(document).on('click','.shade-2-palette a', function(){
+    
+      jQuery('.shade-2-pallets-wrap').slideUp();
+      $listimg = $(this).find('img').attr('src')
+      $listtxt = $(this).data('title');
+    
+      $product_id = $(this).data('productid');
+    
+      getAvailable($product_id);
+    
+      //jQuery('.single-option-shade-2').val($listtxt).trigger('change');
+      var select = document.querySelector('.single-option-shade-2');
+      select.value = $listtxt;
+      select.dispatchEvent(new Event('change'));
+    
+      jQuery('.shade-img2-box > img').attr('src',$listimg);
+      jQuery('#shade-2-dynamicimgsrc').attr('src',$listimg);
+      jQuery('#shade-2-select >span').text($listtxt);
+    
+  });
+    
+  // Shade 3 Palette On Click
+  jQuery(document).on('click','.shade-3-palette a', function(){
+    
+      jQuery('.shade-3-pallets-wrap').slideUp();
+      $listimg = $(this).find('img').attr('src')
+      $listtxt = $(this).data('title');
+    
+      $product_id = $(this).data('productid');
+    
+      getAvailable($product_id);
+    
+      //jQuery('.single-option-shade-3').val($listtxt).trigger('change');
+      var select = document.querySelector('.single-option-shade-3');
+      select.value = $listtxt;
+      select.dispatchEvent(new Event('change'));
+    
+      jQuery('.shade-img3-box > img').attr('src',$listimg);
+      jQuery('#shade-3-dynamicimgsrc').attr('src',$listimg);
+      jQuery('#shade-3-select >span').text($listtxt);
+    
+  });
+</script>
+<script type="application/json" id="ProductJson-{{ section.id }}">
+  {{ product | json }}
+</script>
+{% endunless %}
+
+</div>

@@ -1,0 +1,32 @@
+<div class="pro-asked-questions">
+		<img class="image lazyload desktop-view" data-src="{{ section.settings.image | img_url: 'master' }}" src="{{ section.settings.image | img_url: '100x' }}" alt="{{ section.settings.title }}">
+        <img class="image lazyload mobile-view" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x' }}" alt="{{ section.settings.title }}">
+         
+		<span class="pro-asked-q-txt">{{section.settings.title}}</span>
+	</div>
+{% schema %}
+  {
+    "name": "Pro Program 5",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": { "en": "Desktop Image" }
+      },  
+      
+	   {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": { "en": "Mobile Image" }
+      },
+	  {
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title"
+              
+           }
+      }
+	]
+  }
+{% endschema %}

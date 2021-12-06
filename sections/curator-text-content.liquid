@@ -1,0 +1,98 @@
+<div class="curator-text-content image_text_overlay_section">
+  <div class="section">
+    <div class="content-inner">      
+     	   
+
+        {% if section.settings.title != blank %}
+        <div class="title">{{ section.settings.title }}</div>
+        {% endif %}    
+
+        {% if section.settings.subtitle != blank %}
+        <div class="subtitle">{{ section.settings.subtitle }}</div>
+        {% endif %}  
+        
+        {% if section.settings.description != blank %}
+      	<div class="description">{{ section.settings.description }}</div>
+        {% endif %}   
+        <div class="choose-change-image-section">
+        {% if section.settings.urlredirect != blank %}
+          <a href="{{ section.settings.urlredirect }}" >
+        {% endif %}
+      	<img class="image lazyload" data-src="{{ section.settings.image | img_url: 'master' }}" src="{{ section.settings.image | img_url: '100x' }}" alt="{{ section.settings.title }}">
+      	<img class="mob_image lazyload" data-src="{{ section.settings.image_mob | img_url: 'master' }}" src="{{ section.settings.image_mob | img_url: '100x' }}" alt="{{ section.settings.title }}">
+        {% if section.settings.urlredirect != blank %}
+          </a>
+        {% endif %}
+        </div>
+    </div>
+  </div> 
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Curator Text"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+
+
+	  {
+        "type": "header",
+		"content": " Content"
+	  },
+
+	  {
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+	  {
+           "type":"text",
+           "id":"subtitle",
+           "label":{ 
+              "en":"SubTitle",
+              "de":"SubTitle",
+              "fr":"SubTitle"
+           }
+      },
+	  {
+        "type":"textarea",
+        "id":"description",
+        "label":{ "en":"Description" }
+      },
+	  {
+        "type": "url",
+        "id": "urlredirect",
+        "label": "URL"
+      },
+	   {
+        "type": "image_picker",
+        "id": "image",
+        "label": { "en": "Desktop Image" }
+      },
+	  {
+        "type": "image_picker",
+        "id": "image_mob",
+        "label": { "en": "Mobile Image" }
+      }
+
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "curator Text"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        } 
+      }
+    ]
+  }
+{% endschema %}

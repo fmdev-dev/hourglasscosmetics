@@ -1,0 +1,103 @@
+<div class="vanish-home-bnr-2">
+  <div class="page-vanish-home-content-2">
+    <div class="vanish-home-detail-2">
+      <span class="vch2-heading-txt">{{ section.settings.heading }}</span> 
+      {% if section.settings.vanish_image != blank %}
+      <img class="vch2-image" src="{{ section.settings.vanish_image| img_url : 'master' }}" alt="{{ section.settings.vanish_image.alt }}">
+      {% endif %}  
+      <div class="vch2-show-btn">	
+        <a class="vch2-btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+      </div>
+    </div>       
+    <div class="vch2-image-section">        
+      {% if section.settings.desktop_image != blank %}
+      <img class="vch2-desktop-image" src="{{ section.settings.desktop_image| img_url : 'master' }}" alt="{{ section.settings.desktop_image.alt }}">
+      {% endif %}         
+      {% if section.settings.mobile_image != blank %}
+      <img class="vch2-mobile-image" src="{{ section.settings.mobile_image| img_url : 'master' }}" alt="{{ section.settings.mobile_image.alt }}">
+      {% endif %}  
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Vanish Concealer V2",
+      "de": "Vanish Concealer V2",
+      "fr": "Vanish Concealer V2"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+      {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": {
+            "de": "Desktop Image",
+            "en": "Desktop Image",
+            "fr": "Desktop Image"
+          }
+      },
+      {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": {
+            "de": "Mobile Image",
+            "en": "Mobile Image",
+            "fr": "Mobile Image"
+          }
+      },
+      {
+           "type":"text",
+           "id":"heading",
+           "label":{
+              "en":"Heading",
+              "de":"Heading",
+              "fr":"Heading"
+           }
+      },
+      {
+          "type": "image_picker",
+          "id": "vanish_image",
+          "label": {
+            "de": "Vanish Image",
+            "en": "Vanish Image",
+            "fr": "Vanish Image"
+          }
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Vanish Concealer V2",
+          "de": "Vanish Concealer V2",
+          "fr": "Vanish Concealer V2"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

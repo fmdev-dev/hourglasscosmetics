@@ -1,0 +1,27 @@
+<div class="pro-order-discount">
+  <div class="pro-orderdiscount-inner">
+    <span class="pro-order-txt">{{ section.settings.title }}</span>
+    <span class="pro-order-desc">{{ section.settings.description }}</span>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Pro Program 3",
+    "settings": [
+	{
+        "type":"text",
+        "id":"title",
+        "label":{ 
+        "en":"Title"
+        }
+      },
+	  {
+        "type":"text",
+        "id":"description",
+        "label":{ 
+        "en":"Description"
+        }
+      }
+]
+  }
+{% endschema %}

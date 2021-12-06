@@ -1,0 +1,118 @@
+<div id="section8" class="section newblock fullheightblock arch-brow-finder">
+  	<div class="banner-content">
+        <div class="content-inner">
+          	{% if section.settings.title_sub != blank %}
+          	<strong>{{ section.settings.title_sub | escape }}</strong>
+          	{% endif %}
+          	{% if section.settings.title != blank %}
+            <p>{{ section.settings.title | escape }}</p>
+          	{% endif %}
+          	{% if section.settings.button_label != blank and section.settings.button_link != blank %}
+          	<div class="actions">
+                <a href="{{ section.settings.button_link }}"> <span>{{ section.settings.button_label | escape }}</span> </a>
+            </div>
+            {% endif %}
+        </div>
+      {% if section.settings.desk_link != blank %}
+    <a class="arch-brow-img" href="{{ section.settings.desk_link }}">
+      {% if section.settings.desk_image != blank %}
+      	<img class="banner-desk-img" src="{{ section.settings.desk_image | img_url: '1728x1185' }}" alt="Hourglass Cosmetics"
+        {% if section.settings.desk_image %}
+          data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+        {% endif %}
+        > 
+      {% endif %}
+  	</a>
+  	{% endif %}
+    </div>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Arch Brow Finder",
+      "de": "Arch Brow Finder",
+      "fr": "Arch Brow Finder"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "url",
+        "id": "desk_link",
+        "label": {
+          "en": "Desktop link",
+          "de": "Desktop link",
+          "fr": "Desktop link"
+        }
+      },
+     {
+      "type": "text",
+      "id": "title_sub",
+      "label": {
+      "en": "Bold Heading",
+      "de": "Titel",
+      "fr": "En-tête"
+      },
+      "default": {
+      "en": "Arch Brow Finder",
+      "de": "Arch Brow Finder",
+      "fr": "Arch Brow Finder"
+      }
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+        },
+        "default": {
+          "en": "Image with text overlay",
+          "de": "Foto mit überlegtem Text",
+          "fr": "Image avec superposition de texte"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Arch Brow Finder",
+          "de": "Arch Brow Finder",
+          "fr": "Arch Brow Finder"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

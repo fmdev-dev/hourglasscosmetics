@@ -1,0 +1,128 @@
+<div class="artists-subjects">
+		<div class="artists-subjects-inner">
+			<div class="artists-sub-left">
+				<div class="artistsprt">
+				<h3>{{section.settings.text}}</h3>
+				<span class="a-sub-title">{{section.settings.title}}</span>
+				<span class="a-sub-desc">{{section.settings.desc}}</span>
+				<a href="{{section.settings.url}}" class="applynow-btn">{{section.settings.btn1}}</a>
+				</div>
+			</div>
+			<div class="artists-sub-center">
+				<img class="image lazyload desktop-view" data-src="{{ section.settings.image | img_url: 'master' }}" src="{{ section.settings.image | img_url: '100x' }}" alt="{{ section.settings.title }}">
+              	<img class="image lazyload mobile-view" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x' }}" alt="{{ section.settings.title }}">
+            </div>
+			<div class="artists-sub-right">
+				<div class="students-prt">
+				<h3>{{section.settings.text1}}</h3>
+				<span class="a-sub-title">{{section.settings.title1}}</span>
+				<span class="a-sub-desc">{{section.settings.desc1}}</span>
+				<a href="{{section.settings.url1}}" class="applynow-btn">{{section.settings.btn2}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% schema %}
+  {
+    "name": "Pro Program 4",
+    "settings": [
+			{
+        "type": "image_picker",
+        "id": "image",
+        "label": { "en": "Desktop Image" }
+      },  
+      
+	   {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": { "en": "Mobile Image" }
+      },
+	  {
+           "type":"text",
+           "id":"text",
+           "label":{ 
+              "en":"Title"
+              
+           }
+      },
+	  {
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Subtitle"
+              
+           }
+      },
+	  {
+           "type":"text",
+           "id":"desc",
+           "label":{ 
+              "en":"Description"
+              
+           }
+      },
+	  {
+        "type": "text",
+        "id": "btn1",
+        "label": {
+          "en": "Button label",
+          "de": "Button label",
+          "fr": "Button label"
+        }
+      },
+      {
+        "type": "url",
+        "id": "url",
+        "label": {
+          "en": "Button link",
+          "de": "Button link",
+          "fr": "Button link"
+        }
+      },
+	   {
+           "type":"text",
+           "id":"text1",
+           "label":{ 
+              "en":"Title"
+              
+           }
+      },
+	  {
+           "type":"text",
+           "id":"title1",
+           "label":{ 
+              "en":"Subtitle"
+              
+           }
+      },
+	  {
+           "type":"text",
+           "id":"desc1",
+           "label":{ 
+              "en":"Description"
+              
+           }
+      },
+	  {
+        "type": "text",
+        "id": "btn2",
+        "label": {
+          "en": "Button label",
+          "de": "Button label",
+          "fr": "Button label"
+        }
+      },
+      {
+        "type": "url",
+        "id": "url1",
+        "label": {
+          "en": "Button link",
+          "de": "Button link",
+          "fr": "Button link"
+        }
+      }
+
+]
+  }
+{% endschema %}

@@ -1,0 +1,58 @@
+<div class="holidayguide-banner">
+  <div class="holidayguide-img">
+  	<img class="banner-desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: 'master' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Holiday Hero">
+    <img class="banner-mob-img lazyload" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x100' }}" alt="Hourglass Holiday Hero">
+  </div>	
+  <div class="holidayguide-cont">
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.desc }}</p>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Holiday Gift Guide Banner",
+      "de": "Holiday Gift Guide Banner",
+      "fr": "Holiday Gift Guide Banner"
+    },
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "en": "Title",
+          "de": "Title",
+          "fr": "Title"
+        }
+      },
+	  {
+        "type": "text",
+        "id": "desc",
+        "label": {
+          "en": "Description",
+          "de": "Description",
+          "fr": "Description"
+        }
+      }
+      
+    ]
+  }
+{% endschema %}

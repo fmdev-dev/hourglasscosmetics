@@ -1,0 +1,142 @@
+<div class="veil-comingsoon vanish-blush-sign-up-page curator-event curator-event-load">
+  <div class="bg-image desktop-comingsoon">
+  	<img class="bg-image mobile_view mobile_lazyload lazyload" src="{{ section.settings.poster2 | img_url : '100x' }}" data-src="{{ section.settings.poster2 | img_url : 'master' }}" alt="{{ section.settings.mobile_image.alt }}" style="width:100%">
+    <img class="bg-image desktop_view desktop_lazyload lazyload" src="{{ section.settings.poster1 | img_url : '300x' }}" data-src="{{ section.settings.poster1 | img_url : 'master' }}" alt="{{ section.settings.desktop_image.alt }}" style="width:100%">
+  </div>
+  
+  
+  <video class="bg-image desktop_view" width="100%" playsinline loop muted autoplay poster="{{ slide.settings.poster1  }}">  
+    <source src="{{ section.settings.desktop_video_url }}" type="video/mp4">
+  </video>
+  <video class="bg-image mobile_view" width="100%" playsinline loop muted autoplay  poster="{{ slide.settings.poster2  }}">  
+    <source src="{{ section.settings.mobile_video_url }}" type="video/mp4">  
+  </video> 
+
+  {% comment %}
+  
+  <img class="bg-image mobile_view mobile_lazyload lazyload" src="{{ section.settings.mobile_image | img_url : '100x' }}" data-src="{{ section.settings.mobile_image | img_url : 'master' }}" alt="{{ section.settings.mobile_image.alt }}" style="width:100%">
+  <img class="bg-image desktop_view desktop_lazyload lazyload" src="{{ section.settings.desktop_image | img_url : '300x' }}" data-src="{{ section.settings.desktop_image | img_url : 'master' }}" alt="{{ section.settings.desktop_image.alt }}" style="width:100%">
+  {% endcomment %}
+  <div class="video-image-section">
+    <div class="waitlist-section">
+	  {% if section.settings.exclusive_badge %}
+      <span class="exclusive">{{ section.settings.exclusive_badge }}</span>
+      {% endif %}
+      
+      {% if section.settings.title %}
+      <div class="title">{{ section.settings.title }}</div>
+      {% endif %}
+      
+      {% if section.settings.subtitle %}
+      <span class="subtitle">{{ section.settings.subtitle }}</span>
+      {% endif %}
+      
+      {% if section.settings.description %}
+      <span class="description">{{ section.settings.description }}</span>
+      {% endif %}
+      
+      <div class="waitlist_form">
+        {% comment %}
+        <div class="klaviyo-form-UwVHXy"></div>
+        {% endcomment %}
+        <div class="klaviyo-form-YA3JKV"></div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+{% comment %}
+<script>
+  $(window).on('load', function(){
+    var mobile_view = $('.mobile_lazyload').data('src');
+    var desktop_view = $('.desktop_lazyload').data('src');
+    $('.mobile_lazyload').attr('src',mobile_view);
+    $('.desktop_lazyload').attr('src',desktop_view);
+  });
+</script>
+{% endcomment %}
+{% schema %}
+  {
+    "name": "Curator Coming Soon",
+    "settings": [
+		 {
+          "type": "url",
+          "id": "desktop_video_url",
+          "label": {
+            "en": "Desktop view video URL",
+            "de": "Video-URL der Desktop-Ansicht",
+            "es": "URL de video de vista de escritorio",
+            "fr": "URL de la vidéo pour le bureau",
+            "it": "URL del video di visualizzazione desktop",
+            "ja": "デスクトップビューの動画URL",
+            "nl": "Video-URL voor desktopweergave",
+            "pt-BR": "URL de vídeo da área de trabalho",
+            "zh-CN": "桌面视图视频网址",
+            "zh-TW": "桌面視圖視頻網址"
+          } 
+        },
+        {
+          "type": "url",
+          "id": "mobile_video_url",
+          "label": {
+            "en": "Mobile view video URL",
+            "de": "Video-URL für mobile Ansicht",
+            "es": "URL de video de vista móvil",
+            "fr": "URL de la vidéo pour mobile",
+            "it": "URL del video per dispositivi mobili",
+            "ja": "モバイルビューの動画URL",
+            "nl": "Video-URL voor mobiele weergave",
+            "pt-BR": "URL do vídeo para visualização em dispositivos móveis",
+            "zh-CN": "行动观看影片网址",
+            "zh-TW": "行動觀看影片網址"
+          } 
+        },
+	  {
+			"id": "poster1",
+			"type": "image_picker",
+			"label": "Desktop Video Poster"
+					
+		},
+   	    {
+			"id": "poster2",
+			"type": "image_picker",
+			"label": "Mobile Video Poster"
+					
+		},
+   	     
+		 {
+          "type": "text",
+          "id": "exclusive_badge",
+          "label": "Exclusive Badge" 
+        },
+		{
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+        },
+		{
+           "type":"text",
+           "id":"subtitle",
+           "label":{ 
+              "en":"Subtitle",
+              "de":"Subtitle",
+              "fr":"Subtitle"
+           }
+        },
+		{
+           "type":"text",
+           "id":"description",
+           "label":{ 
+              "en":"Description",
+              "de":"Description",
+              "fr":"Description"
+           }
+        }
+		
+	]
+  }
+{% endschema %}

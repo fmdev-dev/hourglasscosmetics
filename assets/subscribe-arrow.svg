@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-21082.959 -20237.201 35.697 17.729">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: 0.4;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Group_7040" data-name="Group 7040" class="cls-1" transform="translate(-21047.616 -20236.846) rotate(90)">
+    <path id="line-7" class="cls-2" d="M0,0H35.018" transform="translate(8.651 0.327) rotate(90)"/>
+    <path id="line-7-2" data-name="line-7" class="cls-2" d="M0,0,12.326,0" transform="translate(8.304 0) rotate(45)"/>
+    <path id="line-7-3" data-name="line-7" class="cls-2" d="M0,0,12.326,0" transform="translate(-0.002 8.716) rotate(-45)"/>
+  </g>
+</svg>

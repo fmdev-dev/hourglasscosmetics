@@ -1,0 +1,60 @@
+<div class="gift-guide-exclusively-list">
+  <div class="exclusively-images">
+  	<img class="banner-desk-img lazyload" data-src="{{ section.settings.exclusively_desk_image | img_url: 'master' }}" src="{{ section.settings.exclusively_desk_image | img_url: '100x100' }}" alt="{{ section.settings.title }}">
+    <img class="banner-mob-img lazyload" data-src="{{ section.settings.exclusively_mob_image | img_url: 'master' }}" src="{{ section.settings.exclusively_mob_image | img_url: '100x100' }}" alt="{{ section.settings.title }}">
+  </div>
+  <div class="exclusively-cont">
+    <h3>{{ section.settings.title }}</h3>
+    <div class="exclusively-desc">{{ section.settings.description }}</div>	
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Gift Guide Exclusively",
+      "de": "Gift Guide Exclusively",
+      "fr": "Gift Guide Exclusively"
+    },
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "exclusively_desk_image",
+        "label": {
+          "en": "Exclusively Desktop Image",
+          "de": "Exclusively Desktop Image",
+          "fr": "Exclusively Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "exclusively_mob_image",
+        "label": {
+          "en": "Exclusively Mobile Image",
+          "de": "Exclusively Mobile Image",
+          "fr": "Exclusively Mobile Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "en": "Title",
+          "de": "Title",
+          "fr": "Title"
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": {
+          "en": "Description",
+          "de": "Description",
+          "fr": "Description"
+        }
+      }
+     
+    ]
+    
+  }
+{% endschema %}

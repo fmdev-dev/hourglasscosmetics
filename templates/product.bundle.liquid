@@ -1,0 +1,214 @@
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+{% unless product.metafields.bundle.products == blank %}
+{% assign bdlProds = product.metafields.bundle.products | split: '|'%}
+<div class="bundle-product-tabs">
+  <span class="selected-tab">Get Started</span>
+
+    <ul class="bundle-tab-list">
+        <li class="bundle-tab active" data-id="get" data-handle="get">
+          <div class="bundle-tab-name">
+            <div class="bundle-tab-name-text">Get Started</div>
+          </div>
+        </li>
+        {% for prods in bdlProds %}
+          <li class="bundle-tab" data-name="{{all_products[prods].title}}" data-handle="{{all_products[prods].handle}}" id="{{all_products[prods].id}}">
+            <div class="bundle-tab-name">
+              <div class="bundle-tab-name-text">{{all_products[prods].title}}
+              {% assign cnt = 0 %}
+              {% for iVeriant in all_products[prods].variants %}
+                {% assign cnt = cnt | plus: 1 %}
+              {% endfor %}
+              {% if cnt > 1 %}
+                <div class="bundle-tab-shade"><b>Select Shade</b></div>  
+              {% endif %}
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+          <li class="bundle-tab" data-id="set" data-handle="set">
+            <div class="bundle-tab-name">
+              <div class="bundle-tab-name-text">Your Set</div>
+            </div>
+        </li>
+    </ul>
+</div>
+{% section 'product-bundle-template' %}
+{% endunless %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% comment %}
+<script type="text/javascript">
+jQuery(document).ready(function(e) {
+    fbq('trackCustom', 'ProductViewContent', {
+        content_name: '{{ product.title }}',
+        content_ids: ['{{current_variant.sku}}'],
+        content_type: 'product',
+        value: '{{ product.price | divided_by: 100.00 }}',
+        currency: 'USD'
+    });
+});
+</script>
+{% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "url": "{{ shop.url }}{{ product.url }}",
+  {%- if product.featured_image -%}
+    {%- assign image_size = product.featured_image.width | append: 'x' -%}
+    "image": [
+      "https:{{ product.featured_image.src | img_url: image_size }}"
+    ],
+  {%- endif -%}
+  "description": "{{ product.description | strip_html | escape }}",
+  {%- if current_variant.sku != blank -%}
+    "sku": "{{ current_variant.sku }}",
+  {%- endif -%}
+  {%- if current_variant.barcode != blank -%}
+    "mpn": "{{ current_variant.barcode }}",
+  {% else %}
+    "mpn": "{{ product.id }}",
+  {%- endif -%}
+  "brand": {
+    "@type": "Thing",
+    "name": "{{ product.vendor | escape }}"
+  },
+  "review": {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "4",
+      "bestRating": "5"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Carisa Janes"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.4",
+    "reviewCount": "89"
+  },
+  "offers": [
+    {%- for variant in product.variants -%}
+      {
+        "@type" : "Offer",
+        {%- if variant.sku != blank -%}
+          "sku": "{{ variant.sku }}",
+        {%- endif -%}
+        "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "price" : "{{ variant.price | divided_by: 100.00 }}",
+        "priceCurrency" : "{{ shop.currency }}",
+        "url" : "{{ shop.url }}{{ variant.url }}",
+        "priceValidUntil" : "2020-11-05"
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+<script text="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>
+<script>
+  jQuery(document).ready(function(){
+
+     // Sticky add to cart button for mobile view || Bundle Product
+    jQuery(window).scroll(function (event) {
+        var scroll = jQuery(window).scrollTop();
+        if(jQuery('.site-footer').length > 0){
+            var footerHeight = jQuery('.site-footer').offset().top;
+        }
+        jQuery('.bundle-products-action-get button, .bundle-products-action-set button').toggleClass('stick', scroll >= footerHeight - jQuery(window).height() - (+100));
+        jQuery('.single-shade').toggleClass('stick', scroll >= footerHeight - jQuery(window).height() - (+100));
+        jQuery('.product-bundle .product-essential .qty-wrapper-cont-btn').toggleClass('stick', scroll >= footerHeight - jQuery(window).height() - (+100)); 
+      
+    });
+    jQuery(window).scroll();
+
+  jQuery(document).on('click', 'span.selected-tab', function() {
+        jQuery(this).delay('100');
+        jQuery(this).toggleClass('active');
+        jQuery('ul.bundle-tab-list').slideToggle();
+        
+    });
+  jQuery(document).on('click', '.bundle-product-tabs .bundle-tab-list li', function() {
+    var bundletxt = jQuery('.bundle-product-tabs .bundle-tab-list li.active').html()
+    jQuery('span.selected-tab').html(bundletxt);
+  });
+});
+
+  jQuery(document).on('click','.bundle-tab', function(event){
+      event.preventDefault();
+      $('.bundle-tab').removeClass('active');
+
+      if($(this).data('handle') == 'get'){
+        $('.bundle-products-action-get').css('display','block');
+        $('.bundle-products-action-set').css('display','none');
+      }
+      if($(this).data('handle') == 'set'){
+        $('.bundle-products-action-get').css('display','none');
+        $('.bundle-products-action-set').css('display','block'); 
+      }
+
+      if($(this).data('handle') == 'get' || $(this).data('handle') == 'set' ){
+        $('.pbundle').css('display','block');
+        $('.product-essential').remove();
+      }else{
+        $('.product-essential').remove();
+        $('.pbundle').after('<div class="product-essential" id="essential"></div>');
+        $('.pbundle').css('display','none');
+        var url = "https://www.hourglasscosmetics.com/products/"+$(this).data('handle')+"?view=ra-bundle";
+        jQuery('.loader-wrap').removeClass('desabled');
+        $.ajax({
+            url : url,
+            type : "GET",
+            dataType : "html"
+        }).done(function(data) {
+              $(".product-essential").html(data);
+              setTimeout(function() {
+                  jQuery('.loader-wrap').addClass('desabled')
+              }, 1000);
+       	});
+		//$('.product-essential').load("https://www.hourglasscosmetics.com/products/"+$(this).data('handle')+"?view=ra-bundle");
+      }
+      $(this).addClass('active');
+  });
+</script>
+<script>
+  // Override default values of shop.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  theme.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }}
+  }
+</script>

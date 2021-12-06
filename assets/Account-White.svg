@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="33" viewBox="0 0 35 33">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Account_White);
+      }
+
+      .cls-2, .cls-3 {
+        fill: none;
+        stroke: #fff;
+      }
+
+      .cls-2 {
+        stroke-miterlimit: 10;
+      }
+    </style>
+    <clipPath id="clip-Account_White">
+      <rect width="35" height="33"/>
+    </clipPath>
+  </defs>
+  <g id="Account_White" data-name="Account–White" class="cls-1">
+    <g id="Group_12" data-name="Group 12" transform="translate(0.582 -0.1)">
+      <path id="Path_8639" data-name="Path 8639" class="cls-2" d="M25.337,26.3H8.418c.322-5.032,3.987-9,8.46-9S25.016,21.268,25.337,26.3Z"/>
+      <circle id="Ellipse_613" data-name="Ellipse 613" class="cls-3" cx="4.86" cy="4.86" r="4.86" transform="translate(12.163 7.1)"/>
+    </g>
+  </g>
+</svg>

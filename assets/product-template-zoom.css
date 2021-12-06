@@ -1,0 +1,246 @@
+@media (min-height: 1100px) and (min-width: 2000px) {		
+    .pdt-detail-page {		
+        min-height: calc(60vh - 120px);		
+    }		
+}		
+.product-single-photos-dtl {		
+    position: relative;		
+    max-width: 548.2456140350878px;		
+    max-height: 700px;		
+    margin: auto;		
+}
+
+/***Product Detail Popup ***/
+
+.product-zoom-icn {
+    cursor: pointer;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 1;
+    cursor: pointer;
+    background: url(p-plus-icon.png) no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 25px;
+    height: 25px;
+    float: right;
+    pointer-events: none
+}
+
+.pdt-media-zoom {
+    cursor: pointer;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    height: 100%;
+    background: #fff;
+    z-index: 99;
+    left: 0px;
+    right: 0px;
+    display: none;
+}
+
+.pdt-media-zoom .pdtm-close {
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    z-index: 99;
+    cursor: pointer;
+    background: url(close-black.svg) no-repeat;
+    background-size: 100% 100%;
+    width: 24px;
+    height: 24px;
+    float: right;
+    margin: 15px 15px 0 0px;
+}
+
+.zoomImg {
+    display: none !important;
+}
+
+.product-img-box .product-single {
+    cursor: pointer;
+}
+
+.pdt-media-zoom-body {
+    overflow: hidden !important;
+}
+
+.pdt-mediazoom-dtl {
+    max-width: 1200px;
+    margin: 0.5% auto;
+    width: 100%;
+}
+
+.slider-main {
+    max-width: 1500px;
+    margin: auto;
+}
+
+.slider {
+    overflow: hidden;
+    height: calc(100vh - 100px);
+    position: relative;
+    width: 100%;
+    float: left;
+}
+
+.slide-arrow {
+    position: absolute;
+    left: 0px;
+    top: 48%;
+    float: left;
+    width: 100%;
+    max-width: 1500px;
+    right: 0px;
+    margin: auto;
+}
+
+.slide-arrow a {
+    cursor: pointer;
+    width: 14px;
+    height: 30px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.slide-arrow a.next-arrow {
+    float: right;
+    background-image: url(p-arrow-right.png?v=1);
+}
+
+.slide-arrow a.prev-arrow {
+    background-image: url(p-arrow-left.png?v=1);
+    float: left;
+}
+
+.slider-item {
+    text-align: center;
+    transition: all 0.5s ease 0s;
+    top: 0px;
+    position: absolute;
+    opacity: 0;
+    float: left;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    text-align: center;
+}
+
+.slider-item img {
+    max-width: 80%;
+    max-height: calc(100vh - 105px);
+}
+
+.slider-item.current-item {
+    opacity: 1;
+}
+
+.item-thumb-main {
+    margin: auto;
+    display: table;
+    margin-top: 10px;
+    clear: both;
+    text-align: center;
+}
+
+.item-thumb-main .item-thumb {
+    float: left;
+    width: auto;
+    cursor: pointer;
+    margin-left: 10px;
+    border: transparent 1px solid;
+}
+
+.item-thumb-main .item-thumb.thumb-active {
+    border: #c7c7c7 1px solid;
+}
+
+.item-thumb-main .item-thumb img {
+    display: block;
+    height: auto;
+    max-height: 72px;
+    width: 60px;
+}
+
+.item-thumb-main .item-thumb:nth-child(1) {
+    margin-left: 0px;
+}
+
+.product-single__photo-wrapper {
+    position: relative;		
+}
+
+@media (max-width:1499px) {
+    .slide-arrow a.prev-arrow {
+        margin-left: 25px;
+    }
+    .slide-arrow a.next-arrow {
+        margin-right: 25px;
+    }
+}
+
+@media (max-width:767px) {
+    .slider-item img {
+        max-width: 84%;
+        max-height: calc(100vh - 80px);
+    }
+    .product-zoom-icn {
+        width: 21px;
+        height: 21px;
+        bottom: 25px;
+    }
+    .slide-arrow {
+        top: 43%;
+    }
+    .slide-arrow a {
+        width: 12px;
+        height: 24px;
+    }
+    .slide-arrow a.prev-arrow {
+        margin-left: 8px;
+    }
+    .slide-arrow a.next-arrow {
+        margin-right: 8px;
+    }
+    .pdt-media-zoom .pdtm-close {
+        width: 18px;
+        height: 18px;
+        margin: 5px 5px 0 0px;
+    }
+    .pdt-media-zoom-body .pdt-detail-page,
+    .pdt-media-zoom-body .site-footer {
+        display: none
+    }
+    .item-thumb-main {
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        position: fixed;
+    }
+}
+
+@media (max-width:599px) {
+    .slider-item img {
+        margin-top: 10%;
+    }
+}
+
+@media screen and (max-width: 700px) and (max-height: 900px) {
+    .pdt-media-zoom .pdtm-close {
+        width: 18px;
+        height: 18px;
+        margin: 10px 10px 0 0px;
+    }
+    .slide-arrow {
+        top: 47%;
+    }
+    .slider-item img {
+        margin-top: 25%;
+    }
+}
+
+
+/***Product Detail Popup ***/

@@ -1,0 +1,480 @@
+<div class="page-width">
+  {% if section.settings.title != blank %}
+    <div class="section-header text-center">
+      <h2>{{ section.settings.title | escape }}</h2>
+    </div>
+  {% endif %}
+  <div id="section3" class="section newblock homepage-section3">
+    <div class="container">
+      {% assign j = 0 %}
+      {% for block in section.blocks %}
+        {% if j == 0 %}
+          <div class="instagram-imgs instagram-img-row">
+        {% elsif j == 3 %}
+          <div class="instagram-imgs instagram-img-row2">
+        {% elsif j == 6 %}
+          <div class="instagram-imgs instagram-img-row3">
+        {% endif %}
+        {% case block.type %}
+          {% when 'image' %}
+            {% if block.settings.image != blank %}
+              {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              <div class="instagram-img-block">
+                <a class="instagramimg" style="background-image: url('{{ block.settings.image | img_url: 'medium' }}');" href="{% if block.settings.hper_link != blank %}{{ block.settings.hper_link }}{% else %}javascript:void(0){% endif %}" target="_blank"> 
+                  <img src="{{ block.settings.image | img_url: 'medium' }}" alt="{{ block.settings.image.alt | escape }}" />
+                </a>
+              </div>
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          {% when 'text' %}
+            <div class="instagram-img-content">
+              {% if block.settings.title != blank %}
+                <h3>{{ block.settings.title | escape }}</h3>
+              {% endif %}
+              <a class="linkstyle" href="https://likeshop.me/hourglasscosmetics" target="_blank"> Explore </a>
+            </div>
+          {% when 'html' %}
+            {% if block.settings.code != blank %}
+              {{ block.settings.code }}
+            {% endif %}
+        {% endcase %}
+        {% if j == 2 or j == 5 or j == 8 %}
+          </div>
+        {% endif %}
+        {% assign j = j | plus: 1 %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Shop Instagram",
+      "de": "Kaufe Instagram",
+      "fr": "Boutique Instagram"
+    },
+    "class": "index-section",
+    "max_blocks": 12,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+        },
+        "default": {
+          "en": "Shop Instagram",
+          "de": "Kaufe Instagram",
+          "fr": "Boutique Instagram"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": {
+              "en": "Heading",
+              "de": "Titel",
+              "fr": "En-tête"
+            },
+            "default": {
+              "en": "Talk about your brand",
+              "de": "Erzählen Sie von Ihrer Marke",
+              "fr": "Parlez de votre marque"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": {
+              "en": "Text",
+              "de": "Text",
+              "fr": "Texte"
+            },
+            "default": {
+              "en": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+              "de": "<p>Nutzen Sie diesen Text, um Infos über Ihre Marke mitzuteilen. Beschreiben Sie ein Produkt, kündigen Sie etwas an oder heißen Sie Kunden willkommen.</p>",
+              "fr": "<p>Utilisez ce texte pour partager des informations sur votre marque. Décrivez un produit, partagez des annonces, ou souhaitez la bienvenue à vos clients.</p>"
+            }
+          },
+          {
+            "type": "select",
+            "id": "width",
+            "label": {
+              "en": "Container width",
+              "de": "Breite des Elements",
+              "fr": "Largeur du conteneur"
+            },
+            "default": "50%",
+            "options": [
+              {
+                "value": "25%",
+                "label": {
+                  "en": "25%",
+                  "de": "25%",
+                  "fr": "25 %"
+                }
+              },
+              {
+                "value": "33%",
+                "label": {
+                  "en": "33%",
+                  "de": "33%",
+                  "fr": "33 %"
+                }
+              },
+              {
+                "value": "50%",
+                "label": {
+                  "en": "50%",
+                  "de": "50%",
+                  "fr": "50 %"
+                }
+              },
+              {
+                "value": "66%",
+                "label": {
+                  "en": "66%",
+                  "de": "66%",
+                  "fr": "66 %"
+                }
+              },
+              {
+                "value": "75%",
+                "label": {
+                  "en": "75%",
+                  "de": "75%",
+                  "fr": "75 %"
+                }
+              },
+              {
+                "value": "100%",
+                "label": {
+                  "en": "100%",
+                  "de": "100%",
+                  "fr": "100 %"
+                }
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "alignment",
+            "label": {
+              "en": "Vertical alignment",
+              "de": "Vertikale Ausrichtung",
+              "fr": "Alignement vertical"
+            },
+            "default": "center",
+            "options": [
+              {"value": "top-middle", "label": { "en": "Top", "de": "Oben", "fr": "Haut" }},
+              {"value": "center", "label": { "en": "Middle", "de": "Mitte", "fr": "Milieu" }},
+              {"value": "bottom-middle", "label": { "en": "Bottom", "de": "Unten", "fr": "Bas" }}
+            ]
+          },
+          {
+            "type": "select",
+            "id": "align_text",
+            "label": {
+              "en": "Horizontal alignment",
+              "de": "Horizontale Ausrichtung",
+              "fr": "Alignement horizontal"
+            },
+            "default": "left",
+            "options": [
+              {"value": "left", "label": { "en": "Left", "de": "Links", "fr": "Gauche" }},
+              {"value": "center", "label": { "en": "Centered", "de": "Mittig", "fr": "Centré" }},
+              {"value": "right", "label": { "en": "Right", "de": "Rechts", "fr": "Droite" }}
+            ]
+          }
+        ]
+      },{
+        "type": "image",
+        "name": {
+          "en": "Image",
+          "de": "Foto",
+          "fr": "Image"
+        },
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": {
+              "en": "Image",
+              "de": "Foto",
+              "fr": "Image"
+            }
+          },
+          {
+            "type": "url",
+            "id": "hper_link",
+            "label": {
+              "en": "Image Link",
+              "de": "Image Link",
+              "fr": "Image Link"
+            }
+          },
+          {
+            "type": "select",
+            "id": "width",
+            "label": {
+              "en": "Container width",
+              "de": "Breite des Elements",
+              "fr": "Largeur du conteneur"
+            },
+            "default": "50%",
+            "options": [
+              {
+                "value": "25%",
+                "label": {
+                  "en": "25%",
+                  "de": "25%",
+                  "fr": "25 %"
+                }
+              },
+              {
+                "value": "33%",
+                "label": {
+                  "en": "33%",
+                  "de": "33%",
+                  "fr": "33 %"
+                }
+              },
+              {
+                "value": "50%",
+                "label": {
+                  "en": "50%",
+                  "de": "50%",
+                  "fr": "50 %"
+                }
+              },
+              {
+                "value": "66%",
+                "label": {
+                  "en": "66%",
+                  "de": "66%",
+                  "fr": "66 %"
+                }
+              },
+              {
+                "value": "75%",
+                "label": {
+                  "en": "75%",
+                  "de": "75%",
+                  "fr": "75 %"
+                }
+              },
+              {
+                "value": "100%",
+                "label": {
+                  "en": "100%",
+                  "de": "100%",
+                  "fr": "100 %"
+                }
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "alignment",
+            "label": {
+              "en": "Vertical alignment",
+              "de": "Vertikale Ausrichtung",
+              "fr": "Alignement vertical"
+            },
+            "default": "center",
+            "options": [
+              {
+                "value": "top-left",
+                "label": {
+                  "en": "Top left",
+                  "de": "Oben links",
+                  "fr": "En haut à gauche"
+                }
+              },
+              {
+                "value": "top-middle",
+                "label": {
+                  "en": "Top middle",
+                  "de": "Oben mittig",
+                  "fr": "En haut au centre"
+                }
+              },
+              {
+                "value": "top-right",
+                "label": {
+                  "en": "Top right",
+                  "de": "Oben rechts",
+                  "fr": "En haut à droite"
+                }
+              },
+              {
+                "value": "middle-left",
+                "label": {
+                  "en": "Middle left",
+                  "de": "Mitte links",
+                  "fr": "Au milieu à gauche"
+                }
+              },
+              {
+                "value": "center",
+                "label": {
+                  "en": "Middle",
+                  "de": "Mitte",
+                  "fr": "Milieu"
+                }
+              },
+              {
+                "value": "middle-right",
+                "label": {
+                  "en": "Middle right",
+                  "de": "Mitte rechts",
+                  "fr": "Au milieu à droite"
+                }
+              },
+              {
+                "value": "bottom-left",
+                "label": {
+                  "en": "Bottom left",
+                  "de": "Unten links",
+                  "fr": "En bas à gauche"
+                }
+              },
+              {
+                "value": "bottom-middle",
+                "label": {
+                  "en": "Bottom middle",
+                  "de": "Unten mittig",
+                  "fr": "En bas au centre"
+                }
+              },
+              {
+                "value": "bottom-right",
+                "label": {
+                  "en": "Bottom right",
+                  "de": "Unten rechts",
+                  "fr": "En bas à droite"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "html",
+        "name": {
+          "en": "Custom HTML",
+          "de": "Personalisierte HTML",
+          "fr": "HTML personnalisé"
+        },
+        "settings": [
+          {
+            "type": "html",
+            "id": "code",
+            "label": {
+              "en": "HTML",
+              "de": "HTML",
+              "fr": "HTML"
+            }
+          },
+          {
+            "type": "select",
+            "id": "width",
+            "label": {
+              "en": "Container width",
+              "de": "Breite des Elements",
+              "fr": "Largeur du conteneur"
+            },
+            "default": "50%",
+            "options": [
+              {
+                "value": "25%",
+                "label": {
+                  "en": "25%",
+                  "de": "25%",
+                  "fr": "25 %"
+                }
+              },
+              {
+                "value": "33%",
+                "label": {
+                  "en": "33%",
+                  "de": "33%",
+                  "fr": "33 %"
+                }
+              },
+              {
+                "value": "50%",
+                "label": {
+                  "en": "50%",
+                  "de": "50%",
+                  "fr": "50 %"
+                }
+              },
+              {
+                "value": "66%",
+                "label": {
+                  "en": "66%",
+                  "de": "66%",
+                  "fr": "66 %"
+                }
+              },
+              {
+                "value": "75%",
+                "label": {
+                  "en": "75%",
+                  "de": "75%",
+                  "fr": "75 %"
+                }
+              },
+              {
+                "value": "100%",
+                "label": {
+                  "en": "100%",
+                  "de": "100%",
+                  "fr": "100 %"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Shop Instagram",
+          "de": "Kaufe Instagram",
+          "fr": "Boutique Instagram"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        },
+        "blocks": [
+          {
+            "type": "text"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

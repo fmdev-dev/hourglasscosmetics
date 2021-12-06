@@ -1,0 +1,82 @@
+{% if section.blocks.size > 0 %}
+  <div class="eq_video_banner">
+    <div class="page-content">    
+
+      {% for block in section.blocks %}
+        {%- assign product_array = all_products[block.settings.title] -%}
+      	{% if product_array.handle == product.handle %}
+      
+      		{% if block.settings.mobile_video_url != blank or block.settings.desktop_video_url != blank %}
+              <div class="video-section">      
+                <video class="mobile_view" width="100%" playsinline loop muted autoplay>  
+                  <source src="{{ block.settings.mobile_video_url }}" type="video/mp4">  
+                </video> 
+                <video class="desktop_view" width="100%" playsinline loop muted autoplay>  
+                  <source src="{{ block.settings.desktop_video_url }}" type="video/mp4">  
+                </video> 
+              </div>
+              <div class="video-content-area">
+                <div class="container">            
+                    <div class="content">
+                      {% if block.settings.description != blank %}
+                          <div class="desc">{{block.settings.description}}</div>
+                      {% endif %} 
+                    </div>
+                </div>
+              </div>
+      		{% endif %} 
+      
+      	{% endif %} 
+      {% endfor %}
+
+    </div>
+  </div>
+{% endif %} 
+
+{% schema %} 
+  {
+  "name": "Product Video Banner",
+  "settings": [
+  ],
+  "max_blocks":15,
+  "blocks" : [
+    {
+      "type": "video_banner",
+      "name": {
+        "en": "Banner",
+        "de": "Banner",
+        "fr": "Banner"
+      },
+      "settings": [
+          {
+            "type": "product",
+            "id": "title",
+            "label": { "en": "Product" }
+          },
+          {
+            "type":"url",
+            "id":"mobile_video_url",
+            "label":{
+              "en":"Mobile Video URL"               
+            }
+          },
+          {
+            "type":"url",
+            "id":"desktop_video_url",
+            "label":{
+              "en":"Desktop Video URL"               
+            }
+          },       
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": {
+              "en": "Description"
+            }
+          }
+	  ]
+	}
+  ]
+
+}
+{% endschema %}

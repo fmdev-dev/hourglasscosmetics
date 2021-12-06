@@ -1,0 +1,904 @@
+{% if section.settings.message %}
+  <style>
+    {% if section.settings.logo != blank %}
+      .site-header__logo-image {
+        max-width: {{ section.settings.logo_max_width | escape }}px;
+      }
+    {% endif %}
+
+    {% if section.settings.align_logo == 'left' %}
+      .site-header__logo-image {
+        margin: 0;
+      }
+    {% endif %}
+  </style>
+{% endif %}
+<div class="overlay-wrap"></div>
+<div data-section-id="{{ section.id }}" data-section-type="header-section">
+  <div class="header_group {% if settings.wishlist_enable == true and template != 'cart' %}wishlist-banners{% endif %}">
+  {% if settings.wishlist_enable == true and template != 'cart' %}
+    {% include 'wishlist-sticky-banner', wishlist_banner : section.settings.wishlist_banner, wishlist_text: section.settings.wishlist_text, wishlist_button_label: section.settings.wishlist_button_label, wishlist_button_link : section.settings.wishlist_button_link %}
+  {% endif %}
+<div class="top-promo">
+    <div class="promo-slider-main">
+      <div class="carousel-nav clearfix"><div class="top-prev"  id="prv-testimonial"><span></span></div> <div class="top-next" id="nxt-testimonial"><span></span></div>
+       </div>
+      <div id="carousel-wrap">
+       <ul id="testimonial-list" class="clearfix">
+          {% if settings.title1 != blank %}
+            <li class="item">{{ settings.title1 }}</li>
+          {% endif %}
+          {% if settings.title2 != blank %}
+            <li class="item">{{ settings.title2 }}</li>
+          {% endif %}
+          {% if settings.title3 != blank %}
+            <li class="item">{{ settings.title3 }}</li>
+          {% endif %}
+          {% if settings.title4 != blank %}
+            <li class="item">{{ settings.title4 }}</li>
+          {% endif %}
+          {% if settings.title5 != blank %}
+            <li class="item">{{ settings.title5 }}</li>
+          {% endif %}
+          {% if settings.title6 != blank %}
+            <li class="item">{{ settings.title6 }}</li>
+          {% endif %}
+          {% if settings.title7 != blank %}
+            <li class="item">{{ settings.title7 }}</li>
+          {% endif %}
+          {% if settings.title8 != blank %}
+            <li class="item">{{ settings.title8 }}</li>
+          {% endif %}
+        </ul>
+      </div>
+      </div>
+  </div>
+  <script type="text/javascript">
+     $(window).resize(function(){
+    
+    var windowwidth = $(window).width()
+    $('#testimonial-list li, #carousel-wrap').css({'width':windowwidth})
+    $('#prv-testimonial').on('click', function(){
+     var $last = $('#testimonial-list li:last');
+     $last.remove().css({'margin-left':-windowwidth+'px'});
+     $last.animate({'margin-left':'0px'},500);
+     $('#testimonial-list li:first').before($last); 
+    })
+    $('#nxt-testimonial').on('click', function(){
+      var windowwidth = $(window).width()
+      var $first = $('#testimonial-list li:first');
+      $first.animate({'margin-left':-windowwidth+'px'},500, function(){
+      $first.remove().css({'margin-left': '0px' });
+      $('#testimonial-list li:last').after($first); 
+    })  
+    });
+    });
+    $(window).trigger('resize');
+
+   $(document).ready(function(e) {
+   
+    jQuery("#header .site-nav li a:contains('About')").parents('li').addClass('about-custom-drowdown'); 
+
+    jQuery('header .mobile-nav li .mobile-nav__icon').click(function(){
+     jQuery(this).toggleClass('close-arrow');
+      jQuery(this).siblings('ul').stop().toggle()
+      jQuery(this).parent().siblings().children('ul').stop().hide();
+     jQuery(this).parent().siblings().children('.mobile-nav__icon').removeClass('close-arrow');
+    })
+    jQuery('header .mobile-nav li child-mobile-nav').click(function(){
+     jQuery(this).toggleClass('close-arrow');
+      jQuery(this).siblings('ul').stop().toggle()
+      jQuery(this).parent().siblings().children('ul').stop().hide();
+     jQuery(this).parent().siblings().children('.child-mobile-nav').removeClass('close-arrow');
+    })
+     
+   {% if settings.skincare_banner_enable != true %}
+    /*STICKY BANNER*/
+    jQuery(document).ready(function() {
+        var stickyholiday = jQuery('.sticky-holiday-banner').height();
+        var headerSticky = jQuery('#header.site-header').height();
+        jQuery('.h-sticky-bnr-height').height(stickyholiday + headerSticky); 
+     });
+    /*STICKY BANNER*/
+   {% endif %} 
+  
+   {% if settings.sticky_banner_enable != true %}
+    /*STICKY BANNER*/
+    jQuery(document).ready(function() {
+        var stickyholiday = jQuery('.new_sticky_banner').height();
+        var headerSticky = jQuery('#header.site-header').height();
+        jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+     });
+    /*STICKY BANNER*/
+   {% endif %}
+   
+   {% if settings.blush_sticky_banner_enable != true %}
+    /*BLUSH STICKY BANNER*/
+    jQuery(document).ready(function() {
+        var stickyholiday = jQuery('.new_sticky_banner').height();
+        var headerSticky = jQuery('#header.site-header').height();
+        jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+     });
+    /*BLUSH STICKY BANNER*/
+  {% endif %}
+   
+      {% if settings.curator_sticky_banner_enable != true %}
+  /*curator STICKY BANNER*/
+  jQuery(document).ready(function() {
+      var stickyholiday = jQuery('.new_sticky_banner').height();
+      var headerSticky = jQuery('#header.site-header').height();
+      jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+   });
+  /*curator STICKY BANNER*/
+  {% endif %}
+  
+  {% if settings.curator_sticky_banner_enable1 != true %}
+  /*curator STICKY BANNER*/
+  jQuery(document).ready(function() {
+      var stickyholiday = jQuery('.new_sticky_banner').height();
+      var headerSticky = jQuery('#header.site-header').height();
+      jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+   });
+  /*curator STICKY BANNER*/
+  {% endif %}
+     
+   {% if settings.ambient_sticky_banner_enable != true %}
+  /*Ambient STICKY BANNER*/
+  jQuery(document).ready(function() {
+      var stickyholiday = jQuery('.new_sticky_banner').height();
+      var headerSticky = jQuery('#header.site-header').height();
+      jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+   });
+  /*Ambient STICKY BANNER*/
+  {% endif %}
+  
+   {% if settings.shade_finder_sticky_banner_enable != true %}
+  /*Shade finder STICKY BANNER*/
+  jQuery(document).ready(function() {
+      var stickyholiday = jQuery('.new_sticky_banner').height();
+      var headerSticky = jQuery('#header.site-header').height();
+      jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+   });
+  /*Shade finder STICKY BANNER*/
+    {% endif %}
+     
+  {% if settings.waitlist_sticky_banner_enable != true %}
+  /*waitlist STICKY BANNER*/
+  jQuery(document).ready(function() {
+      var stickyholiday = jQuery('.new_sticky_banner').height();
+      var headerSticky = jQuery('#header.site-header').height();
+      jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+   });
+  /*waitlist STICKY BANNER*/
+  {% endif %}
+   
+    
+  {% if settings.waitlist_sticky_banner_enable1 != true %}
+  /*waitlist STICKY BANNER*/
+  jQuery(document).ready(function() {
+      var stickyholiday = jQuery('.new_sticky_banner').height();
+      var headerSticky = jQuery('#header.site-header').height();
+      jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+   });
+  /*waitlist STICKY BANNER*/
+     {% endif %}
+     
+});
+</script>
+  {% if section.settings.message %}
+    {% if section.settings.home_page_only == false or template.name == 'index' %}
+      <style>
+        .announcement-bar {
+          background-color: {{ section.settings.color_bg }};
+        }
+        .announcement-bar--link:hover {
+          {% assign brightness = section.settings.color_bg | color_brightness %}
+
+          {% if brightness <= 192 %}
+            {% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
+            background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};
+          {% else %}
+            {% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}
+            background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};
+          {% endif %}
+        }
+        .announcement-bar__message {
+          color: {{ section.settings.color_text }};
+        }
+      </style>
+
+      {% if section.settings.message_link == blank %}
+        <div class="announcement-bar">
+      {% else %}
+        <a href="{{ section.settings.message_link }}" class="announcement-bar announcement-bar--link">
+      {% endif %}
+
+        <p class="announcement-bar__message">{{ section.settings.message_text | escape }}</p>
+
+      {% if section.settings.message_link == blank %}
+        </div>
+      {% else %}
+        </a>
+      {% endif %}
+
+    {% endif %}
+  {% endif %}
+
+  <header id="header" class="site-header{% if section.settings.align_logo == 'left' %} border-bottom logo--left{% else %} logo--center{% endif %}" role="banner">
+    <div class="grid grid--no-gutters grid--table site-header__mobile-nav">
+      {% if section.settings.align_logo == 'center' %}
+        <div class="grid__item small--hide medium-up--one-third">
+          <div class="site-header__search">
+            {% include 'search-form' %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if section.settings.align_logo == 'center' %}
+        {%- assign logo_classes = 'medium-up--one-third logo-align--center' -%}
+      {% else %}
+        {%- assign logo_classes = 'medium-up--one-quarter logo-align--left' -%}
+      {% endif %}
+
+      <div class="grid__item {{ logo_classes }}">
+        {% comment %}
+          Use the uploaded logo from theme settings if enabled.
+          Site name gets precedence with H1 tag on homepage, div on other pages.
+        {% endcomment %}
+        {% if template.name == 'index' %}
+          <h1 class="h2 site-header__logo">
+        {% else %}
+          <div class="h2 site-header__logo">
+        {% endif %}
+          {% if section.settings.logo %}
+            {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            <a href="/" class="site-header__logo-image{% if section.settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}">
+              {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+              <img class="lazyload js"
+                   src="{{ section.settings.logo | img_url: '300x300' }}"
+                   data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                   data-sizes="auto"
+                   alt="{{ logo_alt | escape }}" width="127" height="15" 
+                   style="max-width: {{ section.settings.logo_max_width }}px" >
+              {%- assign img_url1 = section.settings.logo2 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            <img class="lazyload js logo2"
+                   src="{{ section.settings.logo2 | img_url: '300x300' }}"
+                   data-src="{{ img_url1 }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                   data-sizes="auto"
+                   alt="{{ logo_alt | escape }}" width="127" height="15"
+                   style="max-width: {{ section.settings.logo_max_width }}px">
+              <noscript>
+                {% capture image_size %}{{ section.settings.logo_max_width | escape }}x{% endcapture %}
+                <img src="{{ section.settings.logo | img_url: image_size }}" width="127" height="15"
+                     srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                     alt="{{ section.settings.logo.alt | default: shop.name }}"
+                     style="max-width: {{ section.settings.logo_max_width }}px;">
+              </noscript>
+            </a>
+          {% else %}
+            <a class="site-header__logo-link" href="/">{{ shop.name }}</a>
+          {% endif %}
+        {% if template.name == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+      {% if section.settings.align_logo == 'left' %}
+        <nav class="grid__item medium-up--one-half small--hide" id="AccessibleNav" role="navigation">
+          {% include 'site-nav' %}
+        </nav>
+      {% endif %}
+      <div class="grid__item {% if section.settings.align_logo == 'left' %}medium-up--one-quarter{% else %}medium-up--one-third{% endif %} text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
+        <div class="site-header__icons-wrapper">
+          {% if section.settings.align_logo == 'left' %}
+            <div class="site-header__search site-header__icon">
+              {% include 'search-form' %}
+        
+       <span class="search-btn"> <span class="label">Search</span><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 37 40"><path d="M35.6 36l-9.8-9.8c4.1-5.4 3.6-13.2-1.3-18.1-5.4-5.4-14.2-5.4-19.7 0-5.4 5.4-5.4 14.2 0 19.7 2.6 2.6 6.1 4.1 9.8 4.1 3 0 5.9-1 8.3-2.8l9.8 9.8c.4.4.9.6 1.4.6s1-.2 1.4-.6c.9-.9.9-2.1.1-2.9zm-20.9-8.2c-2.6 0-5.1-1-7-2.9-3.9-3.9-3.9-10.1 0-14C9.6 9 12.2 8 14.7 8s5.1 1 7 2.9c3.9 3.9 3.9 10.1 0 14-1.9 1.9-4.4 2.9-7 2.9z"></path></svg>
+        <small class="hdr-search-icn"></small>
+      </span>
+      </div>
+          {% endif %}
+         
+          <button type="button" class="btn--link site-header__icon site-header__search-toggle js-drawer-open-top">
+            {% include 'icon-search' %}   
+            <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
+          </button>
+          {% if shop.customer_accounts_enabled %}
+            {% if customer %}
+              <a href="/account" class="site-header__icon site-header__account">
+               
+                {% include 'icon-login' %}
+                <span class="icon__fallback-text">{{ 'layout.customer.account' | t }}</span>
+                 <span class="label">Account</span>
+                 <small class="hdr-user-icn"></small>
+              </a>
+            {% else %}
+              <a href="/account/login" class="site-header__icon site-header__account">
+                {% include 'icon-login' %}
+                <span class="icon__fallback-text">{{ 'layout.customer.log_in' | t }}</span>
+                 <span class="label">Account</span>
+                 <small class="hdr-user-icn"></small>
+              </a>
+            {% endif %}
+          {% endif %}
+
+          <a href="javascript:void(0);" class="site-header__icon site-header__cart">
+             <small class="hdr-cart-icn"></small>
+            {% include 'icon-cart' %}
+            <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+             <span class="label">Bag</span>
+             {% if cart.item_count > 0 %}
+                <div id="CartCount" class="site-header__cart-count desktop-cart-count">
+                  <span class="desktop-CartCount">{{ cart.item_count }}</span>
+                  <span class="mobile-CartCount">{{ cart.item_count }}</span>
+                  <span class="icon__fallback-text medium-up--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
+                </div>
+             {% else %}
+                <div id="CartCount" class="site-header__cart-count desktop-cart-count custom-hiden">
+                  <span class="desktop-CartCount">0</span>
+                  <span class="mobile-CartCount">0</span>
+                  <span class="icon__fallback-text medium-up--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
+                </div>
+             {% endif %}
+          </a>
+
+          {% unless linklists[section.settings.main_linklist] == blank %}
+            <button type="button" class="btn--link site-header__icon site-header__menu js-mobile-nav-toggle mobile-nav--open" aria-controls="navigation"  aria-expanded="false" aria-label="{{ 'layout.navigation.menu' | t }}">
+               <small class="nav-toggle-icn"></small>
+              {% include 'icon-hamburger' %}
+              {% include 'icon-close' %}
+            </button>
+          {% endunless %}
+        </div>
+      </div>
+    </div>
+    <nav class="mobile-nav-wrapper medium-up--hide" role="navigation">
+      <ul id="MobileNav" class="mobile-nav">
+        {% for link in linklists[section.settings.main_linklist].links %}
+          {%- assign outerLoopIndex = forloop.index -%}
+
+          <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}  {{ link.handle }}-nav">
+            {% if link.links != blank %}
+              {% capture child_list_handle %}{{ link.handle }}-{{ outerLoopIndex }}{% endcapture %}
+               <div class="mobile-nav__icon">
+                    {% include 'icon-chevron-right' %}
+                  </div>
+              <a href="{{ link.url }}" class="mobile-nav__link"{% if link.active %} aria-current="page"{% endif %}>
+                  {{ link.title }}
+                </a>
+            
+              <ul class="mobile-nav__dropdown" data-parent="{{ child_list_handle }}" data-level="2">
+                <li class="visually-hidden" tabindex="-1" data-menu-title="2">
+                  {{- link.title }} {{ 'layout.navigation.menu' | t -}}
+                </li>
+                <li class="mobile-nav__item border-bottom">
+                  <div class="mobile-nav__table">
+                    <div class="mobile-nav__table-cell mobile-nav__return">
+                      {%comment%}<button class="btn--link js-toggle-submenu mobile-nav__return-btn" type="button" aria-expanded="true" aria-label="{{ link.title }}">
+                        {% include 'icon-chevron-left' %}
+                      </button>{%endcomment%}
+                      <div class="mobile-nav__icon">
+                    {% include 'icon-chevron-right' %}
+                  </div>
+                     <a href="{{ link.url }}" class="mobile-nav__link js-toggle-submenu mobile-nav__return-btn">
+                        {{ link.title }}
+                    </a>
+                      
+                    </div>
+                    <span class="mobile-nav__sublist-link mobile-nav__sublist-header mobile-nav__sublist-header--main-nav-parent"{% if link.active %} aria-current="page"{% endif %}>
+                      {{ link.title }}
+                    </span>
+                  </div>
+                </li>
+
+                {% for childlink in link.links %}
+                  <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+                    {% if childlink.links != blank %}
+                      {% capture grandchild_list_handle %}{{ childlink.handle }}-{{ outerLoopIndex }}-{{ forloop.index }}{% endcapture %}
+                      {%comment%}<button type="button" class="btn--link js-toggle-submenu mobile-nav__link mobile-nav__sublist-link 1" data-target="{{ grandchild_list_handle }}" aria-expanded="false">
+                        {{ childlink.title }}
+                        <div class="child-mobile-nav">
+                          {% include 'icon-chevron-right' %}
+                        </div>
+                      </button>{%endcomment%}
+                      <a href="{{ childlink.url }}" class="mobile-nav__link js-toggle-submenu mobile-nav__return-btn">
+                              {{ childlink.title }}
+                    </a>
+                      <div class="mobile-nav__icon child-mobile-nav">
+                    {% include 'icon-chevron-right' %}
+                  </div>
+                      <ul class="mobile-nav__dropdown" data-parent="{{ grandchild_list_handle }}" data-level="3">
+                        <li class="visually-hidden" tabindex="-1" data-menu-title="3">
+                          {{- childlink.title }} {{ 'layout.navigation.menu' | t -}}
+                        </li>
+                        <li class="mobile-nav__item border-bottom">
+                          <div class="mobile-nav__table">
+                            <div class="mobile-nav__table-cell mobile-nav__return">
+                              <button type="button" class="btn--link js-toggle-submenu mobile-nav__return-btn" data-target="{{ child_list_handle }}" aria-expanded="true" aria-label="{{ childlink.title }}">
+                                {% include 'icon-chevron-left' %}
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        {% for grandchildlink in childlink.links %}
+                          <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+                            <a href="{{ grandchildlink.url }}" class="mobile-nav__sublist-link"{% if grandchildlink.active %} aria-current="page"{% endif %}>
+                              {{ grandchildlink.title | escape }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% else %}
+                      <a href="{{ childlink.url }}" class="mobile-nav__sublist-link"{% if childlink.active %} aria-current="page"{% endif %}>
+                        {{ childlink.title | escape }}
+                      </a>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <a href="{{ link.url }}" class="mobile-nav__link"{% if link.active %} aria-current="page"{% endif %}>
+                {{ link.title }}
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+    
+     {% if settings.holiday_banner_enable == true and template != 'cart' and product.handle != 'illume-sheer-color-trio-in-sunset' %}
+        {% include 'holiday-sticky-banner' %}
+     {% endif %}
+  
+     {% assign show_h_sticky = false %}
+     {% if settings.skincare_banner_enable == true and template != 'cart' and page.handle != 'coming-soon' %}
+      {% if settings.hide_skinny_pages != blank %}
+            {% assign hide_for_pages = settings.hide_skinny_pages | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+            {% unless hide_for_pages contains request.path %}
+                {% include 'eq_skincare_banner' %}
+          {% assign show_h_sticky = true %}
+            {% endunless %}
+        {% else %}
+            {% include 'eq_skincare_banner' %}
+        {% assign show_h_sticky = true %}
+        {% endif %}
+     {% endif %}
+    
+     {% assign show_sticky_banner = false %}
+     {% if settings.sticky_banner_enable == true and template != 'cart' %}
+      {% if settings.sticky_banner_hide_pages != blank %}
+            {% assign hide_for_pages = settings.sticky_banner_hide_pages | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+            {% unless hide_for_pages contains request.path %}
+                {% include 'sticky_banner' %}
+          {% assign show_sticky_banner = true %}
+            {% endunless %}
+        {% else %}
+            {% include 'sticky_banner' %}
+        {% assign show_sticky_banner = true %}
+        {% endif %}
+     {% endif %}
+    
+     {% assign show_blush_sticky_banner = false %}
+     {% if settings.blush_sticky_banner_enable == true and template != 'cart' %}
+      {% if settings.blush_sticky_banner_hide_pages != blank %}
+            {% assign hide_blush_for_pages = settings.blush_sticky_banner_hide_pages | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+            {% unless hide_blush_for_pages contains request.path %}
+                {% include 'blush_sticky_banner' %}
+          {% assign show_blush_sticky_banner = true %}
+            {% endunless %}
+        {% else %}
+            {% include 'blush_sticky_banner' %}
+        {% assign show_blush_sticky_banner = true %}
+        {% endif %}
+     {% endif %}
+    
+    {% assign show_curator_sticky_banner = false %}
+     {% if settings.curator_sticky_banner_enable == true and template != 'cart' %}
+      {% if settings.curator_sticky_banner_hide_pages != blank %}
+            {% assign hide_curator_for_pages = settings.curator_sticky_banner_hide_pages | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+            {% unless hide_curator_for_pages contains request.path %}
+                {% include 'curator-sticky-banner' %}
+          {% assign show_curatpr_sticky_banner = true %}
+            {% endunless %}
+        {% else %}
+            {% include 'curator-sticky-banner' %}
+        {% assign show_curator_sticky_banner = true %}
+        {% endif %}
+     {% endif %}
+    
+     {% if page.url == '/pages/curator-palette-builder' %}
+       {% assign show_curator_sticky_banner1 = false %}
+       {% if settings.curator_sticky_banner_enable1 == true and template != 'cart' %}
+          {% if settings.curator_sticky_banner_hide_pages1 != blank %}
+              {% assign hide_curator_for_pages1 = settings.curator_sticky_banner_hide_pages1 | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+              {% unless hide_curator_for_pages1 contains request.path %}
+                  {% include 'curator-sticky-banner-page' %}
+                  {% assign show_curatpr_sticky_banner1 = true %}
+              {% endunless %}
+          {% else %}
+              {% include 'curator-sticky-banner-page' %}
+              {% assign show_curator_sticky_banner1 = true %}
+          {% endif %}
+       {% endif %}
+     {% endif %}
+    
+    
+     {% assign show_ambient_sticky_banner = false %}
+     {% if settings.ambient_sticky_banner_enable == true and template != 'cart' %}
+    	{% if settings.ambient_sticky_banner_hide_pages != blank %}
+            {% assign hide_ambient_for_pages = settings.ambient_sticky_banner_hide_pages | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+            {% unless hide_ambient_for_pages contains request.path %}
+                {% include 'ambient-sticky-banner' %}
+    			{% assign show_ambient_sticky_banner = true %}
+            {% endunless %}
+        {% else %}
+            {% include 'ambient-sticky-banner' %}
+    		{% assign show_ambient_sticky_banner = true %}
+        {% endif %}
+     {% endif %}
+    
+    {% if collection.handle == "vanish-collection" or collection.handle =="makeup-complexion-foundation" or collection.handle == "makeup-complexion-concealer" %} 
+    {% assign show_shade_finder_sticky_banner = false %}
+     {% if settings.shade_finder_sticky_banner_enable == true and template != 'cart' %}
+    	{% if settings.shade_finder_sticky_banner_hide_pages != blank %}
+            {% assign hide_shade_finder_for_pages = settings.shade_finder_sticky_banner_hide_pages | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+            {% unless hide_shade_finder_for_pages contains request.path %}
+                {% include 'shade-finder-sticky-banner' %}
+    			{% assign show_shade_finder_sticky_banner = true %}
+            {% endunless %}
+        {% else %}
+            {% include 'shade-finder-sticky-banner' %}
+    		{% assign show_shade_finder_sticky_banner = true %}
+        {% endif %}
+     {% endif %}
+    {% endif %}
+    
+    
+    {% assign show_waitlist_sticky_banner = false %}
+     {% if settings.waitlist_sticky_banner_enable == true and template != 'cart' %}
+      {% if settings.waitlist_sticky_banner_hide_pages != blank %}
+            {% assign hide_waitlist_for_pages = settings.waitlist_sticky_banner_hide_pages | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+            {% unless hide_waitlist_for_pages contains request.path %}
+                {% include 'waitlist-sticky-banner' %}
+          {% assign show_waitlist_sticky_banner = true %}
+            {% endunless %}
+        {% else %}
+            {% include 'waitlist-sticky-banner' %}
+        {% assign show_waitlist_sticky_banner = true %}
+        {% endif %}
+     {% endif %}
+    
+    
+  </header>
+    
+     {% assign show_waitlist_sticky_banner1 = false %}
+     {% if settings.waitlist_sticky_banner_enable1 == true and template != 'cart' %}
+      {% if settings.waitlist_sticky_banner_hide_pages1 != blank %}
+            {% assign hide_waitlist_for_pages1 = settings.waitlist_sticky_banner_hide_pages1 | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+            {% unless hide_waitlist_for_pages1 contains request.path %}
+                {% include 'waitlist-nonsticky-banner' %}
+          {% assign show_waitlist_sticky_banner1 = true %}
+            {% endunless %}
+        {% else %}
+            {% include 'waitlist-nonsticky-banner' %}
+        {% assign show_waitlist_sticky_banner1 = true %}
+        {% endif %}
+     {% endif %}
+        
+    {% if settings.skincare_banner_enable == true and template != 'cart' and page.handle != 'coming-soon' %}
+      <span class="h-sticky-bnr-height"></span>
+    {% endif %}
+    {% unless show_h_sticky %}
+      <script>var headerSticky = jQuery('#header.site-header').height();
+       jQuery('.h-sticky-bnr-height').height(headerSticky);</script>
+    {% endunless %}
+    
+    {% if template != 'cart' %}
+      <span class="sticky-bnr-height"></span>   
+    {% endif %}
+    {% unless show_sticky_banner %}
+      <script>var headerSticky = jQuery('#header.site-header').height();
+       jQuery('.sticky-bnr-height').height(headerSticky);</script>
+    {% endunless %}
+    {% unless show_blush_sticky_banner %}
+      <script>var headerSticky = jQuery('#header.site-header').height();
+       jQuery('.sticky-bnr-height').height(headerSticky);</script>
+    {% endunless %}
+       
+     {% unless show_curator_sticky_banner %}
+      <script>var headerSticky = jQuery('#header.site-header').height();
+       jQuery('.sticky-bnr-height').height(headerSticky);</script>
+    {% endunless %}
+     {% unless show_curator_sticky_banner1 %}
+      <script>var headerSticky = jQuery('#header.site-header').height();
+       jQuery('.sticky-bnr-height').height(headerSticky);</script>
+    {% endunless %}
+    
+    {% unless show_ambient_sticky_banner %}
+      <script>var headerSticky = jQuery('#header.site-header').height();
+       jQuery('.sticky-bnr-height').height(headerSticky);</script>
+    {% endunless %}
+    
+    {% unless show_shade_finder_sticky_banner %}
+      <script>var headerSticky = jQuery('#header.site-header').height();
+       jQuery('.sticky-bnr-height').height(headerSticky);</script>
+    {% endunless %}
+    
+    {% unless show_waitlist_sticky_banner %}
+      <script>var headerSticky = jQuery('#header.site-header').height();
+       jQuery('.sticky-bnr-height').height(headerSticky);</script>
+    {% endunless %}
+    
+    {% unless show_waitlist_sticky_banner1 %}
+      <script>var headerSticky = jQuery('#header.site-header').height();
+       jQuery('.sticky-bnr-height').height(headerSticky);</script>
+    {% endunless %}
+    
+    
+     {% if settings.covid_enable == true %}    
+      <div class="due-covid covid_virus_banner_section black_friday_banner" style="background-color:{{settings.bg_color}}">
+        <div class="due-covid-cont">
+          {% if settings.covid_heading != blank %}
+          <strong style="color:{{settings.text_color}}">{{settings.covid_heading}}</strong>
+          {% endif %}
+          <p style="color:{{settings.text_color}}">{{settings.covid_subheading}}</p>
+        </div>
+      </div>
+    {% endif %}
+            
+  </div>
+  {% assign cautionpages = "/pages/usecaution,/pages/dst,/pages/dtt,/pages/lovely,/pages/basic,/pages/blame,/pages/adventure,/pages/reboot,/pages/sazan,/pages/lady,/pages/forever35,/pages/iliza,/pages/helpless,/pages/almost30,/pages/persister,/pages/artbeauty,/pages/slapped,/pages/ido,/pages/dateable,/pages/behere,/pages/love,/pages/fcol,/pages/beautyinsideout,/pages/murder,/pages/selfie,/pages/gge,/pages/shameless" | split: ',' %}
+  {% if cautionpages contains page.url %}
+    <ul class="messages" id="NewsMessage" style="display:none;"><li class="success-msg"><ul><li><span id="messageSpan">Thank you for your subscription.</span><a class="msg-close" href="javascript:;">X</a></li></ul></li></ul>
+  {% endif %}
+  
+  {% if section.settings.align_logo == 'center' %}
+  <nav class="small--hide border-bottom" id="AccessibleNav" role="navigation">
+    {% include 'site-nav', nav_alignment: 'site-nav--centered' %}
+  </nav>
+  {% endif %}
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Header",
+      "de": "Titel",
+      "fr": "En-tête"
+    },
+    "settings": [
+      {
+        "type": "radio",
+        "id": "align_logo",
+        "label": {
+          "en": "Logo alignment",
+          "de": "Logo-Ausrichtung",
+          "fr": "Alignement du logo"
+        },
+        "default": "left",
+        "options": [
+          {"value": "left", "label": { "en": "Left", "de": "Links", "fr": "Gauche" }},
+          {"value": "center", "label": { "en": "Centered", "de": "Mittig", "fr": "Centré" }}
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": {
+          "en": "Logo image",
+          "de": "Logo-Foto",
+          "fr": "Image du logo"
+        }
+      },
+    {
+        "type": "image_picker",
+        "id": "logo2",
+        "label": {
+          "en": "Black Logo image",
+          "de": "Black Logo image",
+          "fr": "Black Logo image"
+        }
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "label": {
+          "en": "Custom logo width",
+          "de": "Logobreite",
+          "fr": "Largeur personnalisée du logo"
+        },
+        "min": 50,
+        "max": 250,
+        "step": 5,
+        "unit": "px",
+        "default": 100
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": {
+          "en": "Menu",
+          "de": "Menü",
+          "fr": "Menu"
+        },
+        "default": "main-menu"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Announcement bar",
+          "de": "Ankündigungsbereich",
+          "fr": "Barre d'annonces"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "message",
+        "label": {
+          "en": "Show announcement",
+          "de": "Ankündigung anzeigen",
+          "fr": "Afficher l'annonce"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "home_page_only",
+        "label": {
+          "en": "Home page only",
+          "de": "Nur Startseite",
+          "fr": "Page d'accueil uniquement"
+        },
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "message_text",
+        "label": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "default": {
+          "en": "Announce something here",
+          "de": "Hier etwas ankündigen",
+          "fr": "Annoncez quelque chose ici"
+        }
+      },
+      {
+        "type": "url",
+        "id": "message_link",
+        "label": {
+          "en": "Link",
+          "de": "Link",
+          "fr": "Lien"
+        },
+        "info": {
+          "en": "Optional",
+          "de": "Optional",
+          "fr": "Facultatif"
+        }
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": {
+          "en": "Bar",
+          "de": "Zeile",
+          "fr": "Barre"
+        },
+        "default": "#7796a8"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "default": "#fff"
+      },
+    {
+        "type": "header",
+        "content": {
+          "en": "Wishlist Banner Bar",
+          "de": "Wishlist Banner Bar",
+          "fr": "Wishlist Banner Bar"
+        }
+      },
+    {
+        "type": "image_picker",
+        "id": "wishlist_banner",
+        "label": {
+          "en": "Wishlist image",
+          "de": "Wishlist image",
+          "fr": "Wishlist image"
+        }
+      },
+    {
+        "type": "text",
+        "id": "wishlist_text",
+        "label": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        }
+      },
+    {
+        "type": "text",
+        "id": "wishlist_button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "wishlist_button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+    ]
+  }
+{% endschema %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "{{ shop.name }}",
+  {% if section.settings.logo %}
+    {% assign image_size = section.settings.logo.width | append:'x' %}
+    "logo": "https:{{ section.settings.logo | img_url: image_size }}",
+  {% endif %}
+  "sameAs": [
+    "{{ settings.social_twitter_link }}",
+    "{{ settings.social_facebook_link }}",
+    "{{ settings.social_pinterest_link }}",
+    "{{ settings.social_instagram_link }}",
+    "{{ settings.social_tumblr_link }}",
+    "{{ settings.social_snapchat_link }}",
+    "{{ settings.social_youtube_link }}",
+    "{{ settings.social_vimeo_link }}"
+  ],
+  "url": "{{ shop.url }}{{ page.url }}"
+}
+</script>
+
+{% if template.name == 'index' %}
+  <ul id="section-bullet"></ul>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "url": "{{ shop.url }}{{ page.url }}"
+    }
+  </script>
+  <script>    
+    $( document ).ready(function() {
+      var bullet_count=0;
+      $("#MainContent .shopify-section").each(function(data) {
+          bullet_count = bullet_count+1;
+          var section_id = $(this).attr('id');
+          var anchor_id = "anchorbullet-"+bullet_count;
+          $("#section-bullet").append('<li><a aria-label="section" id="'+anchor_id+'" href="#'+section_id+'">&nbsp;</a></li>');
+      }); 
+    });    
+  </script>
+{% endif %}

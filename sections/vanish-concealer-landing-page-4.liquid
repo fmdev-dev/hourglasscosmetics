@@ -1,0 +1,103 @@
+<div class="vanish-concealer-landing-page-4-bnr" style="background-color:black;">
+  <div class="pairwith-scn">	
+  <div class="page-vclp4-content">
+    <div class="vclp4-detail">
+      	<div class="vclp4-title">{{ section.settings.title }}</div>
+      	<div class="vclp4-section arch-brow-list">
+          
+           {% for block in section.blocks %}
+              {% assign producthandle = block.settings.product_handle %}
+              <div class="arch-brow-c-item">
+                  <div class="arch-brow-c-cont">
+                      <h3>{{block.settings.title}}</h3>
+                      <span class="arch-brow-label">{% if block.settings.new_enable %}New{% endif %}</span>
+                    <a href="/products/{{ producthandle }}"><span class="arch-brow-info">{% if block.settings.heading != '' %}{{block.settings.heading}}{% endif %}</span></a>
+                      <span class="arch-price">${% if block.settings.price != '' %}{{block.settings.price}}{% endif %}</span>
+                  </div>
+                  {% if block.settings.desk_image != blank %}
+                  <div class="arch-coll-img">
+                    <a href="/products/{{ producthandle }}"><img class="lazyload" data-src="{{ block.settings.desk_image | img_url : '397x515' }}" src="{{ block.settings.desk_image | img_url : '107x25' }}" alt="Vanish airbrush concealer" /></a>
+                  </div>
+                  {% endif %}
+                 {% if producthandle != blank %}
+                       {% assign product = all_products[producthandle] %}
+                       {% include 'product-addtocart', product: product %}
+                 {% endif %}
+              </div>
+           {% endfor %}
+
+          
+      	</div>
+    </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+    "name": "Pair With",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "de": "Title",
+          "en": "Title",
+          "fr": "Title"
+        }
+      }
+	],   	  
+	"max_blocks":6, 
+ 	"blocks":[
+      {
+         "type":"pairwithsection",
+         "name":{
+            "de":"pairwith section",
+            "en":"pairwith section",
+            "fr":"pairwith section"
+         },
+         "settings":[
+            {
+               "id":"title",
+               "type":"text",
+               "label":"Title"
+            },
+            {
+               "type": "checkbox",
+               "id": "new_enable",
+               "label": "New Label",
+               "default":   false,
+               "info": "Check for enable New Label"
+            },
+            {
+               "id":"heading",
+               "type":"text",
+               "label":"Heading"
+            },
+            {
+               "id":"price",
+               "type":"text",
+               "label":"Price"
+            },
+            {
+               "type":"image_picker",
+               "id":"desk_image",
+               "label":{
+                  "en":"Product Image",
+                  "de":"Product Image",
+                  "fr":"Product Image"
+               }
+            },
+            {
+               "id":"product_handle",
+               "type":"text",
+               "label":"Product Handle"
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

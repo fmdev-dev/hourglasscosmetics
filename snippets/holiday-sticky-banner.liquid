@@ -1,0 +1,22 @@
+<div class="sticky-holiday-banner illume-banner">
+  <div class="sticky-holiday-cont">
+    <img class="sticky-desktop-image lazyload" src="{{ settings.holiday_desktop_image | img_url: '100x' }}" data-src="{{ settings.holiday_desktop_image | img_url: 'master' }}" alt="{{ settings.holiday_desktop_image.alt }}" />
+    <img class="sticky-mobile-image lazyload" src="{{ settings.holiday_mobile_image | img_url: '100x' }}" data-src="{{ settings.holiday_mobile_image | img_url: 'master' }}" alt="{{ settings.holiday_mobile_image.alt }}" />
+    <div class="sticky-wishlist-info">
+      <div class="illume-banner-cont">
+      <div class="left-section">
+         <span class="title">{{ settings.holiday_title }}</span>        
+         <div class="date">{{ settings.holiday_description }}</div>
+         {% if settings.holiday_btn_label != blank and settings.holiday_btn_link != blank %}
+           <a href="{{ settings.holiday_btn_link }}">{{ settings.holiday_btn_label }}</a>
+         {% endif %}
+      </div>
+      	<div class="right-section">
+         {% if settings.holiday_btn_label != blank and settings.holiday_btn_link != blank %}
+           <a href="{{ settings.holiday_btn_link }}">{{ settings.holiday_btn_label }}</a>
+         {% endif %}
+       </div>      
+      </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<div id="new-bestseller-section" class="section new-bestsellers-products" data-idsss="{{ request.host }}">
+  {% if section.settings.title != blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endif %}
+  <div class="collection_list">
+    <div class="coll-list-slider">
+      {% if request.host != 'hourglasscosmetics.myshopify.com' %}
+        {% for product in collections[section.settings.collection].products %}
+          <div class="coll-list-item">
+            {% include 'bestseller-product-card-grid-slider', max_height: max_height %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{{ 'slick.min.js' | asset_url | script_tag }}
+<script>
+$('.new-bestsellers-products .coll-list-slider').slick({
+dots: false,
+infinite: false,
+arrows:true,
+speed: 300,
+slidesToShow: 4,
+slidesToScroll: 4,
+responsive: [
+{
+breakpoint: 1100,
+settings: {
+slidesToShow: 3,
+slidesToScroll: 3,
+}
+},
+{
+breakpoint: 992,
+settings: {
+slidesToShow: 2,
+slidesToScroll: 2
+}
+}
+]
+});
+</script>
+<script>
+jQuery(".colorsltShare1").click(function() {
+  jQuery(".more-options .color-pallets-wrap")
+  .stop()
+  .slideUp();
+  jQuery(this)
+  .next()
+  .stop()
+  .slideToggle();
+});
+</script>
+{% schema %}
+{
+"name": "New Bestsellers",
+"class": "index-section index-section--flush",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": {
+"en": "Heading",
+"de": "Titel",
+"fr": "En-tête"
+}
+},
+{
+"label": {
+"en": "Collection",
+"de": "Kategorie",
+"fr": "Collection"
+},
+"id": "collection",
+"type": "collection"
+}
+],
+"presets": [
+{
+"name": {
+"en": "New Bestsellers",
+"de": "New Bestsellers",
+"fr": "New Bestsellers"
+},
+"category": {
+"en": "Advanced layout",
+"de": "Komplizierteres Layout",
+"fr": "Mise en page avancée"
+}
+}
+]
+}
+{% endschema %}
+{% stylesheet %}
+{% endstylesheet %}
+{% javascript %}
+{% endjavascript %}

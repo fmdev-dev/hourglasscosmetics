@@ -1,0 +1,119 @@
+<div class="vlf-pdp">
+  <div class="vanish-howtouse">
+    <div class="heading-style-border">
+      <h3>ARCH BROW TUTORIAL</h3>
+    </div>
+  </div>
+<div class="product-carousel-section owl-carousel owl-theme" id="product-video-carousel">
+     
+    {% for block in section.blocks %} 
+        <div class="item">
+            <div class="product-video-item">
+                <div class="product-content-video">
+                    <span>{{ block.settings.title }}</span>
+                    <h3>{{ block.settings.heading }}</h3>
+                    <a class="videoplay-icon" href="{{ block.settings.video_link }}" data-fancybox="bigbuckbunny" data-width="640" data-height="360">&thinsp;</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}  
+
+    {% comment %}
+    <!--div class="item">
+    <div class="product-video-item">
+        <div class="product-content-video">
+            <span>How to apply</span>
+            <h3>Diffused Coverage</h3>
+            <a class="videoplay-icon" href="https://www.youtube.com/embed/sLB9KujmEYo" data-fancybox="bigbuckbunny" data-width="640" data-height="360"></a>
+        </div>
+    </div>
+    </div>
+    <div class="item">
+    <div class="product-video-item">
+        <div class="product-content-video">
+            <span>How to apply</span>
+            <h3>Luminous Coverage</h3>
+            <a class="videoplay-icon" href="https://www.youtube.com/embed/nnDh8U0nP6g" data-fancybox="bigbuckbunny" data-width="640" data-height="360"></a>
+        </div>
+    </div>
+    </div>
+    <div class="item">
+    <div class="product-video-item">
+        <div class="product-content-video">
+            <span>How to apply</span>
+            <h3>Targeted Coverage</h3>
+            <a class="videoplay-icon" href="https://www.youtube.com/embed/WxW45lLgdK4" data-fancybox="bigbuckbunny" data-width="640" data-height="360"></a>
+        </div>
+    </div>
+    </div-->
+    {% endcomment %}
+  </div>
+<div class="howtousepopup">
+<div class="fancybox-overlay">
+<span class="howtousepopup-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path></svg></span>
+</div>
+<div class="fancybox-box-main">
+    <iframe title="Opens in a new window" id="youtubevidid" class="fancybox-iframe" width="640" height="360" src="" frameborder="0" title="Hourglass Cosmetics" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+
+
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+     jQuery('.howtousepopup').appendTo('.main-content')
+      jQuery('.videoplay-icon').click(function(event){
+        event.preventDefault();
+        var currentSrc = jQuery(this).attr("href") + "?autoplay=1&loop=1";
+        jQuery('#youtubevidid').attr("src", currentSrc);
+        jQuery('.fancybox-overlay, .fancybox-box-main').show();
+      })
+      
+
+      jQuery('.howtousepopup-close, .fancybox-overlay').click(function(event){
+        event.preventDefault();
+        jQuery('#youtubevidid').attr("src",'?autoplay=1&loop=1');
+        jQuery('.fancybox-overlay, .fancybox-box-main').hide();
+      })
+
+    })
+</script>
+
+
+
+{% schema %}
+{
+
+    "name": "Video Slider Section",
+    "max_blocks": 20,
+    "blocks": [
+        {
+          "type": "videoslider",
+          "name": {
+            "de": "Video Slider Section",
+            "en": "Video Slider Section",
+            "fr": "Video Slider Section"
+          },
+          "settings": [
+              {
+                "id": "title",
+                "type": "text",
+                "label": "Title"
+              },
+              {
+                "id": "heading",
+                "type": "text",
+                "label": "Heading"
+              },
+              {
+                "id": "video_link",
+                "type": "url",
+                "label": "Video Link"
+              }
+            ]
+        }
+      ]
+
+}
+{% endschema %}
+

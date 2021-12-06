@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="33" viewBox="0 0 35 33">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Bag_Black);
+      }
+
+      .cls-2, .cls-4 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #000;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+    <clipPath id="clip-Bag_Black">
+      <rect width="35" height="33"/>
+    </clipPath>
+  </defs>
+  <g id="Bag_Black" data-name="Bag–Black" class="cls-1">
+    <g id="Group_3" data-name="Group 3" transform="translate(8 5)">
+      <g id="Rectangle_6154" data-name="Rectangle 6154" class="cls-2" transform="translate(0 6.796)">
+        <path class="cls-3" d="M0,0H18.152a0,0,0,0,1,0,0V13.731a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V0A0,0,0,0,1,0,0Z"/>
+        <path class="cls-4" d="M1,.5H17.152a.5.5,0,0,1,.5.5V13.731a1.5,1.5,0,0,1-1.5,1.5H2a1.5,1.5,0,0,1-1.5-1.5V1A.5.5,0,0,1,1,.5Z"/>
+      </g>
+      <g id="Group_7" data-name="Group 7" transform="translate(3.049 0.448)">
+        <path id="Intersection_3" data-name="Intersection 3" class="cls-2" d="M-1059.652-541.292v-1.19a3.463,3.463,0,0,1,3.631-3.267,3.463,3.463,0,0,1,3.63,3.267v1.19Z" transform="translate(1062.049 548)"/>
+      </g>
+    </g>
+  </g>
+</svg>

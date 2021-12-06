@@ -1,0 +1,37 @@
+<div class="form-message form-message--success hide contact-message" id="SuccessMsg"></div>
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth">
+      {% if page.handle != "faq" %}
+        <div class="section-header text-center">
+         
+        </div>
+      {% endif %}
+      <h2 class="requiredtag"></h2>
+      <h3 class="requiredtag"></h3>
+      <div class="rte">
+         {% section 'curator-lp-banner' %}
+       {% section 'curator-lp-banner-2' %}
+       {% section 'curator-video-banner' %}
+       {% section 'curator-text-content' %}
+       {% section 'curator-content-video' %}
+       {% section 'curatoor-pan' %}
+       {% section 'curator-video-banner-2' %}
+       {% section 'curator-content-tab' %}
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %}
+  <script>
+  $(document).ready(function(){
+    $("#contactiframe").load("https://migration.hourglasscosmetics.com/contact.html");
+  });
+  </script>
+{% endcomment %}
+<script>
+$(document).ready(function(){
+  $("#contactiframe").load("https://migration-live.hourglasscosmetics.com/contact.html");
+  //$("#contactiframe1").load("https://migration-live.hourglasscosmetics.com/contact.html");
+});
+</script>

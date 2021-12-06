@@ -1,0 +1,74 @@
+ 
+
+<div class="grove-popup-first">
+	<div class="grove-popup-f-img"><img src="{{ section.settings.image1 | img_url: '618x862' }}" alt="{{ section.settings.title }}" /></div>
+	<div class="grove-popup-f-cont">
+	<div class="grovepopup-f-top">
+	<h2>{{ section.settings.title }}</h2>
+	<p>{{ section.settings.text1 }} <strong>{{ section.settings.text2 }}</strong></p>
+	</div>
+	<div class="arch-s-pencil" style="background-image: url('{{ section.settings.image2 | img_url: '804x300' }}');">
+	<div class="arch-s-pencil-cont"><span class="arch-s-pencil-new">{{ section.settings.new_title }}</span> <span class="arch-s-pencil-title">{{ section.settings.title2 }}</span></div>
+	<a href="{{ section.settings.btn_link }}" class="pencil-lorem-more">{{ section.settings.btn_label }}</a></div>
+	</div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Left image right contect",
+      "de": "Left image right contect",
+      "fr": "Left image right contect"
+    },
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Image 1"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      },
+	  {
+        "type": "textarea",
+        "id": "text1",
+        "label": "Text 1"
+      },
+	  {
+        "type": "text",
+        "id": "text2",
+        "label": "Text 2"
+      },      
+	  {
+        "type": "image_picker",
+        "id": "image2",
+        "label": "Image 2"
+      },
+	  {
+        "type": "text",
+        "id": "title2",
+        "label": "Title"
+      },
+	  {
+        "type": "text",
+        "id": "new_title",
+        "label": "New Title"
+      },
+	  {
+        "type": "text",
+        "id": "btn_label",
+        "label": "Button Link"
+      },
+	  {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button URL"
+      }
+    ]
+
+  }
+{% endschema %}

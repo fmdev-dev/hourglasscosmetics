@@ -1,0 +1,170 @@
+<div class="section veil-video">
+  <div class="veil-video-video">
+    <div class="veil-video-dtl veil-primer">
+        <div class="veil-video-continfo">
+          {% if section.settings.primer_title1 != blank %}
+          <strong class="veil-video-title">{{ section.settings.primer_title1 }}</strong>
+          {% endif %}
+          {% if section.settings.primer_title2 != blank %}
+          <strong  class="veil-video-subtitle">{{ section.settings.primer_title2 }}</strong>
+          {% endif %}
+          <span class="video-icon"></span>
+        </div>
+        {% if section.settings.primer_image != blank %}
+        <img class="lazyload" data-src="{{ section.settings.primer_image | img_url : 'master' }}" src="{{ section.settings.primer_image | img_url : '10x10' }}" alt="{{ section.settings.primer_title1 }} {{ section.settings.primer_title2 }}" />
+        {% endif %}
+        {% if section.settings.primer_video_urlll != blank %}
+        <div class="video-wrapper">
+          <iframe src="{{ section.settings.primer_video_url }}" width="100%" height="100%" frameborder="0"></iframe>
+          {% comment %}<video id="unrestricted-vimiovideo" title="{{ section.settings.title2 }}" class="vimiovideo videoDataLayer vimiovideo-item" playsinline autoplay controls><source type="video/mp4" src="{{ section.settings.primer_video_url }}"></video>{% endcomment %}
+        </div>
+        {% endif %}        
+    </div>
+    <div class="veil-video-dtl veil-spray">
+      <div class="veil-video-continfo">
+      {% if section.settings.spray_title1 != blank %}
+      <strong class="veil-video-title">{{ section.settings.spray_title1 }}</strong>
+      {% endif %}
+      {% if section.settings.spray_title2 != blank %}
+      <strong class="veil-video-subtitle">{{ section.settings.spray_title2 }}</strong>
+      {% endif %}
+         <span class="video-icon"></span>
+        </div>
+      {% if section.settings.spray_image != blank %}
+      	<img class="lazyload" data-src="{{ section.settings.spray_image | img_url : 'master' }}" src="{{ section.settings.spray_image | img_url : '10x10' }}" alt="{{ section.settings.spray_title1 }} {{ section.settings.spray_title2 }}" />
+      {% endif %}
+      {% if section.settings.spray_video_urlll != blank %}
+        <div class="video-wrapper">
+          <iframe src="{{ section.settings.spray_video_url }}" width="100%" height="100%" frameborder="0"></iframe>
+          {% comment %}<video id="unrestricted-vimiovideo" title="{{ section.settings.spray_title1 }}" class="vimiovideo videoDataLayer vimiovideo-item" playsinline autoplay controls><source type="video/mp4" src="{{ section.settings.spray_video_url }}"></video>{% endcomment %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  jQuery('.veil-primer .veil-video-continfo .video-icon').click(function() {
+    $(".veil-primer .veil-video-continfo, .veil-primer img").addClass("veil-video-playing");
+    $(".veil-primer").append('<div class="video-wrapper"><video width="100%" height="100%" playsinline="" autoplay="autoplay" muted="" controls><source src="{{ section.settings.primer_video_url }}" type="video/mp4" /></video></div>');
+  });
+  jQuery('.veil-spray .veil-video-continfo .video-icon').click(function() {
+    $(".veil-spray .veil-video-continfo, .veil-spray img").addClass("veil-video-playing");
+    $(".veil-spray").append('<div class="video-wrapper"><video width="100%" height="100%" playsinline="" autoplay="autoplay" muted="" controls><source src="{{ section.settings.spray_video_url }}" type="video/mp4" /></video></div>');
+  });
+</script>
+{% schema %}
+  {
+    "name": "Veil Video",
+    "settings": [
+		{
+        	"type": "header",
+        	"content": {
+          		"en": "Primer bar",
+          		"de": "Primer bar",
+          		"fr": "Primer bar"
+        	}
+      	},
+		{
+           "type":"text",
+           "id":"primer_title1",
+           "label":{
+              "en":"Primer Title 1",
+              "de":"Primer Title 1",
+              "fr":"Primer Title 1"
+           }
+        },
+		{
+           "type":"text",
+           "id":"primer_title2",
+           "label":{
+              "en":"Primer Title 2",
+              "de":"Primer Title 2",
+              "fr":"Primer Title 2"
+           }
+        },
+		{
+        	"type":"image_picker",
+        	"id":"primer_image",
+        	"label":{
+        		"en":"Primer Image",
+        		"de":"Primer Image",
+        		"fr":"Primer Image"
+        	}
+        },
+        {
+           "type":"url",
+           "id":"primer_video_url",
+           "label":{
+              "en":"Primer Video URL",
+              "de":"Primer Video URL",
+              "fr":"Primer Video URL"
+           }
+        },
+		{
+        	"type": "header",
+        	"content": {
+          		"en": "Spray bar",
+          		"de": "Spray bar",
+          		"fr": "Spray bar"
+        	}
+      	},
+		{
+           "type":"text",
+           "id":"spray_title1",
+           "label":{
+              "en":"Spray Title 1",
+              "de":"Spray Title 1",
+              "fr":"Spray Title 1"
+           }
+        },
+		{
+           "type":"text",
+           "id":"spray_title2",
+           "label":{
+              "en":"Spray Title 2",
+              "de":"Spray Title 2",
+              "fr":"Spray Title 2"
+           }
+        },
+		{
+        	"type":"image_picker",
+        	"id":"spray_image",
+        	"label":{
+        		"en":"Spray Image",
+        		"de":"Spray Image",
+        		"fr":"Spray Image"
+        	}
+        },
+        {
+           "type":"url",
+           "id":"spray_video_url",
+           "label":{
+              "en":"Spray Video URL",
+              "de":"Spray Video URL",
+              "fr":"Spray Video URL"
+           }
+        }
+	],
+	"presets":[
+      {
+         "name":{
+            "de":"veilvideo",
+            "en":"veilvideo",
+            "fr":"veilvideo"
+         },
+         "category":{
+            "de":"Collections",
+            "en":"Collections",
+            "fr":"Collections"
+         }
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

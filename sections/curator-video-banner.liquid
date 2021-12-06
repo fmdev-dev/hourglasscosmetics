@@ -1,0 +1,92 @@
+<div class="curator_video_banner curator-content-video-scn" data-autoplay="{{ section.settings.autoplay}}">
+  <div class="page-content">    
+    <div class="video-section" id="video-section1">
+      <span class="desktop_view c-video-playbtn" id="desktop-video-playbtn"></span>
+      <span class="mobile_view c-video-playbtn" id="mobile-video-playbtn"></span>
+      <div class="mobile_view" width="100%" playsinline loop muted autoplay>  
+        <img class="image lazyload" data-src="{{ section.settings.image | img_url: 'master' }}" src="{{ section.settings.image | img_url: '100x' }}" alt="{{ section.settings.title }}">
+        <iframe id="mobileiframeVideo" class="iframeVideo" src="{{ section.settings.mobile_video_url }}" width="640" height="360" frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div> 
+      <div class="desktop_view" width="100%" playsinline loop muted autoplay >  
+         <img class="image lazyload" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x' }}" alt="{{ section.settings.title }}">
+         <iframe id="desktopiframeVideo" class="iframeVideo" src="{{ section.settings.desktop_video_url }}" width="1018" height="570" frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+       	
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('#desktop-video-playbtn').click(function(){
+      $('#video-section1').addClass('cvideoplay');
+      	var vmsrc = $('#desktopiframeVideo').attr('src').replace();
+		$('#desktopiframeVideo').attr('src', vmsrc +'?autoplay=1&loop=1&autopause=0');
+    });
+    
+    $('#mobile-video-playbtn').click(function(){
+      $('#video-section1').addClass('cvideoplay');
+      	var vmsrc = $('#mobileiframeVideo').attr('src').replace();
+		$('#mobileiframeVideo').attr('src', vmsrc +'?autoplay=1&loop=1&autopause=0');
+    });
+    
+  });
+  
+</script>
+
+{% schema %} 
+  {
+  "name": "Video Section",
+  "settings": [
+      {
+          "type": "header",
+          "content": " Video Section"
+      },
+	   {
+      "id": "autoplay",
+      "type": "checkbox",
+      "label": "Autoplay",
+      "default": false
+    },
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": { "en": "Desktop Image" }
+      },
+	    {
+        "type":"url",
+        "id":"desktop_video_url",
+        "label":{
+          "en":"Desktop Video URL"               
+        }
+      },
+      
+	   {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": { "en": "Mobile Image" }
+      },
+      {
+        "type":"url",
+        "id":"mobile_video_url",
+        "label":{
+          "en":"Mobile Video URL"               
+        }
+      }
+     
+
+  ],
+  "presets": [
+     {
+        "name": {
+          "en": "Curator Video Section"        
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+     }
+  ]
+}
+{% endschema %}

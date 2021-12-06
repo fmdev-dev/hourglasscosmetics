@@ -1,0 +1,192 @@
+<div class="section red0_pdp_videobanner_section">
+
+    <div class="banner-content left">        
+       <div class="content-inner"> 
+         
+          {% if section.settings.badge != blank %}
+          <div class="badge">{{ section.settings.badge }}</div>
+          {% endif %}     
+         
+          {% if section.settings.title != blank %}
+          <div class="title">{{ section.settings.title }}</div>
+          {% endif %}    
+
+          {% if section.settings.description != blank %}
+          <div class="description">{{ section.settings.description }}</div>
+          {% endif %} 
+
+          {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+          <div class="actions">
+            <a href="{{ section.settings.button_link }}"> <span>{{ section.settings.button_label | escape }}</span> </a>
+          </div>
+          {% endif %}          
+       </div>       
+    </div>
+  
+    <div class="bgimage_video_area">
+      
+      <div class="vimeo_video_section">
+        {% assign vdo_url = section.settings.vimeo_video_id | split: "?" %}
+        {% assign vdo_id = vdo_url[0] | split: ".com/video/" %}    
+        {% assign vimeo_video_id = vdo_id[1] %}  
+        
+        <div id="redvimeoplayer"></div>
+        <div class="video_sound_on hide">ON</div>
+        <div class="video_sound_off">OFF</div>
+
+        <script src="https://player.vimeo.com/api/player.js"></script>
+        <script>
+            var options = {
+              id: {{ vimeo_video_id }},
+                width: 640,
+                loop: true,
+                autopause: true,
+                muted: true,
+                controls: false
+            };
+            var vimeoplayer = new Vimeo.Player('redvimeoplayer', options);    
+            $(".video_sound_on").click(function(){
+               vimeoplayer.setVolume(0);
+               $(".video_sound_on").addClass('hide');
+               $(".video_sound_off").removeClass('hide');
+            });
+            $(".video_sound_off").click(function(){
+               vimeoplayer.setVolume(1);
+               $(".video_sound_on").removeClass('hide');
+               $(".video_sound_off").addClass('hide'); 	
+            });
+
+            /* RESPONSIVE HEIGHT */
+            if($(window).width() <= 599) {
+              /* console.log("Mobile"); */ var extra_height = 1000;
+            }
+            else if($(window).width() <= 780) {
+              /* console.log("Ipad Small"); */ var extra_height = 750;
+            } 
+            else if($(window).width() <= 1050) {
+              /* console.log("Ipad Big"); */ var extra_height = 650;
+            }
+            else if($(window).width() <= 1280) {
+              /* console.log("Desktop Small"); */ var extra_height = 200;
+            }
+            else if($(window).width() <= 1455) {
+              /* console.log("Desktop Small"); */ var extra_height = 300;
+            }
+          	else {
+              /* console.log("Desktop Big"); */ var extra_height = 80;
+            }
+            extra_height = extra_height-30;
+            /* SECTION SCROLL TO PLAY VIDEO FUNCTION */
+            $(window).scroll(function() {              
+              var scrollDistance = $(window).scrollTop();
+              var bottom_height = $("#shopify-section-red0_pdp_videobanner").height() + extra_height; 
+              var bottom_height_plus = bottom_height + 150;
+               if(scrollDistance >= bottom_height && scrollDistance <= bottom_height_plus) {
+                   vimeoplayer.play();
+                   $(".bgimage_video_area .bnr-img").css("opacity","0");
+               }
+            }).scroll();
+
+          
+        </script>
+      </div>
+      
+      {% if section.settings.desk_image != blank %}
+         <img class="bnr-img banner-desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: 'master' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+           {% if section.settings.desk_image %}
+           data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+           {% endif %}> 
+      {% endif %}
+      
+      {% if section.settings.mob_image != blank %}
+      	 <img class="bnr-img banner-mob-img lazyload" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x' }}" alt="Hourglass Cosmetics"
+           {% if section.settings.mob_image %}
+           data-bgset="{% include 'bgset', image: section.settings.mob_image %}"
+           {% endif %}> 
+      {% endif %}
+      
+    </div>
+  
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Red0 - Videobanner"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	  {
+        "type": "url",
+        "id": "vimeo_video_id",
+        "label": {
+          "en": "Vimeo Video URL"
+        },
+		"info": "Ex: https://player.vimeo.com/video/387940149"
+      },
+	  {
+           "type":"text",
+           "id":"badge",
+           "label":{ 
+              "en":"Badge",
+              "de":"Badge",
+              "fr":"Badge"
+           }
+      },
+	  {
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+      {
+           "type":"textarea",
+           "id":"description",
+           "label":{ 
+              "en":"Description",
+              "de":"Description",
+              "fr":"Description"
+           }
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+    ]
+  }
+{% endschema %}

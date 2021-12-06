@@ -1,0 +1,496 @@
+<div class="page-width shopify-section product-detail-section">
+  {% if section.settings.tab_title != blank %}
+  <div class="tab-title">
+    {{ section.settings.tab_title }}</div>           
+  {% endif %}    
+  		<div class="desktopproduct-section-nav">
+         <div class="product-section-nav">
+            <span class="section-tab-1 active" data="sec-1">BUILD YOUR PALETTE</span>
+           <span class="section-tab-2" data="sec-2">PRE-CURATED PALETTES</span>
+            <span class="section-tab-3" data="sec-3">EYESHADOW REFILLS</span>
+         </div>
+  </div>
+         <div class="product-section-content">
+            <div class="section-info">
+               <div class="product-section-nav">
+                  <span data="sec-1" class="">BUILD YOUR PALETTE</span>
+               </div>
+               <div id="sec-1" class="content contentshow">
+                  <div class="build-your-palette gimage_with_rightcontent_section">
+                    
+                    {% if section.settings.desk_image != blank %}
+                      <img class="banner-desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: 'master' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="{{ section.settings.title }}"
+                      {% if section.settings.desk_image %}
+                        data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+                      {% endif %}> 
+                    {% endif %}
+                    <img class="banner-mob-img lazyload" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x100' }}" alt="{{ section.settings.title }}"
+                       {% if section.settings.mob_image %}
+                          data-bgset="{% include 'bgset', image: section.settings.mob_image %}"
+                        {% endif %}> 
+                                
+                    <div class="banner-content right">
+                        <div class="content-inner">               
+
+                            {% if section.settings.title != blank %}
+                            <div class="title">{{ section.settings.title }}</div>
+                            
+                            {% endif %}    
+
+                            {% if section.settings.subtitle != blank %}
+                            <div class="subtitle">{{ section.settings.subtitle }}</div>
+                            {% endif %}           
+
+                            {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+                            <div class="actions">
+                                <a href="{{ section.settings.button_link }}"> <span>{{ section.settings.button_label | escape }}</span> </a>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>                   
+                 </div>
+               </div>
+              
+               <div class="product-section-nav">
+                  <span data="sec-2" class="">PRE-CURATED PALETTES</span>
+               </div>
+               <div id="sec-2" class="content pre-curated-tab" >
+                 <div class="build-your-palette gimage_with_rightcontent_section">
+                   <div>
+                    {% if section.settings.pre-title != blank %}
+                       <div class="title">{{ section.settings.pre-title }}</div>
+                    {% endif %}  
+                   
+                    {% if section.settings.pre-subtitle != blank %}
+                      <div class="subtitle">{{ section.settings.pre-subtitle }}</div>
+                    {% endif %} 
+                    </div>
+                   <div class="pre-curated-cont">
+                     <div class="content-inner-left">
+                         {% if section.settings.pdesk_image != blank %}
+                         <img class="banner-desk-img lazyload" data-src="{{ section.settings.pdesk_image | img_url: 'master' }}" src="{{ section.settings.pdesk_image | img_url: '100x100' }}" alt="{{ section.settings.ptitle }}"
+                            {% if section.settings.pdesk_image %}
+                                 data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+                            {% endif %}> 
+                        {% endif %}
+
+                        <img class="banner-mob-img lazyload" data-src="{{ section.settings.pmob_image | img_url: 'master' }}" src="{{ section.settings.pmob_image | img_url: '100x100' }}" alt="{{ section.settings.ptitle }}"
+                           {% if section.settings.pmob_image %}
+                              data-bgset="{% include 'bgset', image: section.settings.pmob_image %}"
+                            {% endif %}> 
+                        {% if section.settings.ptitle != blank %}
+                         <div class="title">{{ section.settings.ptitle }}</div>                  
+                        {% endif %}    
+
+                         {% if section.settings.pbutton_label != blank and section.settings.pbutton_link != blank %}
+                           <div class="actions">
+                              <a href="{{ section.settings.pbutton_link }}"> <span>{{ section.settings.pbutton_label | escape }}</span> </a>
+                           </div>
+                         {% endif %}      
+                     </div>
+                     <div class="content-inner-right"> 
+                          	 {% if section.settings.cdesk_image != blank %}
+                              <img class="banner-desk-img lazyload" data-src="{{ section.settings.cdesk_image | img_url: 'master' }}" src="{{ section.settings.cdesk_image | img_url: '100x100' }}" alt="{{ section.settings.ctitle }}"
+                              {% if section.settings.cdesk_image %}
+                                data-bgset="{% include 'bgset', image: section.settings.cdesk_image %}"
+                              {% endif %}> 
+                            {% endif %}
+							
+                          	<img class="banner-mob-img lazyload" data-src="{{ section.settings.cmob_image | img_url: 'master' }}" src="{{ section.settings.cmob_image | img_url: '100x100' }}" alt="{{ section.settings.ctitle }}"
+                             {% if section.settings.cmob_image %}
+                                data-bgset="{% include 'bgset', image: section.settings.cmob_image %}"
+                            {% endif %}>
+                          
+                            {% if section.settings.ctitle != blank %}
+                            <div class="title">{{ section.settings.ctitle }}</div>
+                          	{% endif %}
+                                     
+
+                            {% if section.settings.cbutton_label != blank and section.settings.cbutton_link != blank %}
+                            <div class="actions">
+                                <a href="{{ section.settings.cbutton_link }}"> <span>{{ section.settings.cbutton_label | escape }}</span> </a>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                   </div>
+                    
+                   
+                                    
+                 </div>
+               </div>
+               <div class="product-section-nav">
+                  <span data="sec-3" class="">EYESHADOW REFILLS</span>
+               </div>
+               <div id="sec-3" class="content eyeshadow-refills" >
+                 <div class="eye-refill bgimage_with_rightcontent_section">
+                    <div class="eye-refill-img">
+                    {% if section.settings.desk_image1 != blank %}
+                      <img class="banner-desk-img lazyload" data-src="{{ section.settings.desk_image1 | img_url: 'master' }}" src="{{ section.settings.desk_image1 | img_url: 'master' }}" alt="{{ section.settings.title1 }}"
+                      {% if section.settings.desk_image1 %}
+                        data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+                      {% endif %}> 
+                    {% endif %}
+                    <img class="banner-mob-img lazyload" data-src="{{ section.settings.mob_image1 | img_url: 'master' }}" src="{{ section.settings.mob_image1 | img_url: '100x100' }}" alt="{{ section.settings.title1 }}"
+                       {% if section.settings.mob_image1 %}
+                          data-bgset="{% include 'bgset', image: section.settings.mob_image1 %}"
+                        {% endif %}> 
+                   </div>
+                                
+                    <div class="banner-content right">
+                        <div class="content-inner">               
+
+                            {% if section.settings.title1 != blank %}
+                            <div class="title">{{ section.settings.title1 }}</div>
+                            
+                            {% endif %}    
+
+                            {% if section.settings.subtitle1 != blank %}
+                            <div class="subtitle">{{ section.settings.subtitle1 }}</div>
+                            {% endif %}           
+
+                            {% if section.settings.button_label1 != blank and section.settings.button_link1 != blank %}
+                            <div class="actions">
+                                <a href="{{ section.settings.button_link1 }}"> <span>{{ section.settings.button_label1 | escape }}</span> </a>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>                   
+                 </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+ <script>
+   $( document ).ready(function() {
+     //$('.section-info #sec-1').addClass('mobile-contentshow'); 
+     $(".desktopproduct-section-nav .product-section-nav span:first").addClass('active');
+      //$('.section-info #sec-1').addClass('contentshow');
+      $(".desktopproduct-section-nav .product-section-nav span").click(function(){
+          $(".product-section-nav span").removeClass('active');
+        if ($(this).hasClass('active')) {
+          $(this).removeClass('active');
+        } else {
+          $(this).addClass('active');
+        }
+          var dataArr = $(this).attr('data');
+          $('.product-section-content .section-info .content').removeClass('contentshow mobile-contentshow');
+        if ($('#'+dataArr).hasClass('contentshow')) {
+          $('#'+dataArr).removeClass('contentshow');
+        } else {
+          $('#'+dataArr).addClass('contentshow');
+        }
+      });
+    
+    });
+	$(document).on('click', '.product-section-content .product-section-nav span', function() {
+		$(".product-section-nav span").not($(this)).removeClass('active');
+        if ($(this).hasClass('active') == true) {
+          $(this).removeClass('active');
+        } else {
+          $(this).addClass('active');   
+        }
+        var dataArr = $(this).attr('data');
+        $('.product-section-content .section-info .content').not($('#'+dataArr)).removeClass('contentshow mobile-contentshow');
+        if ($('#'+dataArr).hasClass('contentshow') == true) {
+          $('#'+dataArr).removeClass('contentshow');
+        } else {
+          $('#'+dataArr).addClass('contentshow');
+        }
+	})
+    
+     jQuery(window).resize(function() {
+            if (jQuery(window).width() < 767) {
+                $('.product-section-content .section-info .content').removeClass('contentshow');
+            }
+            jQuery(window).trigger('resize')
+        })
+   
+   
+   </script>
+<script>
+/*$( document ).ready(function() {
+    
+      $(".product-section-nav span:first").addClass("active");
+      $(".section-info #sec-1").show();
+      $(".product-section-nav span").click(function() {
+          $(".product-section-nav span").not(this).siblings().slideUp("slow");
+          $(".product-section-nav span").not(this).removeClass("active");
+          $(this).toggleClass("active");
+          $(this).siblings().slideToggle("slow");
+      });
+});*/
+</script>
+
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Curator Content Tab"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+		{
+           "type":"text",
+           "id":"tab_title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+
+	    {
+        "type": "header",
+		"content": "Section 1"
+	  },
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	  {
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+
+	  {
+           "type":"text",
+           "id":"subtitle",
+           "label":{ 
+              "en":"SubTitle",
+              "de":"SubTitle",
+              "fr":"SubTitle"
+           }
+      },
+
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      },
+	   {
+        "type": "header",
+		"content": "Section 2"
+	  },	
+	 {
+           "type":"text",
+           "id":"pre-title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+
+	  {
+           "type":"text",
+           "id":"pre-subtitle",
+           "label":{ 
+              "en":"SubTitle",
+              "de":"SubTitle",
+              "fr":"SubTitle"
+           }
+      },
+	   {
+        "type": "image_picker",
+        "id": "pdesk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "pmob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	    {
+           "type":"text",
+           "id":"ptitle",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+	   {
+        "type": "text",
+        "id": "pbutton_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "pbutton_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      },
+
+	   {
+        "type": "image_picker",
+        "id": "cdesk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "cmob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	    {
+           "type":"text",
+           "id":"ctitle",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+	   {
+        "type": "text",
+        "id": "cbutton_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "cbutton_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      },
+	   {
+        "type": "header",
+		"content": "Section 3"
+	  },
+        {
+        "type": "image_picker",
+        "id": "desk_image1",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image1",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	  {
+           "type":"text",
+           "id":"title1",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+
+	  {
+           "type":"text",
+           "id":"subtitle1",
+           "label":{ 
+              "en":"SubTitle",
+              "de":"SubTitle",
+              "fr":"SubTitle"
+           }
+      },
+
+      {
+        "type": "text",
+        "id": "button_label1",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link1",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Curator Content Tab"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        } 
+      }
+    ]
+  }
+{% endschema %}

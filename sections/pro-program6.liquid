@@ -1,0 +1,58 @@
+<div class="pro-asked-q-acc-main">
+		<div class="pro-asked-q-acc-inner">
+          {% for block in section.blocks %}
+			<div class="asked-q-acc-item">
+				<label class="asked-q-acc-label">{{block.settings.question}}</label>
+				<div class="asked-q-acc-description">
+                  <p>{{block.settings.answer}}</p>
+				</div>
+			</div>
+          {% endfor %}
+			
+
+		</div>
+	</div>
+<script>
+ $(document).ready(function(){
+    $('.asked-q-acc-item .asked-q-acc-label').click(function(){
+    	$('.asked-q-acc-item .asked-q-acc-label').removeClass('acc-label-active');
+        $(this).addClass('acc-label-active');  
+     	$('.asked-q-acc-item .asked-q-acc-description').removeClass('acc-description-show');
+        $(this).next().addClass('acc-description-show'); 
+    })
+});
+</script>
+{% schema %}
+  {
+     "name": "Pro Program 6",
+    "settings": [
+			
+		 {
+                  "type": "text",
+                  "id": "title",
+                  "label": "Title"
+         }
+		
+		],
+      "blocks": [
+            {
+              "type": "text",
+              "name": "faq",
+              "settings": [         
+                {
+                  "type": "text",
+                  "id": "question",
+                  "label": "Question"
+                },
+                {
+                  "type": "textarea",
+                  "id": "answer",
+                  "label": "Answer"
+                 
+                }
+
+              ]
+            }
+          ]
+  }
+{% endschema %}

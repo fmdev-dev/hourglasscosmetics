@@ -1,0 +1,343 @@
+{%- comment -%}For Selected Varient url{%- endcomment -%}
+{% assign productUrl = product.url | replace: 'Nº', 'no' %}
+{% assign productUrl = productUrl | replace: '™', '' %}
+{% assign productUrl = productUrl | replace: '®', '' %}
+{% assign is_color = 0 %}
+{% for option in product.options_with_values %}
+  {% if option.name == "Color" %}
+    {% assign is_color = 1 %}
+    {%- assign asiam = 0 -%}
+    {%- assign asiamprodurl = '' -%}
+    {% for vrnt in product.variants %}
+      {% unless vrnt.metafields.hourprod.view_collection == Blank %}
+        {% assign viewscolletion = vrnt.metafields.hourprod.view_collection | split: "|" %}
+        {% for member in viewscolletion %}
+          {% assign strmum = member | strip %}
+          {% assign conid = collection.id | strip %}
+          {% if conid == strmum %}
+            {% assign asiam = 1 %}
+            {% if asiamprodurl == '' %}
+              {% assign asiamprodurl = vrnt.url | within: collection  %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endunless %}
+    {% endfor %}
+    {% if asiamprodurl != '' %}
+      {% assign productUrl = asiamprodurl %}
+    {% else %}
+      {% assign productUrl = productUrl | within: collection %}
+    {% endif %}
+  {% else %}
+	{% assign productUrl = productUrl | within: collection %}
+  {% endif %}
+{% endfor %}
+{%- comment -%}End selected varient url{%- endcomment -%}
+<div class="grid-view-item{% unless product.available %} grid-view-item--sold-out{% endunless %} product-card">  
+  <a class="grid-view-item__link grid-view-item__image-container full-width-link" href="{{ productUrl }}" data-id="{{product.id}}"></a>
+  {% capture img_id %}ProductCardImage-{{ section.id }}-{{ product.id }}{% endcapture %}
+  {% capture wrapper_id %}ProductCardImageWrapper-{{ section.id }}-{{ product.id }}{% endcapture %}
+  {% if product.images.last.alt == "bestseller" %}
+  	{%- assign img_url = product.images.last | img_url: '1x1' | replace: '_1x1.', '.' -%}
+    {%- assign product_img_url = product.images.last | img_url: '405x520' -%} 
+  {% else %}
+  	{%- assign img_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '.' -%}
+    {%- assign product_img_url = product.featured_image | img_url: '405x520' -%} 
+  {% endif %}
+  
+  {% unless product.featured_image == blank %}
+    {% include 'image-style' with image: product.featured_image, width: max_height, height: max_height, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}
+  {% endunless %}
+  <div class="product-title">{{ product.title }}</div>
+  <div class="pdt-img-cont">
+  	<img
+         class="grid-view-item__image lazyload"
+         data-src="{{ product_img_url }}"
+         src="{{ img_url }}"
+         alt="{{product.title}}">
+    <noscript>
+      {% capture image_size %}{{ max_height }}x{{ max_height }}{% endcapture %}
+      <img class="grid-view-item__image" src="{{ product.featured_image.src | img_url: image_size, scale: 2 }}" alt="{{ product.featured_image.alt }}" style="max-width: {{ max_height | times: product.featured_image.aspect_ratio }}px;">
+    </noscript>
+    <div class="product-content" style="display:none;">
+      <div class="desc std">
+      	<a href="{{ productUrl }}">{{ product.description | strip_html | truncatewords:8 | escape }}</a>
+        {% if collection.handle != 'makeup' %}  
+        <div class="shade-prdt">
+          {% assign x = 1 %}
+          {% assign xy = 1 %}
+          {% for option in product.options_with_values %}
+           	{% if option.name == "Color" %}
+              {%- comment -%} For check current collection assing in varient for current collection view{%- endcomment -%}
+              {%- assign asiam = 0 -%}
+              {% for vrnt in product.variants %}
+                  {% unless vrnt.metafields.hourprod.view_collection == Blank %}
+                    {% assign viewscolletion = vrnt.metafields.hourprod.view_collection | split: "|" %}
+                    {% for member in viewscolletion %}
+                      {% assign strmum = member | strip %}
+                      {% assign conid = collection.id | strip %}
+                      {% if conid == strmum %}
+                        {% assign asiam = 1 %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endunless %}
+              {% endfor %}
+              {%- comment -%} End check {%- endcomment -%}
+           		{% for vrnt in product.variants %}
+                {% if asiam == 1 %}
+                    {% assign signal = 0 %}
+                    {% unless vrnt.metafields.hourprod.view_collection == Blank %}
+                      {% assign viewscolletion = vrnt.metafields.hourprod.view_collection | split: "|" %}
+                      {% for member in viewscolletion %}
+                        {% assign strmum = member | strip %}
+                        {% assign conid = collection.id | strip %}
+                        {% if conid == strmum %}
+                          {% assign signal = 1 %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endunless %}
+                    {% if signal == 1 %}
+                      {% assign vrnt_apd = '' %}
+                      {% case x %}
+                            {% when 1 %}
+                        {% assign vrnt_apd = vrnt.option1 | append: '-color' %}
+                            {% when 2 %}
+                        {% assign vrnt_apd = vrnt.option2 | append: '-color' %}
+                            {% when 3 %}
+                        {% assign vrnt_apd = vrnt.option3 | append: '-color' %}
+                          {% endcase %}
+                        {% for image in product.images %}
+                          {% if image.alt == vrnt_apd and xy <= 16 %}
+                              <img class="variant_image costerbord" src="{{ image.src | img_url: '16×16' }}" alt="{{ image.alt | escape }}" data-id="{{ vrnt.id }}" data-url="{{ product.url | within: collection }}" data-imgurl="{{ vrnt.featured_image.src | img_url: '300x300' }}" data-sectionid="{{ section.id }}-{{ product.id }}" data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]">
+                            {% assign xy = xy | plus: 1 %}
+                          {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% else %}
+                  {% assign vrnt_apd = '' %}
+                  {% case x %}
+                        {% when 1 %}
+                    {% assign vrnt_apd = vrnt.option1 | append: '-color' %}
+                        {% when 2 %}
+                    {% assign vrnt_apd = vrnt.option2 | append: '-color' %}
+                        {% when 3 %}
+                    {% assign vrnt_apd = vrnt.option3 | append: '-color' %}
+                      {% endcase %}
+                    {% for image in product.images %}
+                      {% if image.alt == vrnt_apd and xy <= 16 %}
+                          <img class="variant_image" src="{{ image.src | img_url: '16×16' }}" alt="{{ image.alt | escape }}" data-id="{{ vrnt.id }}" data-url="{{ product.url | within: collection }}" data-imgurl="{{ vrnt.featured_image.src | img_url: '300x300' }}" data-sectionid="{{ section.id }}-{{ product.id }}" data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]">
+                        {% assign xy = xy | plus: 1 %}
+                      {% endif %}
+                    {% endfor %}
+                {% endif %}
+           		{% endfor %} 
+            {% endif %}
+           	{% assign x = x | plus: 1 %}
+          {% endfor %}
+           {% if xy > 16 %}<a href="{{ product.url | within: collection }}" class="swatch-more">More</a>{% endif %}
+        </div>
+        {% endif %} 
+      </div>
+    </div>
+  </div>
+<div class="product-info">
+  <div class="fake-table">
+    <div class="fake-cell">
+      <div class="h4 grid-view-item__title" aria-hidden="true">{{ product.title }}</div>
+      {% include 'product-price', variant: product %}
+    </div>
+  </div>
+</div>
+{% comment %}
+<form method="post" action="/cart/add" id="product_form_{{ block.settings.variant_id }}" accept-charset="UTF-8" enctype="multipart/form-data">
+  <input type="hidden" name="form_type" value="product">
+  <input type="hidden" name="utf8" value="✓">
+  <input name="id" type="hidden" value="{{ product.selected_or_first_available_variant.id }}" >
+  <input type="hidden" id="Quantity" name="quantity" value="1">
+  <div class="qty-wrapper qty-control-wrapper ">
+    {% assign x = 1 %}
+    {% assign fullwithd = 0 %}
+    {% for option in product.options_with_values %}
+    {% assign stock_ary = '' %}
+    {% assign varids_ary = '' %}
+    {% assign selectedvar_ary = '' %} {%- comment -%} for selected varient for selected collection{%- endcomment -%}
+
+    {% if option.name == "Color" %}
+    {% assign fullwithd = 1 %}
+    {% for vrnt in product.variants %}
+    {% assign vrnt_apd = '' %}
+    {% case x %}
+    {% when 1 %}
+    {% assign vrnt_apd = vrnt.option1 %}
+    {% when 2 %}
+    {% assign vrnt_apd = vrnt.option2 %}
+    {% when 3 %}
+    {% assign vrnt_apd = vrnt.option3 %}
+    {% endcase %}
+
+    {% assign vrnt_aid = vrnt.id %}
+
+    {% if varids_ary == '' %}
+    {% assign varids_ary = varids_ary | append: vrnt_aid %}
+    {% else %}
+    {% assign varids_ary = varids_ary | append: '#' | append: vrnt_aid %}
+    {% endif %}
+
+    {% if vrnt.available == false %}
+    {% if stock_ary == '' %}
+    {% assign stock_ary = stock_ary | append: vrnt_apd %}
+    {% else %}
+    {% assign stock_ary = stock_ary | append: '#' | append: vrnt_apd %}
+    {% endif %}
+    {% endif %}
+
+    {% if asiam == 1 %}
+    {% unless vrnt.metafields.hourprod.view_collection == Blank %}
+    {% assign viewscolletion = vrnt.metafields.hourprod.view_collection | split: "|" %}
+    {% for member in viewscolletion %}
+    {% assign strmum = member | strip %}
+    {% assign conid = collection.id | strip %}
+    {% if conid == strmum %}
+    {% if selectedvar_ary == '' %}
+    {% assign selectedvar_ary = selectedvar_ary | append: vrnt_apd %}
+    {% else %}
+    {% assign selectedvar_ary = selectedvar_ary | append: '#' | append: vrnt_apd %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endunless %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% assign x = x | plus: 1 %}
+    {% assign widthfull = '' %}
+    <div class="merge-class {% if option.name == "Color" %} color-option {% endif %} {% if product.variants.size < 2 %} no-option {% endif %} ">
+      {% if option.values contains "Default Title" %}{% else %}
+        <div class="selector-wrapper js product-form__item {% if option.name != "Color" %} normal-option {% endif %} ">
+          <select style="{% if option.name == "Color" %}display: none;{% endif %}" class="single-option-selector product-form__input single-option-{{ option.name }}-{{ product.id }} " id="SingleOptionSelector-{{ forloop.index0 }}-{{product.id}}" data-index="option{{ forloop.index }}">
+            {% assign varids = varids_ary | split:'#' %}
+            {% assign k = 0 %}
+            {% for value in option.values %}
+
+            {% assign is_in_stock = true %}
+            {% if option.name == "Color" %}
+            {% assign outstocks = stock_ary | split:'#' %}
+            {% for outstock in outstocks %}
+            {% if outstock == value %}
+            {% assign is_in_stock = false %}
+            {% endif %}
+            {% endfor %}
+
+            {%- comment -%}use for selected varient in selected collection{%- endcomment -%}
+            {% if asiam == 1 %}
+            {% assign displayss = selectedvar_ary | split:'#' %}
+            {% for displays in displayss %} 
+            {% if displays == value %}
+            <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %} data-instock={% if is_in_stock == false %}"0"{% else %}"1"{% endif %} {% if option.name == "Color" %}data-id="{{ varids[k] }}"{% else %}data-productid="{{ product.id }}"{% endif %} >{{ value }}</option>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %} data-instock={% if is_in_stock == false %}"0"{% else %}"1"{% endif %} {% if option.name == "Color" %}data-id="{{ varids[k] }}"{% else %}data-productid="{{ product.id }}"{% endif %} >{{ value }}</option>
+            {% endif %}
+
+            {% else %}
+            <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %} data-instock={% if is_in_stock == false %}"0"{% else %}"1"{% endif %} {% if option.name == "Color" %}data-id="{{ varids[k] }}"{% else %}data-productid="{{ product.id }}"{% endif %} >{{ value }}</option>  
+            {% endif %}
+            {% assign k = k | plus: 1 %}
+            {% endfor %}
+          </select>
+          {% if option.name == "Color" %}
+          {% assign is_color = true %}
+          <label class="colorsltShare1" id="colorselect-{{product.id}}">
+            <span>Shade</span>
+            <div id="option-color-name"></div>
+            <div id="option-color-image" class="option-shade-img">
+              <img id="dynamicimgsrc-{{product.id}}" src="https://cdn.shopify.com/s/files/1/0081/1660/0950/files/default-shade.png" alt="Color Shade">
+            </div>
+          </label>
+          <div class="color-pallets-wrap-{{product.id}} arch-pallets"></div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% endfor %}
+        <select name="id" id="ProductSelect-product-template-{{product.id}}" class="product-form__variants no-js">
+          {% for variant in product.variants %}
+          {% if variant.available %}
+          <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+            {{ variant.title }}
+          </option>
+          {% else %}
+          <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+        <button type="submit" name="add" id="AddToCart-{{ product.selected_or_first_available_variant.id }}" class="btn product-form__cart-submit">Add to cart</button>
+    </div>
+  </div>
+</form>
+{% endcomment %}
+  <div><a href="{{ product.url }}" class="btn product-form__cart-submit">SHOP NOW</a></div>
+{% assign tempt = 0 %}
+{% if is_color == 1 and asiam == 1 %}
+  {% assign tempt = 1 %}
+{%endif%}
+<span class="shopify-product-quickshop-button" data-id="{{product.handle}}" data-colid="{{collection.id}}" data-asiam="{{tempt}}"></span>
+<div class="raqs-button" data-id="{{ product.handle }}"></div>
+</div>
+{% assign prodimage = '' %}
+{% for image in product.images %}
+    {% assign imageURl = image | img_url: '300x300' %}
+    {% assign imagedata = imageURl | append: '#' | append: image.alt %}
+    {% assign prodimage = prodimage | append: imagedata | append: '|' %}
+{% endfor %}
+<script type="text/javascript">
+jQuery('.single-option-Color-{{product.id}} option').each(function() {
+    //$image = $('.grid__item:has(img[alt="'+$(this).val()+'"])');
+    var imagearray = "{{prodimage}}";
+    var trainindIdArray = imagearray.split('|');
+    var image_url;
+    var currentname = $(this).val()+'-color';
+    $.each(trainindIdArray, function(index, value) { 
+           var valArray = value.split('#');
+           if( valArray[1] == currentname){
+              image_url = valArray[0]; 
+           }
+    });
+    $image_url = image_url;
+    //$image_url = $('img[alt="' + $(this).val() + '-color"]').attr('src');
+    $noimage = '';
+    if (typeof $image_url === 'undefined') {
+        $noimage = 'noimage';
+    }
+    $outtext = '';
+    $available = 1;
+    if ($(this).data('instock') == '0') {
+        $outtext = '<b>OUT OF STOCK | </b>';
+        $available = 0;
+    }
+    $varid = $(this).data('id');
+    $('.color-pallets-wrap-{{product.id}}').append('<div class="color-palette-{{product.id}} palette ' + $noimage + '"><a href="javascript:void(0)" data-title="' + $(this).val() + '" data-available="' + $available + '" data-id="' + $varid + '"><img src="' + $image_url + '" alt="Hourglass Cosmetics" /><span class="shades_label_overlay">' + $outtext + '' + $(this).text() + '</span></a></div>');
+});
+// Color Palette On Click
+jQuery(document).on('click', '.color-palette-{{product.id}} a', function() {
+
+    jQuery('.color-pallets-wrap-{{product.id}}').slideUp();
+    $listimg = $(this).find('img').attr('src')
+    $listtxt = $(this).data('title');
+
+    /*simple Load*/
+    $varientid = $(this).data('id');
+    var select = document.querySelector('#SingleOptionSelector-0-{{product.id}}');
+    select.value = $listtxt;
+    select.dispatchEvent(new Event('change'));
+
+    var select = document.querySelector('#ProductSelect-product-template-{{product.id}}');
+    select.value = $varientid;
+    select.dispatchEvent(new Event('change'));
+
+    jQuery('#dynamicimgsrc-{{product.id}}').attr('src', $listimg);
+    jQuery('#colorselect-{{product.id}} > span').text($listtxt);
+
+});
+</script>

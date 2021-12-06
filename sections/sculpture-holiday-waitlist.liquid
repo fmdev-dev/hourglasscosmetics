@@ -1,0 +1,75 @@
+<div class="sculpture-holiday-comingsoon holiday-waitlist">
+  <div class="left-section">
+    <span class="comingsoon">{{ section.settings.coming_soon }}</span> 
+    <img class="badge_image lazyload" src="{{ section.settings.badge_image | img_url : '100x' }}" data-src="{{ section.settings.badge_image | img_url : 'master' }}" alt="{{ section.settings.badge_image.alt }}">
+    <span class="title">{{ section.settings.title }}</span>
+    <img class="mobile_view lazyload" src="{{ section.settings.mobile_image | img_url : '100x' }}" data-src="{{ section.settings.mobile_image | img_url : 'master' }}" alt="{{ section.settings.mobile_image.alt }}">
+    <div class="description">{{ section.settings.description }}</div>
+    <div class="klaviyo-form"><div class="klaviyo-form-UyEKhF"></div></div>
+  </div>  
+  <div class="right-section">
+    <img class="desktop_view lazyload" src="{{ section.settings.desktop_image | img_url : '300x' }}" data-src="{{ section.settings.desktop_image | img_url : 'master' }}" alt="{{ section.settings.desktop_image.alt }}">
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Holiday Waitlist",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": {
+            "en": "Mobile image",
+            "de": "Mobile image",
+            "fr": "Mobile image"
+          }
+        },
+		{
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": {
+            "en": "Desktop image",
+            "de": "Desktop image",
+            "fr": "Desktop image"
+          }
+        },
+		{
+           "type":"text",
+           "id":"coming_soon",
+           "label":{
+              "en":"Coming soon title",
+              "de":"Coming soon title",
+              "fr":"Coming soon title"
+           }
+        },
+		{
+          "type": "image_picker",
+          "id": "badge_image",
+          "label": {
+            "en": "Badge image",
+            "de": "Badge image",
+            "fr": "Badge image"
+          }
+        },
+		{
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+        },
+		{
+           "type":"text",
+           "id":"description",
+           "label":{ 
+              "en":"Description",
+              "de":"Description",
+              "fr":"Description"
+           }
+        }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,57 @@
+<div id="shopify-section-video" class="shopify-section arch-bnr">
+  <div class="container-fix image-vimeo">
+    {% if section.settings.desk_image != blank %}
+    	<img class="lazyload" data-src="{{ section.settings.desk_image | img_url : '1674x890' }}" src="{{ section.settings.desk_image | img_url : '500x500' }}" alt="{{ section.settings.desk_image.alt }}" />
+    {% endif %}
+
+    <div class="video-wrapper" id="banvideo">
+      <video id="vimiovideo" class="vimiovideo" title="THE UNRESTRICTED BROW ARCH BROW COLLECTION" playsinline autoplay loop muted><source type="video/mp4" src="https://cdn.shopify.com/s/files/1/0016/7116/8064/files/UNREST-16x9_FL_CJ_R3.mp4"><source type="video/webm" src="https://cdn.shopify.com/s/files/1/0016/7116/8064/files/UNREST-16x9_FL_CJ_R3.mp4"></video>
+	</div>
+   
+  </div>
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+		jQuery(window).load(function(e) {
+          //jQuery("#banvideo").append('<video id="vimiovideo" class="vimiovideo" playsinline autoplay loop muted><source type="video/mp4" src="https://cdn.shopify.com/s/files/1/0016/7116/8064/files/UNREST-16x9_FL_CJ_R3.mp4"><source type="video/webm" src="https://cdn.shopify.com/s/files/1/0016/7116/8064/files/UNREST-16x9_FL_CJ_R3.mp4"></video>');
+          jQuery('.arch-bnr').addClass('hide_content');
+ 		  jQuery('.arch-bnr .vimiovideo').attr("src", "https://cdn.shopify.com/s/files/1/0081/1660/0950/files/UNREST-16x9_FL_CJ_R3.mp4")
+         
+        });
+        jQuery('.image-vimeo > img').click(function() {
+            jQuery(this).addClass('hide_content');
+            var currentSrc = jQuery(this).next('div').find('video').attr("src") + "?autoplay=1&loop=1";
+            //var currentSrc = $('#vimiovideo').attr("src") + "&autoplay=1&loop=1";
+            jQuery(this).next('div').find('video').attr("src", currentSrc);
+        });
+    });
+</script>
+{% schema %}
+  {
+    "name": {
+      "en": "Video Section",
+      "de": "Video Section",
+      "fr": "Video Section"
+    },
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Image",
+          "de": "Image",
+          "fr": "Image"
+        }
+      },
+	    {
+        "type": "url",
+        "id": "video_link",
+        "label": {
+          "en": "Video link",
+          "de": "Video link",
+          "fr": "Video link"
+        }
+      }
+    ]
+  }
+{% endschema %}

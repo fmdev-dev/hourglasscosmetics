@@ -1,0 +1,90 @@
+<div class="newsletter-subscription-ection">
+  	<div class="newsletter-left-section">
+      {% if section.settings.desk_image != blank %}
+      	<img class="desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: 'master' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics Newsletter">
+      {% endif %}
+    </div>
+  	<div class="newsletter-right-section">
+        <div class="content-area">
+          
+          	{% if section.settings.title != blank %}
+            	<h1 class="title">{{ section.settings.title | escape }}</h1>
+          	{% endif %}
+          
+            {% if section.settings.mob_image != blank %}
+            	<img class="mob-img lazyload" data-src="{{ section.settings.mob_image | img_url: 'large' }}" src="{{ section.settings.mob_image | img_url: '50x50' }}" alt="Hourglass Cosmetics Newsletter" >
+            {% endif %}
+          
+          	{% if section.settings.description != blank %}
+            	<div class="description">{{ section.settings.description }}</div>
+          	{% endif %}
+          
+          	<div class="klaviyo-form-area">
+          		<div class="klaviyo-form-R4hLDA"></div>
+            </div>
+          
+          	{% if section.settings.note != blank %}
+            	<div class="note">{{ section.settings.note }}</div>
+          	{% endif %}
+          
+        </div>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Hong Kong Newsletter",
+      "de": "Hong Kong Newsletter",
+      "fr": "Hong Kong Newsletter"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+     {
+      "type": "text",
+      "id": "title",
+      "label": {
+          "en": "Heading",
+          "de": "Heading",
+          "fr": "Heading"
+      	}
+     },
+     {
+      "type": "textarea",
+      "id": "description",
+      "label": {
+          "en": "Description",
+          "de": "Description",
+          "fr": "Description"
+      	}
+     },
+     {
+      "type": "textarea",
+      "id": "note",
+      "label": {
+          "en": "Note",
+          "de": "Note",
+          "fr": "Note"
+      	}
+     }
+    ]
+  }
+{% endschema %}
+

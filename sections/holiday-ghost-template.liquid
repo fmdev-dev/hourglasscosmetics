@@ -1,0 +1,281 @@
+<div class="holidaycoll-bnr">
+  <div class="page-holiday-cont">
+    <div class="pageholiday-cont-dtl">
+      <span class="hc-limited-txt">{{ section.settings.product_heading }}</span> 
+      <span class="hc-holiday-txt">{{ section.settings.product_title }}</span>
+      {% if section.settings.product_image != blank %}
+      	<div class="hc-ghost-icon"><img src="{{ section.settings.product_image | img_url : 'master' }}" alt="{{ section.settings.product_heading }}" /></div>
+      {% endif %}
+      <span class="hauntingly-txt">{{ section.settings.product_text }}</span>
+    </div>
+  </div>
+</div>
+<div class="browreco-brow-list holidaylist-main">
+  {% for block in section.blocks %}
+  	{% assign pro_url = block.settings.product_handle %}
+    <div class="arch-brow-c-item">
+      <div class="arch-brow-c-cont"><span class="arch-brow-info"><a href="{{ all_products[pro_url].url }}" target="_blank" title="Opens in a new window">{{ block.settings.title }}</a></span> <span class="arch-price">{{ block.settings.price }}</span></div>
+      <div class="arch-coll-img">
+        {% if block.settings.image != blank %}
+          <div class="hc-ghost-icon">
+        	<a href="{{ all_products[pro_url].url }}"  target="_blank" title="Opens in a new window">
+            	<img src="{{ block.settings.image | img_url : 'master' }}" alt="{{ block.settings.title }}" />
+        	</a>
+          </div>
+        {% endif %}
+      </div>
+      <div class="arch-count-shade-cart">
+        <form method="post" action="/cart/add" id="product_form_{{ all_products[pro_url].id }}" accept-charset="UTF-8" class="product-form product-form-product-template" enctype="multipart/form-data">
+          <input type="hidden" name="form_type" value="product" /> <input type="hidden" name="utf8" value="✓" /><input type="hidden" name="id" value="{{ all_products[pro_url].id }}" />
+          <div class="variant-wrapper variant-control-wrapper ">
+            {% if pro_url != blank %}
+            	{% assign product = all_products[pro_url] %}
+                {% if product != empty %}
+            	 {% include 'product-addtocart-1', product: product %}
+                {% endif %}
+            {% endif %}
+          </div>
+        </form>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<div class="cruelty-free-beauty">
+  <div class="cruelty-free-fix">
+    <h2>{{ section.settings.cruelty_heading }}</h2>
+    <h3 class="requiredtag"></h3>
+    <h4>{{ section.settings.cruelty_title }}</h4>
+    <div class="offer-nohuman-rights">
+      <span class="offer-purchaser-txt">{{ section.settings.cruelty_text }}</span> 
+      {% if section.settings.cruelty_image != blank %}
+      	<span class="nohuman-rights-logo"> <img src="{{ section.settings.cruelty_image | img_url : 'master' }}" alt="{{ section.settings.cruelty_title }}" /> </span>
+      {% endif %}
+    </div>    
+    {% if section.settings.cruelty_btn_label != "" and section.settings.cruelty_btn_url != "" %}
+    	<a href="{{ section.settings.cruelty_btn_url }}" class="join-movement-btn">{{ section.settings.cruelty_btn_label }}</a>
+  	{% endif %}
+  </div>
+</div>
+<div class="shopluxe-gifts-scn">
+  {% if section.settings.shop_d_image != blank %}
+   	  <div class="shopluxe-gifts-img-desk"><img src="{{ section.settings.shop_d_image | img_url : 'master' }}" alt="{{ section.settings.shop_heading }}" /></div>
+  {% endif %}
+  {% if section.settings.shop_m_image != blank %}
+   	  <div class="shopluxe-gifts-img-mobile"><img src="{{ section.settings.shop_m_image | img_url : 'master' }}" alt="{{ section.settings.shop_heading }}" /></div>
+  {% endif %}
+  <div class="shopluxe-gifts-content">
+    <div class="content-inner">
+      <strong>{{ section.settings.shop_heading }}</strong>
+      <div class="actions">
+        {% if section.settings.shop_btn_label != "" and section.settings.shop_btn_url != "" %}
+        	<a href="{{ section.settings.shop_btn_url }}" class="join-movement-btn"><span>{{ section.settings.shop_btn_label }}</span></a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div id="messages_product_view">
+      <ul class="messages" style="display: none;">
+          <li class="error-msg">
+              <ul>
+                  <li class="error-msg">
+                      <span>PLEASE CHOOSE AN OPTION</span>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+  </div>
+
+{% schema %}
+{
+    "name": "Holiday Ghost Section",
+    "settings": [
+    {
+        "type": "header",
+   		"content": "Holiday Collection"
+    },
+        {
+           "type":"text",
+           "id":"product_heading",
+           "label":{
+              "en":"Heading",
+              "de":"Heading",
+              "fr":"Heading"
+           }
+        },
+        {
+           "type":"text",
+           "id":"product_title",
+           "label":{
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": {
+            "de": "Image",
+            "en": "Image",
+            "fr": "Image"
+          }
+        },
+        {
+           "type":"textarea",
+           "id":"product_text",
+           "label":{
+              "en":"Text",
+              "de":"Text",
+              "fr":"Text"
+           }
+        },
+    {
+        "type": "header",
+   		"content": "Cruelty Free Luxury Beauty"
+    },
+		{
+           "type":"text",
+           "id":"cruelty_heading",
+           "label":{
+              "en":"Heading",
+              "de":"Heading",
+              "fr":"Heading"
+           }
+        },
+        {
+           "type":"text",
+           "id":"cruelty_title",
+           "label":{
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+        },
+		{
+           "type":"textarea",
+           "id":"cruelty_text",
+           "label":{
+              "en":"Text",
+              "de":"Text",
+              "fr":"Text"
+           }
+        },
+        {
+          "type": "image_picker",
+          "id": "cruelty_image",
+          "label": {
+            "de": "Image",
+            "en": "Image",
+            "fr": "Image"
+          }
+        },
+		{
+          "type": "text",
+          "id": "cruelty_btn_label",
+          "label": {
+            "en": "Button Label",
+            "de": "Button Label",
+            "fr": "Button Label"
+          }
+        },
+        {
+          "type": "url",
+          "id": "cruelty_btn_url",
+          "label": {
+            "en": "Button URL",
+            "de": "Button URL",
+            "fr": "Button URL"
+          }
+        },
+    {
+        "type": "header",
+   		"content": "Shop Luxe Gifts"
+    },
+		{
+           "type":"text",
+           "id":"shop_heading",
+           "label":{
+              "en":"Heading",
+              "de":"Heading",
+              "fr":"Heading"
+           }
+        },		
+		{
+          "type": "text",
+          "id": "shop_btn_label",
+          "label": {
+            "en": "Button Label",
+            "de": "Button Label",
+            "fr": "Button Label"
+          }
+        },
+        {
+          "type": "url",
+          "id": "shop_btn_url",
+          "label": {
+            "en": "Button URL",
+            "de": "Button URL",
+            "fr": "Button URL"
+          }
+        },
+        {
+          "type": "image_picker",
+          "id": "shop_d_image",
+          "label": {
+            "de": "Desktop Image",
+            "en": "Desktop Image",
+            "fr": "Desktop Image"
+          }
+        },
+        {
+          "type": "image_picker",
+          "id": "shop_m_image",
+          "label": {
+            "de": "Mobile Image",
+            "en": "Mobile Image",
+            "fr": "Mobile Image"
+          }
+        }
+
+],
+"max_blocks": 4,
+"blocks": [
+    {
+      "type": "product-collection",
+      "name": {
+        "de": "Product Collection",
+        "en": "Product Collection",
+        "fr": "Product Collection"
+      },
+      "settings": [
+		 {
+            "id":"title",
+            "type":"text",
+            "label":"Title"
+         },
+         {
+            "id":"price",
+            "type":"text",
+            "label":"Price"
+         },
+         {
+            "type":"image_picker",
+            "id":"image",
+            "label":{
+               "en":"Product Image",
+               "de":"Product Image",
+               "fr":"Product Image"
+            }
+         },
+         {
+            "id":"product_handle",
+            "type":"text",
+            "label":"Product Handle"
+         }
+       ]
+    }
+  ]
+}
+{% endschema %}

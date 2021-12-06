@@ -1,0 +1,81 @@
+<div class="velvet_pdp_2 vanish-blush-textarea-inner">
+    {% if section.settings.desk_image != blank %}
+    	<img class="banner-desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: 'master' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+         {% if section.settings.desk_image %}
+         data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+         {% endif %}> 
+    {% endif %}
+    {% if section.settings.mob_image != blank %}
+        <img class="banner-mob-img lazyload" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x' }}" alt="Hourglass Cosmetics"
+             {% if section.settings.mob_image %}
+             data-bgset="{% include 'bgset', image: section.settings.mob_image %}"
+             {% endif %}> 
+    {% endif %}
+    <div class="vanish-blush-textarea-cont ">
+      {% if section.settings.section_title != blank %}
+        <div class="rich-text__heading--medium text-center">
+          <h2 class="h3">{{ section.settings.section_title | escape }}</h2>
+        </div>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div class="rich-text__text--medium rte-setting text-center">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Velvet Textarea"
+    },
+    "class": "index-section vanish-blush-textarea",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+        },
+        "default": {
+          "en": "Talk about your brand",
+          "de": "Reden Sie über Ihre Marke",
+          "fr": "Parlez de votre marque"
+        }
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "default": {
+          "en": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+          "de": "<p>Nutzen Sie diesen Text, um Infos über Ihre Marke mitzuteilen. Beschreiben Sie ein Produkt, kündigen Sie etwas an oder heißen Sie Kunden willkommen.</p>",
+          "fr": "<p>Utilisez ce texte pour partager des informations sur votre marque. Décrivez un produit, partagez des annonces, ou souhaitez la bienvenue à vos clients.</p>"
+        }
+      }
+    ]
+  }
+{% endschema %}

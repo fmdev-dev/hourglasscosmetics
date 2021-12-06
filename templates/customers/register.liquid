@@ -1,0 +1,108 @@
+
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--one-half medium-up--push-one-quarter">
+      <div class="form-vertical">
+        {% form 'create_customer' %}
+          <h1 class="text-center">{{ 'customer.register.title' | t }}</h1>
+          <h2 class="requiredtag"></h2>
+          <h3 class="requiredtag"></h3>
+          {%- if form.errors -%}
+          <ul class="messages error-messages">
+            <li class="error-msg">
+              <ul>
+                <li>{{ form.errors | default_errors }}</li>
+              </ul>
+            </li>
+          </ul>
+          {% comment %} <div class="form-message form-message--error">
+            {{ form.errors | default_errors }}
+          </div> {% endcomment %}
+          {%- endif -%}
+          {% comment %} <span class="password-match disnon">PASSWORDS DO NOT MATCH</span> {% endcomment %}
+          <ul class="messages password-match disnon error-messages">
+            <li class="error-msg">
+              <ul>
+                <li>PASSWORDS DO NOT MATCH</li>
+              </ul>
+            </li>
+          </ul>
+          <div class="fieldset">
+            <p class="form-instructions">Please enter the following information to create your account.</p>
+            <p class="required">* Required Fields</p>
+            <ul class="form-list">
+              <li><div class="customer-name"> <div class="field name-firstname">
+                <label class="required" for="FirstName">{{ 'customer.register.first_name' | t }}</label>
+                <input placeholder="Your First Name" type="text" name="customer[first_name]" id="FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autofocus>
+              </div>
+              <div class="field name-middlename">
+                <label for="Middlename">Middle Name/Initial</label>
+                <input placeholder="Your Middle Name" type="text" name="customer[note][middle_name]" id="Middlename" value="">
+              </div>
+              <div class="field name-lastname">
+                <label class="required" for="LastName">{{ 'customer.register.last_name' | t }}</label>
+                <input placeholder="Your Last Name" type="text" name="customer[last_name]" id="LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+              </div>
+            </div></li>
+            <li>
+              <label for="Email" class="required">{{ 'customer.register.email' | t }}</label>
+              <input placeholder="Your Email Address" type="email" name="customer[email]" id="Email" class="{% if form.errors contains 'email' %} input--error{% endif %}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+            </li>
+            <li>
+                <label for="customer_skin_type">Skin Type</label>
+                <div class="input-box">
+                    <select id="customer_skin_type" name="customer[note][customer_skin_type]" title="Skin Type">
+                        <option value="" selected="selected"></option>
+                        <option value="Combination">Combination</option>
+                        <option value="Dry">Dry</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Oily">Oily</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+                <label for="product_preferences">Product Preferences</label>
+                <div class="input-box inline-content">
+                    <input type="checkbox" name="customer[note][customer_product_preference][]" title="Anti-Aging" value="Anti-Aging">
+                    <label>Anti-Aging</label>
+                    <br>
+                    <input type="checkbox" name="customer[note][customer_product_preference][]" title="Gluten Free" value="Gluten Free">
+                    <label>Gluten Free</label>
+                    <br>
+                    <input type="checkbox" name="customer[note][customer_product_preference][]" title="Oil Free" value="Oil Free">
+                    <label>Oil Free</label>
+                    <br>
+                    <input type="checkbox" name="customer[note][customer_product_preference][]" title="Vegan" value="Vegan">
+                    <label>Vegan</label>
+                </div>
+            </li>
+            <li class="fields password-confirmp">
+              <div class="field">
+              <label class="required" for="CreatePassword">{{ 'customer.register.password' | t }}</label>
+              <input placeholder="Your Password" type="password" name="customer[password]" id="CreatePassword" class="{% if form.errors contains 'password' %} input--error{% endif %}">
+              </div>
+              <div class="field">
+                  <label class="required" for="confirmassword">Confirm Password</label>
+              <input placeholder="Confirm Password" type="password" name="customer[password_confirmation]" id="Confirmpassword" class="{% if form.errors contains 'password' %} input--error{% endif %}">
+              </div>
+            </li>
+            <!-- li class="control inline-content disnon">
+              <div class="input-box">
+                <input type="checkbox" name="is_subscribed" title="Sign Up for Newsletter" value="1" id="is_subscribed" class="checkbox"><label style="width:auto;" for="is_subscribed">Sign Up for Newsletter</label>
+              </div>
+              </li -->
+            <div class="buttons-set"><p class="back-link"><a href="/account/login" class="back-link"><small>« </small>Back</a></p><input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn cmn-btn"></div>
+          {% endform %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$('form#create_customer').submit(function(e) {
+  if ( $('#CreatePassword').val() != $('#Confirmpassword').val()) {
+     $('.password-match').fadeIn("slow");
+     e.preventDefault(); // stops our form from submitting
+  }
+});
+</script>

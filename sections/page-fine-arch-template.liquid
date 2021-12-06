@@ -1,0 +1,251 @@
+<div id="shopify-section-findarch" class="shopify-section find-your-arch">
+    <div class="arch-info">
+        {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+        <p>{{ section.settings.text }}</p>
+        {% endif %}
+    </div>
+    <div class="find-your-arch-list">
+    {% for block in section.blocks limit: section.blocks.size %}
+        <div class="find-arch-item">
+            <div class="find-arch-img">
+              {% comment %}
+                <!--img src="{% if block.settings.gifurl != '' %}{{block.settings.gifurl}}{% endif %}" alt="{{ section.settings.heading }}" /   https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/find-your-arch-1.jpg -->
+                 <video width="100%" autoplay loop>
+                  <source src="{{ block.settings.gifurl }}"  type="video/mp4" >
+                </video>
+              {% endcomment %}
+              <img src="{{block.settings.gifurl}}" alt="{{ section.settings.heading }}" />
+                
+            </div>
+            <div class="find-arch-sublist">
+                {% if block.settings.image1 != blank %}
+                <div class="find-arch-subitem">
+                    {% if block.settings.image1 != blank %}
+                    <div class="f-arch-subitem-img"><img src="{{ block.settings.image1 | img_url : '67x213' }}" alt="{{ block.settings.image1.alt }}" /></div>
+                    {% endif %}
+                    {% if block.settings.subitem_title1 != blank or block.settings.subsubitem_title21 != blank or block.settings.text1 != blank %}
+                    <div class="farch-subitem-cont">
+                        {% if block.settings.subitem_title1 != blank or block.settings.subsubitem_title21 != blank %}
+                        <div class="farch-subitem-title">{% if block.settings.subitem_title1 != blank%}{{block.settings.subitem_title1}}{% endif %} {% if block.settings.subsubitem_title21 != blank%}<br>{{block.settings.subsubitem_title21}}{% endif %}</div>
+                        {% endif %}
+                        {% if block.settings.text1 != blank %}
+                        <span class="farch-subitem-txt">{{block.settings.text1}}</span>
+                        {% endif %}
+                        <a href="#" class="farch-quick-view arch-quick" data-handle="{{block.settings.product_id1}}">Quick View</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% if block.settings.image2 != blank %}
+                <div class="find-arch-subitem">
+                    {% if block.settings.image2 != blank %}
+                    <div class="f-arch-subitem-img"><img src="{{ block.settings.image2 | img_url : '67x213' }}" alt="{{ block.settings.image2.alt }}" /></div>
+                    {% endif %}
+                    {% if block.settings.subitem_title2 != blank or block.settings.subsubitem_title22 != blank or block.settings.text2 != blank %}
+                    <div class="farch-subitem-cont">
+                        {% if block.settings.subitem_title2 != blank or block.settings.subsubitem_title22 != blank %}
+                        <div class="farch-subitem-title">{% if block.settings.subitem_title2 != blank%}{{block.settings.subitem_title2}}{% endif %} {% if block.settings.subsubitem_title22 != blank%}<br>{{block.settings.subsubitem_title22}}{% endif %}</div>
+                        {% endif %}
+                        {% if block.settings.text2 != blank %}
+                        <span class="farch-subitem-txt">{{block.settings.text2}}</span>
+                        {% endif %}
+                        <a href="#" class="farch-quick-view arch-quick" data-handle="{{block.settings.product_id2}}">Quick View</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% if block.settings.image3 != blank %}
+                <div class="find-arch-subitem">
+                    {% if block.settings.image3 != blank %}
+                    <div class="f-arch-subitem-img"><img src="{{ block.settings.image3 | img_url : '67x213' }}" alt="{{ block.settings.image3.alt }}" /></div>
+                    {% endif %}
+                    {% if block.settings.subitem_title3 != blank or block.settings.subsubitem_title23 != blank or block.settings.text3 != blank %}
+                    <div class="farch-subitem-cont">
+                        {% if block.settings.subitem_title3 != blank or block.settings.subsubitem_title23 != blank %}
+                        <div class="farch-subitem-title">{% if block.settings.subitem_title3 != blank%}{{block.settings.subitem_title3}}{% endif %} {% if block.settings.subsubitem_title23 != blank%}<br>{{block.settings.subsubitem_title23}}{% endif %}</div>
+                        {% endif %}
+                        {% if block.settings.text3 != blank %}
+                        <span class="farch-subitem-txt">{{block.settings.text3}}</span>
+                        {% endif %}
+                        <a href="#" class="farch-quick-view arch-quick" data-handle="{{block.settings.product_id3}}">Quick View</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% schema %}
+{
+   "name":{
+      "de":"Find Arch Section",
+      "en":"Find Arch Section",
+      "fr":"Find Arch Section"
+   },
+   "class":"find-arch-section",
+   "max_blocks":6,
+   "settings":[
+      {
+         "type":"text",
+         "id":"heading",
+         "label":{
+            "en":"Heading",
+            "de":"Titel",
+            "fr":"En-tête"
+         },
+         "default":{
+            "en":"Find Your Arch",
+            "de":"Find Your Arch",
+            "fr":"Find Your Arch"
+         }
+      },
+      {
+         "type":"text",
+         "id":"text",
+         "label":{
+            "en":"Text",
+            "de":"Text",
+            "fr":"Text"
+         },
+         "default":{
+            "en":"Embrace your brow. Enhance your arch.",
+            "de":"Embrace your brow. Enhance your arch.",
+            "fr":"Embrace your brow. Enhance your arch."
+         }
+      }
+   ],
+   "presets":[
+      {
+         "name":{
+            "de":"findarch_section",
+            "en":"findarch_section",
+            "fr":"findarch_section"
+         },
+         "category":{
+            "de":"Collections",
+            "en":"Collections",
+            "fr":"Collections"
+         },
+         "blocks":[
+            {
+               "type":"findarchsection"
+            },
+            {
+               "type":"findarchsection"
+            }
+         ]
+      }
+   ],
+   "blocks":[
+      {
+         "type":"findarchsection",
+         "name":{
+            "de":"Find Arch Section",
+            "en":"Find Arch Section",
+            "fr":"Find Arch Section"
+         },
+         "settings":[
+            {
+               "id":"gifurl",
+               "type":"text",
+               "label":"GIF URL"
+            },
+            {
+                "type":"image_picker",
+                "id":"image1",
+                "label":{
+                    "en":"Product Image 1",
+                    "de":"Product Image 1",
+                    "fr":"Product Image 1"
+                }
+            },
+            {
+                "id":"subitem_title1",
+                "type":"text",
+                "label":"First Title 1"
+            },
+            {
+                "id":"subsubitem_title21",
+                "type":"text",
+                "label":"Second Title 1"
+            },
+            {
+                "id":"text1",
+                "type":"text",
+                "label":"Text 1"
+            },
+            {
+                "id":"product_id1",
+                "type":"text",
+                "label":"Product Handle 1"
+            },
+            {
+                "type":"image_picker",
+                "id":"image2",
+                "label":{
+                    "en":"Product Image 2",
+                    "de":"Product Image 2",
+                    "fr":"Product Image 2"
+                }
+            },
+            {
+                "id":"subitem_title2",
+                "type":"text",
+                "label":"First Title 2"
+            },
+            {
+                "id":"subsubitem_title22",
+                "type":"text",
+                "label":"Second Title 2"
+            },
+            {
+                "id":"text2",
+                "type":"text",
+                "label":"Text 2"
+            },
+            {
+                "id":"product_id2",
+                "type":"text",
+                "label":"Product Handle 2"
+            },
+            {
+                "type":"image_picker",
+                "id":"image3",
+                "label":{
+                    "en":"Product Image 3",
+                    "de":"Product Image 3",
+                    "fr":"Product Image 3"
+                }
+            },
+            {
+                "id":"subitem_title3",
+                "type":"text",
+                "label":"First Title 3"
+            },
+            {
+                "id":"subsubitem_title23",
+                "type":"text",
+                "label":"Second Title 3"
+            },
+            {
+                "id":"text3",
+                "type":"text",
+                "label":"Text 3"
+            },
+            {
+                "id":"product_id3",
+                "type":"text",
+                "label":"Product Handle 3"
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

@@ -1,0 +1,133 @@
+<div id="black_friday_banner_section" class="black_friday_banner_section bgimage_with_leftcontent_section fullheightblock ambient-banner">
+
+  {% if section.settings.desk_image != blank %}
+  <img class="banner-desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: 'master' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics"> 
+  {% endif %}
+
+  <div class="banner-content">
+    <div class="content-inner">              
+      {% if section.settings.title1 != blank %}
+      	<div class="title1">{{ section.settings.title1 }}</div>
+      {% endif %}            
+      {% if section.settings.title2 != blank %}
+      	<div class="title2">{{ section.settings.title2 }}</div>
+      {% endif %}            
+      {% if section.settings.title3 != blank %}
+      	<div class="title3">{{ section.settings.title3 }}</div>
+      {% endif %}            
+      {% if section.settings.title3 != blank %}
+      	<div class="title4">{{ section.settings.title4 }}</div>
+      {% endif %}           
+
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <div class="actions">
+          <a href="{{ section.settings.button_link }}"> <span>{{ section.settings.button_label | escape }}</span> </a>
+        </div>
+      {% endif %}          
+
+      {% if section.settings.mob_image != blank %}
+      	<img class="banner-mob-img lazyload" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x100' }}" alt="Hourglass Cosmetics"> 
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Black Friday Banner",
+      "de": "Black Friday Banner",
+      "fr": "Black Friday Banner"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	  {
+           "type":"text",
+           "id":"title1",
+           "label":{ 
+              "en":"Title 1",
+              "de":"Title 1",
+              "fr":"Title 1"
+           }
+      },
+	  {
+           "type":"text",
+           "id":"title2",
+           "label":{ 
+              "en":"Title 2",
+              "de":"Title 2",
+              "fr":"Title 2"
+           }
+      },
+	  {
+           "type":"text",
+           "id":"title3",
+           "label":{ 
+              "en":"Title 3",
+              "de":"Title 3",
+              "fr":"Title 3"
+           }
+      },
+	  {
+           "type":"text",
+           "id":"title4",
+           "label":{ 
+              "en":"Title 4",
+              "de":"Title 4",
+              "fr":"Title 4"
+           }
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Black Friday Banner",
+          "de": "Black Friday Banner",
+          "fr": "Black Friday Banner"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        } 
+      }
+    ]
+  }
+{% endschema %}

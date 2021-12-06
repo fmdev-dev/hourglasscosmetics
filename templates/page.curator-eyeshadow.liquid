@@ -1,0 +1,30 @@
+<div class="form-message form-message--success hide contact-message" id="SuccessMsg"></div>
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth">
+      {% if page.handle != "faq" %}
+        <div class="section-header text-center">
+         
+        </div>
+      {% endif %}
+      <h2 class="requiredtag"></h2>
+      <h3 class="requiredtag"></h3>
+      <div class="rte">
+        {% layout 'none' %}
+        {% section 'curator-eyeshadow-banner' %}
+       {% section 'curator-eyeshadow-video' %}
+       {% section 'curator-eyeshadow-text' %}
+       {% section 'curator-eyeshadow-video-content' %}
+       {% section 'curator-eyeshadow-pan' %}
+       {% section 'curator-eyeshadow-video-2' %}
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %}
+  <script>
+  $(document).ready(function(){
+    $("#contactiframe").load("https://migration.hourglasscosmetics.com/contact.html");
+  });
+  </script>
+{% endcomment %}

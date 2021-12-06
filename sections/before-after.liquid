@@ -1,0 +1,151 @@
+<div id="hero-unlocked-2-section" class="section fullheightblock unlocked-2-scn">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+    <div class="section-header text-center">
+      <h3 class="heading">{{ section.settings.heading | escape }}</h3>
+    </div>
+    {% endif %}
+    <div class="left-section">
+      <div class="unlocked-2-container">
+        <div class="content-inner">
+          <div class="before-after text-left">
+            <span class="left">{{section.settings.title1}}</span>
+            <span class="left">{{section.settings.title2}}</span>
+          </div>
+          <div class="before-after-image">
+            <span class="left-image">
+                <img src="{{ section.settings.image1 | img_url : "100x" }}" data-src="{{ section.settings.image1 | img_url : "master" }}" alt="Hourglass Cosmetics" class="lazyload">
+            </span>
+            <span class="left-image">
+              <img src="{{ section.settings.image2 | img_url : "100x" }}" data-src="{{ section.settings.image2 | img_url : "master" }}" alt="Hourglass Cosmetics" class="lazyload"> 
+            </span>        
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right-section">
+      <div class="unlocked-2-container">
+        <div class="content-inner">      
+          <div class="before-after">
+            <span class="left">{{section.settings.title1}}</span>
+            <span class="left">{{section.settings.title2}}</span>
+          </div>
+          <div class="before-after-image">
+            <span class="left-image">
+              <img src="{{ section.settings.image3 | img_url : "100x" }}" data-src="{{ section.settings.image3 | img_url : "master" }}" alt="Hourglass Cosmetics" class="lazyload">
+            </span>
+            <span class="left-image">
+              <img src="{{ section.settings.image4 | img_url : "100x" }}" data-src="{{ section.settings.image4 | img_url : "master" }}" alt="Hourglass Cosmetics" class="lazyload">  
+            </span>     
+          </div>
+        </div>
+      </div>
+    </div>  
+ </div>
+</div>
+
+
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Unlocked section 2",
+      "de": "Unlocked section 2 ",
+      "fr": "Unlocked section 2"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [   
+	   {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading",
+          "de": "Heading",
+          "fr": "Heading"
+        }
+      },
+	  
+	   {
+        "type": "text",
+        "id": "title1",
+        "label": {
+          "en": "title1",
+          "de": "title1",
+          "fr": "title1"
+        }
+      },
+	  {
+        "type": "text",
+        "id": "title2",
+        "label": {
+          "en": "title2",
+          "de": "title1",
+          "fr": "title1"
+        }
+      },
+	  {
+        "type": "header",
+        "content": {
+          "en": "Left section",
+          "de": "Left section",
+          "fr": "Left section"
+        }
+      },
+	  {
+      "type": "image_picker",
+      "id": "image1",
+      "label": {
+       
+        "en": "Image"       
+      }
+    },  
+	 {
+      "type": "image_picker",
+      "id": "image2",
+      "label": {
+       
+        "en": "Image"       
+      }
+    }, 
+	  {
+        "type": "header",
+        "content": {
+          "en": "Right section",
+          "de": "Right section",
+          "fr": "Right section"
+        }
+      },
+	  {
+      "type": "image_picker",
+      "id": "image3",
+      "label": {
+       
+        "en": "Image"       
+      }
+    },  
+	{
+      "type": "image_picker",
+      "id": "image4",
+      "label": {
+       
+        "en": "Image"       
+      }
+    }      
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Unlocked section",
+          "de": "Unlocked section ",
+          "fr": "Unlocked section "
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

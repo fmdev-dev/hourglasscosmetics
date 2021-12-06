@@ -1,0 +1,85 @@
+<div class="sticky-holiday-banner new_sticky_banner {% if settings.sticky_bgcolor_enable %}enable_bg_color{% endif %}" {% if settings.sticky_bgcolor_enable %}style="background-color:{{ settings.sticky_bgcolor }};"{% endif %}>
+  <div class="sticky-bnr-cont hide"> 
+    <span class="close_banner">×</span>
+    {% if settings.sticky_bgcolor_enable == false and settings.sticky_desktop_image != blank %}
+    	<img class="sticky-desktop-image lazyload" src="{{ settings.sticky_desktop_image | img_url: '100x' }}" data-src="{{ settings.sticky_desktop_image | img_url: 'master' }}" alt="{{ settings.sticky_desktop_image.alt }}" />
+    {% endif %}
+    {% if settings.sticky_bgcolor_enable == false and settings.sticky_mobile_image != blank %}
+    	<img class="sticky-mobile-image lazyload" src="{{ settings.sticky_mobile_image | img_url: '100x' }}" data-src="{{ settings.sticky_mobile_image | img_url: 'master' }}" alt="{{ settings.sticky_mobile_image.alt }}" />
+    {% endif %}
+    <div class="sticky-wishlist-info">
+       <div class="content-section">
+     	  <div class="left-cont">
+            <div class="title">{{ settings.sticky_title }}</div>        
+            <div class="description">{{ settings.sticky_description }}</div>
+          </div>
+     	  <div class="right-cont">
+              {% if settings.sticky_btn_label != blank and settings.sticky_btn_link != blank %}
+                  <div class="button"><a href="{{ settings.sticky_btn_link }}">{{ settings.sticky_btn_label }}</a></div>
+              {% endif %}
+          </div> 
+       </div>  	 
+    </div>
+  </div>
+</div>
+
+
+<script>
+  /*-------START SET COOKIE FOR COMPARE PAGE--------*/
+window.setCookie=function(cname, cvalue, exdays){
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+};
+/*-------START GET COOKIE ON COMPARE PAGE--------*/
+window.getCookie=function(name){
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+};
+  
+ $(document).ready(function() {   
+    $(".new_sticky_banner .sticky-bnr-cont").removeClass("hide");
+   
+   /* DEFAULT ON LOAD EVENT */
+   var banner_visibility = window.getProductCookie('new_sticky_banner');
+   if($(".new_sticky_banner") && banner_visibility=="closed") {
+     $(".new_sticky_banner").remove();
+     $("body").removeClass("show_new_sticky_banner").addClass("close_new_sticky_banner");
+     $(".new_sticky_banner .sticky-bnr-cont").addClass("hide");     
+     /*HOLIDAY STICKY BANNER*/
+     jQuery(document).ready(function() {
+        var headerSticky = jQuery('#header.site-header').height();
+       	{% if template == "collection" %}
+       	  jQuery('.sticky-bnr-height').height(headerSticky); 
+        {% else %}
+       	  jQuery('.sticky-bnr-height').height(0); 
+        {% endif %}
+     });
+   } else {    
+     /*HOLIDAY STICKY BANNER*/
+     jQuery(document).ready(function() {
+        var stickyholiday = jQuery('.new_sticky_banner').height();
+        var headerSticky = jQuery('#header.site-header').height();
+        jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+     });
+   }
+      
+   /* ON CLOSE BUTTON CLICK EVENT */
+   $(".close_banner").click(function(){
+     window.setCookie('new_sticky_banner',"closed", 1);
+     $(".new_sticky_banner").remove();
+     $("body").removeClass("show_new_sticky_banner").addClass("close_new_sticky_banner");
+     $(".new_sticky_banner .sticky-bnr-cont").addClass("hide");
+     /*HOLIDAY STICKY BANNER*/
+     var headerSticky = jQuery('#header.site-header').height();
+       	{% if template == "collection" %}
+       	  jQuery('.sticky-bnr-height').height(headerSticky); 
+        {% else %}
+       	  jQuery('.sticky-bnr-height').height(0); 
+        {% endif %}
+   });
+   
+ });
+</script>

@@ -1,0 +1,74 @@
+<div class="sticky-holiday-banner eq_skincare_banner">
+  <div class="sticky-holiday-cont hide"> 
+    <span class="close_banner">×</span>
+    <img class="sticky-desktop-image lazyload" src="{{ settings.skincare_desktop_image | img_url: '100x' }}" data-src="{{ settings.skincare_desktop_image | img_url: 'master' }}" alt="{{ settings.skincare_desktop_image.alt }}" />
+    <img class="sticky-mobile-image lazyload" src="{{ settings.skincare_mobile_image | img_url: '100x' }}" data-src="{{ settings.skincare_mobile_image | img_url: 'master' }}" alt="{{ settings.skincare_mobile_image.alt }}" />
+    <div class="sticky-wishlist-info">
+      <div class="illume-banner-cont">
+     	<div class="left-section">
+          <img class="logo lazyload" src="{{ settings.skincare_logo | img_url: '10x' }}" data-src="{{ settings.skincare_logo | img_url: 'master' }}" alt="{{ settings.skincare_logo.alt }}" />
+        </div>
+     	<div class="right-section">
+          <div class="title">{{ settings.skincare_title }}</div>        
+          <div class="description">{{ settings.skincare_description }}</div>
+          {% if settings.skincare_btn_label != blank and settings.skincare_btn_link != blank %}
+              <div class="button"><a href="{{ settings.skincare_btn_link }}">{{ settings.skincare_btn_label }}</a></div>
+          {% endif %}
+        </div>  	 
+      </div>
+      </div>
+  </div>
+</div>
+
+
+<script>
+  /*-------START SET COOKIE FOR COMPARE PAGE--------*/
+window.setCookie=function(cname, cvalue, exdays){
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+};
+/*-------START GET COOKIE ON COMPARE PAGE--------*/
+window.getCookie=function(name){
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+};
+  
+ $(document).ready(function() {   
+    $(".eq_skincare_banner .sticky-holiday-cont").removeClass("hide");
+   
+   /* DEFAULT ON LOAD EVENT */
+   var banner_visibility = window.getProductCookie('eq_skincare_banner');
+   if($(".sticky-holiday-banner.eq_skincare_banner") && banner_visibility=="closed") {
+     $(".sticky-holiday-banner.eq_skincare_banner").remove();
+     $("body").removeClass("show_eq_skincare_banner").addClass("close_eq_skincare_banner");
+     $(".eq_skincare_banner .sticky-holiday-cont").addClass("hide");     
+     /*HOLIDAY STICKY BANNER*/
+     jQuery(document).ready(function() {
+          var headerSticky = jQuery('#header.site-header').height();
+          jQuery('.h-sticky-bnr-height').height(headerSticky); 
+     });
+   } else {    
+     /*HOLIDAY STICKY BANNER*/
+     jQuery(document).ready(function() {
+        var stickyholiday = jQuery('.sticky-holiday-banner').height();
+        var headerSticky = jQuery('#header.site-header').height();
+        jQuery('.h-sticky-bnr-height').height(stickyholiday + headerSticky); 
+     });
+   }
+      
+   /* ON CLOSE BUTTON CLICK EVENT */
+   $(".close_banner").click(function(){
+     window.setCookie('eq_skincare_banner',"closed", 1);
+     $(".sticky-holiday-banner.eq_skincare_banner").remove();
+     $("body").removeClass("show_eq_skincare_banner").addClass("close_eq_skincare_banner");
+     $(".eq_skincare_banner .sticky-holiday-cont").addClass("hide");
+     /*HOLIDAY STICKY BANNER*/
+     var headerSticky = jQuery('#header.site-header').height();
+     jQuery('.h-sticky-bnr-height').height(headerSticky); 
+   });
+   
+ });
+</script>

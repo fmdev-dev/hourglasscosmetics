@@ -1,0 +1,140 @@
+{%- assign max_height = 345 -%}
+{%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
+<div class="banner-main text-center">
+  {% if section.settings.desk_image != blank %}
+    <span class="bg-desktop" style="background-image: url({{section.settings.desk_image | img_url:'master' }});"></span>
+  {% endif %}
+  {% if section.settings.mob_image != blank %}
+    <span class="bg-mobile" style="background-image: url({{section.settings.mob_image | img_url:'master' }});"></span>
+  {% endif %}
+  <div class="bnr-cont">
+    <h1>{{ page.title }}</h1>
+    {% if section.settings.hastitle != blank %}
+      <span class="hastitle-txt">{{ section.settings.hastitle }}</span>
+    {% endif %}
+  </div>
+</div>
+<div class="rte">
+  {% for block in section.blocks limit: section.blocks.size %}
+  <div class="rte-collection">
+    <div class="collection-prt">
+      <img src="{{ block.settings.collection_image | img_url:'master' }}">
+      <strong><span>{{ block.settings.collection_title }}</span></strong>
+  </div>
+    <div class="collection_list">
+      <div class="coll-list-slider">
+          {% for product in collections[block.settings.collection].products %}
+         	<div class="coll-list-item">
+       			{% include 'product-card-grid-slider', max_height: max_height %}
+            </div>
+          {% endfor %}
+      </div>
+  </div>
+  </div>
+  {% endfor %}
+</div>
+{{ 'slick.min.js' | asset_url | script_tag }}
+<script type="text/javascript">
+ 	$('.coll-list-slider').slick({
+        dots: false,
+        infinite: false,
+      	autoplay: false,
+        speed: 300,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        loop: false,
+        responsive: [
+          {
+            breakpoint: 1160,
+            settings: {
+              slidesToShow: 2,
+             
+            }
+          }
+        ]
+      });
+</script>
+{% schema %}
+  {
+    "name": "VIP Makeup Experience",
+    "settings": [
+    {
+        "type": "text",
+        "id": "hastitle",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+        },
+        "default": {
+          "en": "#UNLOCKTHEIMPACT",
+          "de": "#UNLOCKTHEIMPACT",
+          "fr": "#UNLOCKTHEIMPACT"
+        }
+      },
+    {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+    {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      }
+  ],
+   "blocks": [
+      {
+        "type": "featured_collection",
+        "name": {
+          "en": "Collection",
+          "de": "Kategorie",
+          "fr": "Collection"
+        },
+        "settings": [
+      {
+            "type": "image_picker",
+            "id": "collection_image",
+            "label": {
+              "en": "Collection Image",
+              "de": "Collection Image",
+              "fr": "Collection Image"
+            }
+          },
+          {
+            "type": "text",
+            "id": "collection_title",
+            "label": {
+              "en": "Collection Title",
+              "de": "Collection Title",
+              "fr": "Collection Title"
+            }
+          },
+          {
+            "label": {
+              "en": "Collection",
+              "de": "Kategorie",
+              "fr": "Collection"
+            },
+            "id": "collection",
+            "type": "collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

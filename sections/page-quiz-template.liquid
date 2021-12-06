@@ -1,0 +1,91 @@
+<div id="shopify-section-quizstep-4" class="shopify-section receive-complimentary">
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.heading }}</p>
+    <form method="post" id="product_arch_form" name="arch_form" enctype="multipart/form-data">
+      <input type="hidden" name="q1" value="Shape" id="qq1">
+      <input type="hidden" name="q2" value="Shape" id="qq2">
+      <input type="hidden" name="q3" value="Shape" id="qq3">
+      <div class="form-group">
+          <label for="EMAIL">
+          EMAIL
+          </label>
+          <input type="text" name="email" id="arch_email"/>
+      </div>
+      <button type="submit" onclick="gtmEventTriggredOnClick()" class="getmy-results-btn btnn" value="button1">{{ section.settings.button_label }}</button>
+      <button type="submit" class="skipthis-step-btn btnn" value="button2" >{{ section.settings.skip_button_label }}</button>
+      <div class="byclicking-txt">{{ section.settings.description }}</div>
+    </form>
+</div>
+<script>
+function gtmEventTriggredOnClick() {
+   gtag('event', 'email_sent', {
+       'event_category' : 'Email',
+       'event_label' : 'Email Sent'
+   });
+}
+</script>
+{% schema %}
+{
+   "name":{
+      "de":"Quiz 4 Section",
+      "en":"Quiz 4 Section",
+      "fr":"Quiz 4 Section"
+   },
+   "settings":[
+      {
+         "type":"text",
+         "id":"title",
+         "label":{
+            "en":"Title",
+            "de":"Title",
+            "fr":"Title"
+         }
+      },
+      {
+         "type":"text",
+         "id":"heading",
+         "label":{
+            "en":"Heading",
+            "de":"Heading",
+            "fr":"Heading"
+         }
+      },
+      {
+         "type":"text",
+         "id":"button_label",
+         "label":{
+            "en":"Button Label",
+            "de":"Button Label",
+            "fr":"Button Label"
+         }
+      },
+      {
+         "type":"text",
+         "id":"skip_button_label",
+         "label":{
+            "en":"Skip Button Label",
+            "de":"Skip Button Label",
+            "fr":"Skip Button Label"
+         }
+      },
+      {
+         "type":"url",
+         "id":"skip_button_link",
+         "label":{
+            "en":"Skip Button Link",
+            "de":"Skip Button Link",
+            "fr":"Skip Button Link"
+         }
+      },
+      {
+         "type":"textarea",
+         "id":"description",
+         "label":{
+            "en":"Description",
+            "de":"Description",
+            "fr":"Description"
+         }
+      }
+   ]
+}
+{% endschema %}

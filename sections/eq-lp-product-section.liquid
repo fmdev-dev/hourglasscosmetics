@@ -1,0 +1,209 @@
+<div class="product-section-wrapper page-width">
+      
+    <div class="logo-content">
+        {% if section.settings.logo_image != blank %}
+        <img class="logo-img lazyload" data-src="{{ section.settings.logo_image | img_url: 'master' }}" src="{{ section.settings.logo_image | img_url: '100x' }}" alt="{{ section.settings.center_title | escape }}" > 
+        {% endif %}
+    </div>
+  
+    {% if section.settings.center_title != blank %}
+   	 <div class="center_title">{{ section.settings.center_title | escape }}</div>
+    {% endif %}
+
+    <div class="grid__item medium-up--one-half left">
+      <div class="container">        
+        <img class="desktop_view lazyload" data-src="{{ section.settings.image1 | img_url: 'master' }}" src="{{ section.settings.image1 | img_url: '100x' }}" alt="{{ section.settings.title1 | escape }}">
+        <img class="mobile_view lazyload" data-src="{{ section.settings.image1_mob | img_url: 'master' }}" src="{{ section.settings.image1_mob | img_url: '100x' }}" alt="{{ section.settings.title1 | escape }}">
+        <div class="hover_content">
+          <div class="page-width text-center">
+            {% if section.settings.title1 != blank %}
+              <h2 class="title">{{ section.settings.title1 | escape }}</h2>
+            {% endif %}
+             {% if section.settings.description1 != blank %}
+              <div class="description">{{ section.settings.description1 }}</div>
+            {% endif %}
+            {% if section.settings.button_label1 != blank and section.settings.button_link1 != blank %}
+              <a href="{{ section.settings.button_link1 }}" class="btn move-to-products">
+                {{ section.settings.button_label1 | escape }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="grid__item medium-up--one-half right">
+      <div class="container">
+        <img class="desktop_view lazyload" data-src="{{ section.settings.image2 | img_url: 'master' }}" src="{{ section.settings.image2 | img_url: '100x' }}" alt="{{ section.settings.title2 | escape }}">
+        <img class="mobile_view lazyload" data-src="{{ section.settings.image2_mob | img_url: 'master' }}" src="{{ section.settings.image2_mob | img_url: '100x' }}" alt="{{ section.settings.title2 | escape }}">
+        <div class="hover_content">
+          <div class="page-width text-center">
+            {% if section.settings.title2 != blank %}
+              <h2 class="title">{{ section.settings.title2 | escape }}</h2>
+            {% endif %}
+             {% if section.settings.description2 != blank %}
+              <div class="description">{{ section.settings.description2 }}</div>
+            {% endif %}
+            {% if section.settings.button_label2 != blank and section.settings.button_link2 != blank %}
+              <a href="{{ section.settings.button_link2 }}" class="btn move-to-products">
+                {{ section.settings.button_label2 | escape }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  
+</div>
+<script>
+ jQuery(document).on('click', '.move-to-products', function() {
+    var header_height = $('header').height();
+    var sticky_height = $('.sticky-holiday-banner.eq_skincare_banner').height();
+    var total_height = header_height+sticky_height;
+    jQuery("html, body").animate({
+      scrollTop: jQuery('.section_container').offset().top - total_height
+    }, 1000);
+    /* $(".product_description_tab .tab").removeClass("active"); $(this).addClass("active"); */
+  });
+  /* TAB CLICK ACTIVE FUNCTION */
+  jQuery(document).on('click', '.product_disc_tab', function() {
+    var num = $(this).attr('pos'); 
+    var header_height = $('header').height();
+    var sticky_height = $('.sticky-holiday-banner.eq_skincare_banner').height();
+  	var total_height = header_height+sticky_height;
+    jQuery("html, body").animate({
+      scrollTop: jQuery('#product_section_'+num).offset().top - total_height
+    }, 1000);
+   /* $(".product_description_tab .tab").removeClass("active"); $(this).addClass("active"); */
+  });  
+</script>
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "EQ Products Block"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [  
+    
+      {
+        "type": "header",
+        "content": " Logo Section"
+      },
+	  {
+        "type": "image_picker",
+        "id": "logo_image",
+          "label": {
+            "en": "Logo Image"
+          }
+      }, 
+      {
+        "type": "header",
+        "content": " Center Title Section"
+      },
+      {
+        "type": "text",
+        "id": "center_title",
+        "label": {
+          "en": "Center title"
+        }
+      }, 
+
+      {
+        "type": "header",
+        "content": " Left Section"
+      },
+      {
+        "type": "image_picker",
+        "id": "image1",
+        "label": {
+          "en": "Desktop Image"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "image1_mob",
+        "label": {
+          "en": "Mobile Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title1",
+        "label": {
+          "en": "Heading"
+        }
+      },      
+      {
+        "type": "textarea",
+        "id": "description1",
+        "label": {
+          "en": "Description"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label1",
+        "label": {
+          "en": "Button label"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link1",
+        "label": {
+          "en": "Button link"
+        }
+      },
+
+      {
+        "type": "header",
+        "content": " Right Section"
+      },
+      {
+        "type": "image_picker",
+        "id": "image2",
+        "label": {
+          "en": "Desktop Image"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "image2_mob",
+        "label": {
+          "en": "Mobile Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title2",
+        "label": {
+          "en": "Heading"
+        }
+      },      
+      {
+        "type": "textarea",
+        "id": "description2",
+        "label": {
+          "en": "Description"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label2",
+        "label": {
+          "en": "Button label"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link2",
+        "label": {
+          "en": "Button link"
+        }
+      }
+
+    ]
+  }
+{% endschema %}

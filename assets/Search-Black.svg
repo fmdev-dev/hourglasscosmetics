@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="33" viewBox="0 0 35 33">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Search_Black);
+      }
+
+      .cls-2, .cls-5 {
+        fill: none;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #000;
+      }
+
+      .cls-3 {
+        fill: rgba(0,0,0,0);
+      }
+
+      .cls-4 {
+        stroke: none;
+      }
+    </style>
+    <clipPath id="clip-Search_Black">
+      <rect width="35" height="33"/>
+    </clipPath>
+  </defs>
+  <g id="Search_Black" data-name="Search–Black" class="cls-1">
+    <g id="Group_2" data-name="Group 2" transform="translate(8 8)">
+      <g id="Ellipse_537" data-name="Ellipse 537" class="cls-2" transform="translate(0 -1)">
+        <ellipse class="cls-4" cx="8.463" cy="8.463" rx="8.463" ry="8.463"/>
+        <ellipse class="cls-5" cx="8.463" cy="8.463" rx="7.963" ry="7.963"/>
+      </g>
+      <path id="Path_8634" data-name="Path 8634" class="cls-3" d="M.3.3,6.338,6.338" transform="translate(13.498 12.498)"/>
+    </g>
+  </g>
+</svg>

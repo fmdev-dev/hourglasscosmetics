@@ -1,0 +1,137 @@
+<script>
+/*-------START SET COOKIE FOR COMPARE PAGE--------*/
+window.setProdcutCookie=function(cname, cvalue, exdays){
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+};
+/*-------START GET COOKIE ON COMPARE PAGE--------*/
+window.getProductCookie=function(name){
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+};
+  
+/*-------START GET COOKIE ON COMPARE PAGE--------*/
+window.getCollNameCookie=function(veriantid,handle){
+  var cook = '';
+  if(window.getProductCookie('spcolls'))
+  {
+    cook = window.getProductCookie('spcolls');
+  }
+  if(cook != ''){
+    var comparecookie = cook.split(',');
+    var count = comparecookie.length;
+    if(count > 0){
+      var momon = 'All Products';
+      comparecookie.forEach(function(element, key) {       
+        var itemon = element.split('##');
+        if(veriantid == itemon[0]){
+          momon = itemon[1];
+        }
+      });
+      if(momon == '' || momon == 'undefined' || momon == 'All Products' ){
+         return window.getCateNameCookie(handle);
+      }
+      return momon;
+    }else{
+      return window.getCateNameCookie(handle);
+    }
+  }else{
+    return window.getCateNameCookie(handle);
+  }
+};
+ 
+  
+/*-------START GET COOKIE ON COMPARE PAGE--------*/
+window.getCollCookieIndex=function(veriantid){
+  var cook = '';
+  if(window.getProductCookie('spcolls'))
+  {
+    cook = window.getProductCookie('spcolls');
+  }
+  if(cook != ''){
+    var comparecookie = cook.split(',');
+    var count = comparecookie.length;
+    if(count > 0){
+      var momon = false;
+      comparecookie.forEach(function(element, key) {       
+        var itemon = element.split('##');
+        if(veriantid == itemon[0]){
+          momon = key;
+        }
+      });
+      return momon;
+    }else{
+      return false;
+    }
+  }else{
+    return false;
+  }
+};
+  
+  
+  
+window.checkCollCookieAvailable=function(veriantid){
+  var cook = '';
+  if(window.getProductCookie('spcolls'))
+  {
+    cook = window.getProductCookie('spcolls');
+  }
+  if(cook != ''){
+    var comparecookie = cook.split(',');
+    var count = comparecookie.length;
+    if(count > 0){
+      var momon = "false";
+      comparecookie.forEach(function(element, key) {       
+        var itemon = element.split('##');
+        if(veriantid == itemon[0]){
+          momon = key;
+        }
+      });
+      return momon;
+    }else{
+      return "false";
+    }
+  }else{
+    return "false";
+  }
+};
+  
+  
+/*-------START GET COOKIE ON COMPARE PAGE--------*/
+window.removeColldataCookie=function(veriantid){
+  var campcookies = [];
+  var prodo = ''; 
+  var cook = '';
+  if(window.getProductCookie('spcolls'))
+  {
+    cook = window.getProductCookie('spcolls');
+    if(cook!='') { prodo = cook; }
+  }
+  
+  if( prodo == '' ){
+  }else{
+    campcookies = prodo.split(',');
+    var index = window.getCollCookieIndex(veriantid);
+    if (index > -1) {
+      campcookies.splice(index, 1);
+    }
+    window.setProdcutCookie('spcolls',campcookies.join(","));
+  }
+};
+  
+/*-------START GET COOKIE ON COMPARE PAGE--------*/
+window.getCateNameCookie=function(handle){
+  var categoryname = "All Products";
+  $.ajax({
+	url: "/products/" + handle + "?view=catename",
+    async: false,
+	success: function(t) {
+		categoryname = t;
+	}
+  });
+  return categoryname;
+};
+</script>

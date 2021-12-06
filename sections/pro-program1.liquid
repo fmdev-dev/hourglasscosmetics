@@ -1,0 +1,62 @@
+<div class="pro-program-top">
+		<div class="pro-program-top-inner">
+			<div class="pro-program-top-left">
+              <img class="image lazyload desktop-view" data-src="{{ section.settings.image | img_url: 'master' }}" src="{{ section.settings.image | img_url: '100x' }}" alt="{{ section.settings.clientname }}">
+            </div>
+			<div class="pro-program-top-right">
+				<div class="pro-top-desc">
+			      	<img class="image lazyload pro-logo" data-src="{{ section.settings.logopro | img_url: 'master' }}" src="{{ section.settings.logopro | img_url: '100x' }}" alt="{{ section.settings.clientname }}">
+					<img class="image lazyload mobile-view" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x' }}" alt="{{ section.settings.clientname }}">	
+                  <span class="client-desc">{{ section.settings.desc }}</span>
+					<span class="clientname">- {{ section.settings.clientname }}</span>
+					<span class="position-txt">{{ section.settings.designation }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+{% schema %} 
+  {
+  "name": "Pro Program 1",
+  "settings": [
+      
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": { "en": "Desktop Image" }
+      },  
+      
+	   {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": { "en": "Mobile Image" }
+      },
+	  {
+        "type": "image_picker",
+        "id": "logopro",
+        "label": { "en": "Logo PRO" }
+      },
+	  {
+           "type":"text",
+           "id":"desc",
+           "label":{ 
+              "en":"Description"
+              
+           }
+      },
+	  {
+           "type":"text",
+           "id":"clientname",
+           "label":{ 
+              "en":"Name"
+           }
+      },
+	  {
+           "type":"text",
+           "id":"designation",
+           "label":{ 
+              "en":"Designation"
+           }
+      }
+  ]
+}
+{% endschema %}

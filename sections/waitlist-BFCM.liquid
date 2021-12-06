@@ -1,0 +1,171 @@
+<div class="BFCM-bnr">
+  <div class="BFCM-bnr-container">
+  <div class="BFCM-left"> 
+  <img class="banner-mob-img lazyload" data-src="{{ section.settings.fmob_image | img_url: 'master' }}" src="{{ section.settings.fmob_image | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+              {% if section.settings.fmob_image %}
+                data-bgset="{% include 'bgset', image: section.settings.fmob_image %}"
+              {% endif %}> 
+  
+      {% if section.settings.fdesk_image != blank %}
+        <img class="banner-desk-img lazyload" data-src="{{ section.settings.fdesk_image | img_url: 'master' }}" src="{{ section.settings.fdesk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+        {% if section.settings.fdesk_image %}
+          data-bgset="{% include 'bgset', image: section.settings.fdesk_image %}"
+        {% endif %}> 
+      {% endif %}
+  </div>
+  
+    <div class="BFCM-content BFCM-right">
+        <div class="content-inner">          
+            {% if section.settings.exclusive_badge %}
+              <span class="exclusive">{{ section.settings.exclusive_badge }}</span>
+            {% endif %}
+                   
+            {% if section.settings.badge_image != blank %}
+              <img class="badge-img" src="{{ section.settings.badge_image | img_url: 'master' }}" alt="Hourglass Cosmetics">
+            {% endif %}
+          
+            {% if section.settings.title != blank %}
+            <div class="title">{{ section.settings.title }}</div>
+            {% endif %} 
+            
+          	{% if  section.settings.waitlist_sticky_subtitle2 != blank %}
+          	<div class="off">{{ section.settings.waitlist_sticky_subtitle2 }} </div>
+            {% endif %}
+            {% if  section.settings.waitlist_sticky_subtext1 != blank %}
+            <span class="subtext">{{ section.settings.waitlist_sticky_subtext1 }} </span>
+            {% endif %}
+            {% if  section.settings.waitlist_sticky_subtext2 != blank %}
+            <span class="subtextdate"><b>{{ section.settings.waitlist_sticky_subtext2 }}</b> </span>
+            {% endif %}
+          
+            {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+            <div class="actions">
+                <a href="{{ section.settings.button_link }}"> <span>{{ section.settings.button_label | escape }}</span> </a>
+            </div>
+            {% endif %}   
+          
+             
+            
+          
+        </div>
+    </div>
+  <!--div class="waitlist-right">
+    {% if section.settings.fdesk_image1 != blank %}
+          <img class="banner-desk-img lazyload" data-src="{{ section.settings.fdesk_image1 | img_url: 'master' }}" src="{{ section.settings.fdesk_image1 | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+          {% if section.settings.fdesk_image1 %}
+            data-bgset="{% include 'bgset', image: section.settings.fdesk_image1 %}"
+          {% endif %}> 
+        {% endif %}
+  </div-->
+</div>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "waitlist Banner"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+    {
+        "type": "image_picker",
+        "id": "fdesk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+    
+    {
+        "type": "image_picker",
+        "id": "fmob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+    {
+          "type": "text",
+          "id": "exclusive_badge",
+          "label": "Exclusive Badge" 
+    },
+    {
+          "type": "image_picker",
+          "id": "badge_image",
+          "label": {
+            "en": "Badge image",
+            "de": "Badge image",
+            "fr": "Badge image"
+          }
+      },
+    {
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+      
+      {
+        "type": "text",
+        "id": "waitlist_sticky_subtitle2",
+        "label": {
+          "en": "OFF",
+          "de": "OFF",
+          "fr": "OFF"
+        }
+      },
+      {
+        "type": "text",
+        "id": "waitlist_sticky_subtext1",
+        "label": {
+          "en": "Subtext",
+          "de": "Subtext",
+          "fr": "Subtext"
+        }
+      },
+      {
+        "type": "text",
+        "id": "waitlist_sticky_subtext2",
+        "label": {
+          "en": "Text ",
+          "de": "Text",
+          "fr": "Text"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "waitlist Banner"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        } 
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,236 @@
+{% stylesheet %}
+  .flits-wishlist-product-page{display:none}
+{% endstylesheet %}
+<div class="product-bundle pbundle get">
+  <div id="messages_product_view">
+      <ul class="messages" style="display: none;">
+          <li class="success-msg">
+              <ul>
+                  <li>
+                      <span>{{ product.title }} - Unlocked was added to your shopping cart.</span><a class="msg-close" href="javascript:;">X</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+  </div>
+   <div class="bundle-info">
+      <div class="bundle-name">
+         <h1>
+            <span>{{ product.title }}</span>
+         </h1>
+      </div>
+      <div class="bundle-details">
+         {{ product.description }}
+      </div>
+        {% comment %}Get first variant, or deep linked one{% endcomment %}
+      {%- assign current_variant = product.selected_or_first_available_variant -%}
+      {%- assign compare_at_price = current_variant.compare_at_price -%}
+      {%- assign price = current_variant.price -%}
+      {% assign selected_varient = product.selected_variant.id %}
+      
+      <div class="bundle-price-box">
+         {% include 'product-price', variant: current_variant %}
+      </div>
+   </div>
+   {% unless product.metafields.bundle.products == blank %}
+    {% assign bdlProds = product.metafields.bundle.products | split: '|'%}
+       <div class="bundle-products-list">
+        <ul class="bundle-product-grid">
+          {% for prods in bdlProds %}
+            <li class="bundle-product-item" data-productid="{{ all_products[prods].id }}">
+              <div class="bundle-product-info-top" style="height: 268px;">
+                {%- assign product_image_zoom_size = '210x268' -%}
+                  {%- assign product_image_scale = '2' -%}
+                {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                <img src="{{ all_products[prods].images | first | img_url: product_image_zoom_size, scale: product_image_scale }}" alt="{{ all_products[prods].title }}">
+              </div>
+              <div class="bundle-product-info">
+                <div class="fake-cell">
+                    <h2 class="bundle-product-name">
+                      {{ all_products[prods].title }}                                
+                    </h2>
+                </div>
+                {% assign cnt = 0 %}
+                {% for iVeriant in all_products[prods].variants %}
+                  {% assign cnt = cnt | plus: 1 %}
+                {% endfor %}
+                {% if cnt > 1 %}
+                  <div class="bundle-product-shade"><b>Select Shade</b></div>
+                {% endif %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+    </div>
+   {% endunless %}
+
+   <div class="bundle-products-action-get">
+      <button id="get" class="">Start Building Your Set</button>
+   </div>
+   <div class="bundle-products-action-set">
+      {% form 'product', product, class:form_classes %}
+      {% unless product.metafields.bundle.products == blank %}
+        {% assign bdlProds = product.metafields.bundle.products | split: '|'%}
+        {% assign cnt = 1 %}
+        {% for prods in bdlProds %}
+          {% if all_products[prods].variants.size > 1%}
+            <input type="hidden" value="" name="properties[Product{{cnt}}]" class="pro-data" data-id="{{ all_products[prods].id }}">
+          {% else %}
+            <input type="hidden" value="{{ all_products[prods].title }}" name="properties[Product{{cnt}}]" class="pro-data" data-id="{{ all_products[prods].id }}">
+          {% endif %}
+          {% assign cnt = cnt | plus: 1 %}
+        {% endfor %}
+      {% endunless %}
+      <input type="hidden" id="Quantity" name="quantity" value="1">
+      <input type="hidden" name="id" value="{{product.selected_or_first_available_variant.id}}">
+      <input type="hidden" name="varids" id="varIID" value="{{product.selected_or_first_available_variant.id}}">
+      <button type="submit" name="add" id="AddToCart-{{ section.id }}" {% unless current_variant.available %}disabled="disabled"{% endunless %} class="btn product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" name="add">
+        <span id="AddToCartText-{{ section.id }}">
+          {% assign isAvailable = 'disnon' %}
+          {% unless current_variant.available %}
+            {{ 'products.product.sold_out' | t }}
+            {% assign isAvailable = '' %}
+          {% else %}
+          {{ 'products.product.add_to_cart' | t }}
+          {% endunless %}
+        </span>
+      </button>
+      {% endform %}
+      <div class="edit-btn">
+         <button id="edit" class="">Edit Set</button>
+      </div>
+   </div>
+</div>
+<div class="product-essential" id="essential"></div>
+<script>
+jQuery("#get").click(function(){
+  $( "ul.bundle-tab-list li:nth-child(2)" ).trigger("click");
+});
+jQuery("#edit").click(function(){
+  $( "ul.bundle-tab-list li:nth-child(1)" ).trigger("click");
+});
+</script>
+<script type="application/json" id="ProductJson-{{ section.id }}">
+  {{ product | json }}
+</script>
+{% schema %}
+{
+  "name": {
+  "en": "Product pages",
+  "de": "Produktseiten",
+  "fr": "Pages de produits"
+},
+"settings": [
+{
+  "type": "select",
+  "id": "image_size",
+  "label": {
+  "en": "Image size",
+  "de": "Foto-Größe",
+  "fr": "Taille des images"
+},
+"options": [
+{
+  "value": "small",
+  "label": {
+  "en": "Small",
+  "de": "Klein",
+  "fr": "Petite"
+}
+},
+{
+  "value": "medium",
+  "label": {
+  "en": "Medium",
+  "de": "Mittel",
+  "fr": "Moyenne"
+}
+},
+{
+  "value": "large",
+  "label": {
+  "en": "Large",
+  "de": "Groß",
+  "fr": "Grande"
+}
+},
+{
+  "value": "full",
+  "label": {
+  "en": "Full-width",
+  "de": "Volle Breite",
+  "fr": "Pleine largeur"
+}
+}
+],
+"default": "medium"
+},
+{
+  "type": "checkbox",
+  "id": "show_quantity_selector",
+  "label": {
+  "en": "Show quantity selector",
+  "de": "Quantitäts-Auswahl anzeigen",
+  "fr": "Afficher le sélecteur de quantité"
+},
+"default": false
+},
+{
+  "type": "checkbox",
+  "id": "show_variant_labels",
+  "label": {
+  "en": "Show variant labels",
+  "de": "Varianten-Etiketten anzeigen",
+  "fr": "Afficher le nom des variantes"
+},
+"default": true
+},
+{
+  "type": "checkbox",
+  "id": "show_vendor",
+  "label": {
+  "en": "Show vendor",
+  "de": "Lieferanten anzeigen",
+  "fr": "Afficher les vendeurs"
+},
+"default": false
+},
+{
+  "type": "checkbox",
+  "id": "enable_zoom",
+  "label": {
+  "en": "Enable image zoom",
+  "de": "Foto-Zoom zulassen",
+  "fr": "Activer le zoom d'image"
+},
+"default": false
+},
+{
+  "type": "checkbox",
+  "id": "enable_payment_button",
+  "label": {
+  "en": "Show dynamic checkout button",
+  "de": "Dynamischen Checkout Button anzeigen",
+  "fr": "Afficher le bouton de passage à la caisse dynamique"
+},
+"info": {
+"en": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+"de": "Lässt Kunden direkt bezahlen mit bekannten Bezahlmethoden. [Mehr erfahren](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+"fr": "Permettez à vos clients de passer à la caisse avec un moyen de paiement qui leur est familier. [En savoir plus](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+},
+"default": false
+},
+{
+  "type": "checkbox",
+  "id": "show_share_buttons",
+  "label": {
+  "en": "Show social sharing buttons",
+  "de": "Buttons für Social Media anzeigen",
+  "fr": "Affichez les boutons de partage sur les médias sociaux"
+},
+"default": true
+}
+]
+}
+{% endschema %}
+</div>

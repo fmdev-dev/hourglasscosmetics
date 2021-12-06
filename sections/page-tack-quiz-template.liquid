@@ -1,0 +1,138 @@
+<div id="section1" class="section newblock fullheightblock homepage-section1 scattered-light ambient-banner tack-quiz-banner">
+  	{% if section.settings.desk_link != blank %}
+    <a class="bannerbg" href="{{ section.settings.desk_link }}" >
+      {% if section.settings.desk_image != blank %}
+      	<img class="banner-desk-img" src="{{ section.settings.desk_image | img_url: '1728x1185' }}" alt="Hourglass Cosmetics"
+        {% if section.settings.desk_image %}
+          data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+        {% endif %}
+        > 
+      {% endif %}
+      {% if section.settings.mob_image != blank %}
+      <img class="banner-mob-img" src="{{ section.settings.mob_image | img_url: '687x447' }}" alt="Hourglass Cosmetics"
+      {% if section.settings.mob_image %}
+          data-bgset="{% include 'bgset', image: section.settings.mob_image %}"
+      {% endif %}     
+      >
+  	  {% endif %}
+  	</a>
+  	{% endif %}
+    <div class="banner-content">
+        <div class="content-inner">
+          	{% if section.settings.title_sub != blank %}
+            <div class="h2">{{ section.settings.title_sub | escape }}</div>
+          	{% endif %}
+          	{% if section.settings.title != blank %}
+            <div class="h3">{{ section.settings.title | escape }}</div>
+          	{% endif %}
+          	{% if section.settings.title1 != blank %}
+            <div class="h4">{% if section.settings.title1 != blank %}{{ section.settings.title1 | escape }}{% endif %}</div>
+          	{% endif %}
+          	
+          	{% if section.settings.button_label != blank and section.settings.button_link != blank %}
+          	<div class="actions">
+                <a href="{{ section.settings.button_link }}" id="takequize"> <span>{{ section.settings.button_label | escape }}</span> </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Tack The Quiz",
+      "de": "Tack The Quiz",
+      "fr": "Tack The Quiz"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "url",
+        "id": "desk_link",
+        "label": {
+          "en": "Desktop link",
+          "de": "Desktop link",
+          "fr": "Desktop link"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+     {
+      "type": "text",
+      "id": "title_sub",
+      "label": {
+      "en": "Small Heading",
+      "de": "Titel",
+      "fr": "En-tête"
+      },
+      "default": {
+      "en": "Image with text overlay",
+      "de": "Foto mit überlegtem Text",
+      "fr": "Image avec superposition de texte"
+      }
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+        },
+        "default": {
+          "en": "Image with text overlay",
+          "de": "Foto mit überlegtem Text",
+          "fr": "Image avec superposition de texte"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title1",
+        "label": {
+          "en": "Heading 1",
+          "de": "Titel 1",
+          "fr": "En-tête 1"
+        },
+        "default": {
+          "en": "Image with text overlay",
+          "de": "Foto mit überlegtem Text",
+          "fr": "Image avec superposition de texte"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+    ]
+  }
+{% endschema %}

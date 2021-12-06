@@ -1,0 +1,81 @@
+<div class="veil-comingsoon unlocked-waitlist">
+  <img class="bg-image mobile_view lazyload" src="{{ section.settings.mobile_image | img_url : '100x' }}" data-src="{{ section.settings.mobile_image | img_url : 'master' }}" alt="{{ section.settings.mobile_image.alt }}" style="width:100%">
+  <img class="bg-image desktop_view lazyload" src="{{ section.settings.desktop_image | img_url : '300x' }}" data-src="{{ section.settings.desktop_image | img_url : 'master' }}" alt="{{ section.settings.desktop_image.alt }}" style="width:100%">
+  <div class="video-image-section">
+    <div class="waitlist-section">
+      <strong class="date">{{ section.settings.date }}</strong> 
+      <span class="title">{{ section.settings.title }}</span>
+      <!--div class="waitlist-video"><img src="https://cdn.shopify.com/s/files/1/0016/7116/8064/files/unlocked-logo.gif?v=1593408439" alt="" /></div-->
+      <div class="waitlist-unlocked">{{ section.settings.unlockedtitle }}</div>
+      <button class="button btn-join joinwaitlist" type="button"><span><span>JOIN THE WAITLIST</span></span></button>
+      <div class="waitlist_after" id="klaviyo-form" style="display: none;"><div class="klaviyo-form-WHYSPU"></div></div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    setTimeout(function() {
+      $(document).on('click', '.unlocked-waitlist .joinwaitlist', function() {
+        $(".joinwaitlist").hide();
+        $("#klaviyo-form").show();
+        $("html, body").animate({
+          scrollTop: $('#klaviyo-form').offset().top - 220
+        }, 1000);
+      });
+
+    }, 1000);
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Unlocked Waitlist",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": {
+            "en": "Mobile background image",
+            "de": "Mobile background image",
+            "fr": "Mobile background image"
+          }
+        },
+		{
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": {
+            "en": "Desktop background image",
+            "de": "Desktop background image",
+            "fr": "Desktop background image"
+          }
+        },
+		{
+           "type":"text",
+           "id":"date",
+           "label":{
+              "en":"Date",
+              "de":"Date",
+              "fr":"Date"
+           }
+        },
+		{
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+        },
+		{
+           "type":"text",
+           "id":"unlockedtitle",
+           "label":{ 
+              "en":"Unlocked Title",
+              "de":"Unlocked Title",
+              "fr":"Unlocked Title"
+           }
+        }
+	]
+  }
+{% endschema %}

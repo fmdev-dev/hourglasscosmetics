@@ -1,0 +1,144 @@
+<div class="section fullheightblock homepage-product-bar-section">
+  <div class="product-bar-fix">
+    {% for block in section.blocks %}
+      <div class="product-grid">
+        {% if block.settings.badge != blank %}
+          <div class="new-badge">{{ block.settings.badge }}</div>
+        {% endif %}
+        {% if block.settings.title_sub != blank %}
+          <div class="sub-heading">{{ block.settings.title_sub | escape }}</div>
+        {% endif %}
+        {% if block.settings.title_sub2 != blank %}
+          <div class="sub-heading">{{ block.settings.title_sub2 | escape }}</div>
+        {% endif %}
+        {% if block.settings.heading != blank %}
+          <div class="at-night-title">{{ block.settings.heading | escape }}</div>
+        {% endif %}
+        {% if block.settings.desk_image != blank %}
+        <div class="product-deskimg">
+          <img class="product-desk-img lazyload" data-src="{{ block.settings.desk_image | img_url: '' }}" src="{{ block.settings.desk_image | img_url: '10x10' }}" alt="Hourglass Cosmetics" >
+        </div>
+        {% endif %}
+        {% if block.settings.price != blank %}
+          <div class="price">{{ block.settings.price | escape }}</div>
+        {% endif %}
+        {% if block.settings.variant_id != blank %}
+          <form method="post" action="/cart/add" id="product_form_{{ block.settings.variant_id }}" accept-charset="UTF-8" enctype="multipart/form-data">
+            <input type="hidden" name="form_type" value="product">
+            <input type="hidden" name="utf8" value="✓">
+            <input name="id" type="hidden" value="{{ block.settings.variant_id }}" >
+            <input type="hidden" id="Quantity" name="quantity" value="1">
+            <button type="submit" name="add" id="AddToCart-{{ block.settings.variant_id }}" class="btn product-form__cart-submit">Add to cart</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Homepage Product Bar",
+      "de": "Homepage Product Bar",
+      "fr": "Homepage Product Bar"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+  ],
+    "max_blocks": 3,
+  "blocks" : [
+    {
+      "type": "image",
+      "name": {
+        "en": "Product Bar",
+        "de": "Product Bar",
+        "fr": "Product Bar"
+      },
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desk_image",
+          "label": {
+            "en": "Image",
+            "de": "Image",
+            "fr": "Image"
+          }
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": {
+          "en": "Badge",
+          "de": "Badge",
+          "fr": "Badge"
+          }
+        },
+        {
+          "type": "text",
+          "id": "title_sub",
+          "label": {
+          "en": "Sub title",
+          "de": "Sub title",
+          "fr": "Sub title"
+          }
+        },
+        {
+          "type": "text",
+          "id": "title_sub2",
+          "label": {
+          "en": "Sub title 2",
+          "de": "Sub title 2",
+          "fr": "Sub title 2"
+          }
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": {
+            "en": "Heading",
+            "de": "Titel",
+            "fr": "En-tête"
+          }
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": {
+          "en": "Price",
+          "de": "Price",
+          "fr": "Price"
+          }
+        },
+		{
+          "type": "product",
+          "id": "product-handle",
+          "label": "Product-Handle"
+        },
+		{
+          "type": "text",
+          "id": "variant_id",
+          "label": {
+          "en": "Variant Id",
+          "de": "Variant Id",
+          "fr": "Variant Id"
+          }
+        }
+      ]
+     }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Homepage Product Bar",
+          "de": "Homepage Product Bar",
+          "fr": "Homepage Product Bar"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

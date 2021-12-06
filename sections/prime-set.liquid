@@ -1,0 +1,212 @@
+<div class="section veil-prime-set">
+  <div class='prime-set-title'>
+    {% if section.settings.title1 != blank %}
+  		<h3>{{ section.settings.title1 }}</h3>
+  	{% endif %}
+    {% if section.settings.title2 != blank %}
+  		<h3>{{ section.settings.title2 }}</h3>
+  	{% endif %}
+  </div>
+  <div class="prime-set-grid">
+    {% for block in section.blocks limit: section.blocks.size %}
+    	<div class="price-set-item">
+         <strong> {% if block.settings.tab != blank %}{{ block.settings.tab }}{% endif %}</strong>
+          
+          {% if block.settings.title != blank and block.settings.product_handle != blank %}
+           <a href="/products/{{ block.settings.product_handle }}"><h3>{{ block.settings.title }} <span class="mobile-view-price">{{ block.settings.price_code }}{{ block.settings.price }}</span></h3></a>
+          {% if block.settings.content != blank %}
+                    <p class="veil-prime-des-mobile">{{ block.settings.content }}</p>
+                  {% endif %}
+          {% endif %}
+          <div class="price-set-img-overlay">
+             	<div class="cont-overlay">
+                  {% if block.settings.content != blank %}
+                    <p>{{ block.settings.content }}</p>
+                  {% endif %}
+                  {% if block.settings.price != blank and block.settings.price_code %}
+                    <span class="cont-overlay-price">{{ block.settings.price_code }}{{ block.settings.price }}</span>
+                  {% endif %}
+                  {% if block.settings.product_button_label != blank and block.settings.product_handle != blank %}
+                    <a class="quick-view" data-toggle="modal" data-target="#my_quick_view_modal" onclick="quickviewopton('{{ block.settings.product_handle }}')" data-handle="{{ block.settings.product_handle }}">{{ block.settings.product_button_label }}</a>
+                  {% endif %}
+                </div>
+                {% if block.settings.prim_image != blank %}
+                  <img class="lazyload" data-src="{{ block.settings.prim_image | img_url: 'master' }}" src="{{ block.settings.prim_image | img_url: '10x10' }}" alt="{{ block.settings.title }}" />
+                {% endif %}
+            
+    	  </div>  
+          <div class="for-mobile-view">
+            {% if block.settings.product_handle != blank %}
+              {% assign product = all_products[block.settings.product_handle] %}
+              {% include 'product-addtocart-veil-collection', product: product %}
+            {% endif %}
+          </div>
+    	</div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  /* FOR MOBILE VIEW == AD DTO CART AND VARIANT SELECTOR */
+ jQuery(document).on('change','.single-option-selector', function(event){
+    event.preventDefault();
+    var product_id = $(this).attr('productid');   
+    var cur_var_title =  $(this).find('option:selected').val();
+    var is_in_stock =  $(this).find('option:selected').attr('data-instock');
+    var cur_var_id = "";
+    $( "#ProductSelect-product-template-"+product_id+" option" ).each(function( data ) {      
+       var val = $(this).text(); val = $.trim(val);
+       var vr_id = $(this).attr("var_id");
+       if(val==cur_var_title) {
+          cur_var_id =  $(this).attr("var_id"); 
+       }
+    });     
+    var selcted_id = $("#ProductSelect-product-template-"+product_id).val();
+    var p_id = $(this).attr("productid");
+    $("#Select-product-template-"+p_id).val(cur_var_id);
+   
+   /* OUT OF STOCK */
+   if(is_in_stock==0) {
+     $(".AddToCart-product-template-"+product_id + " span").html("Out of stock");
+     $(".AddToCart-product-template-"+product_id).attr("disabled","disabled");
+   } else {
+     $(".AddToCart-product-template-"+product_id + " span").html("Add to cart");  
+     $(".AddToCart-product-template-"+product_id).removeAttr("disabled");
+   }
+   
+ }); 
+</script>
+  
+
+{% schema %}
+  {
+    "name": "Veil Prime Set",
+    "settings": [
+		{
+           "type":"text",
+           "id":"title1",
+           "label":{
+              "en":"Title 1",
+              "de":"Title 1",
+              "fr":"Title 1"
+           }
+        },
+		{
+           "type":"text",
+           "id":"title2",
+           "label":{
+              "en":"Title 2",
+              "de":"Title 2",
+              "fr":"Title 2"
+           }
+        }
+	],
+	"presets":[
+      {
+         "name":{
+            "de":"Veil Price Set",
+            "en":"Veil Price Set",
+            "fr":"Veil Price Set"
+         },
+         "category":{
+            "de":"Collections",
+            "en":"Collections",
+            "fr":"Collections"
+         },
+         "blocks":[
+            {
+               "type":"priceset"
+            },
+            {
+               "type":"priceset"
+            }
+         ]
+      }
+   ],
+	"blocks":[
+      {
+         "type":"priceset",
+         "name":{
+            "de":"Veil Price Set",
+            "en":"Veil Price Set",
+            "fr":"Veil Price Set"
+         },
+         "settings":[
+            {
+               "type":"text",
+				"id":"tab",
+               	"label":"Tab"
+            },
+			{
+			  	"type":"text",
+              	"id":"title",
+              	"label":"Title"
+            },
+            {
+               	"type":"text",
+				"id":"content",
+               	"label":"Content"
+            },
+			{
+               	"type":"text",
+				"id":"price",
+               	"label":"Price"
+            },
+            {
+               "type":"select",
+               "id":"price_code",
+               "label":"Money Formate",
+               "options": [
+                 {
+                   "value": "$",
+                   "label": "$"
+                 },
+                 {
+                   "value": "£",
+                   "label": "£"
+                 }
+               ],
+               "default":   "$"
+            },
+            {
+               	"type":"image_picker",
+               	"id":"prim_image",
+               	"label":{
+                  "en":"Image",
+                  "de":"Image",
+                  "fr":"Image"
+               	}
+            },
+			{
+              "type": "text",
+              "id": "product_button_label",
+              "label": {
+                "en": "Button label",
+                "de": "Button-Etikett",
+                "fr": "Texte du bouton"
+              }
+            },
+            {
+              "type": "url",
+              "id": "product_button_link",
+              "label": {
+                "en": "Button link",
+                "de": "Button-Etikett",
+                "fr": "Lien du bouton"
+              }
+            },
+			{
+               	"type":"text",
+				"id":"product_handle",
+               	"label":"Product Handle"
+            }
+         ]
+      }
+   ]
+  }
+{% endschema %}
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

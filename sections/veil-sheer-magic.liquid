@@ -1,0 +1,124 @@
+<div class="section veil-sheer-magic">
+	{% if section.settings.veil_sheer_image != blank %}
+    	<a class="bannerbg" href="{{ section.settings.veil_sheer_button_link }}" >
+      	{% if section.settings.veil_sheer_image != blank %}
+      		<img class="banner-desk-img lazyload" data-src="{{ section.settings.veil_sheer_image | img_url: '1728x1185' }}" src="{{ section.settings.veil_sheer_image | img_url: '100x100' }}" alt="Hourglass Cosmetics" > 
+      	{% endif %}
+  		</a>
+  	{% endif %}
+    <div class="banner-content">
+        <div class="content-inner">
+          	{% if section.settings.veil_sheer_title != blank %}
+            <h3 class="top-heading">{{ section.settings.veil_sheer_title | escape }}</h3>
+          	{% endif %}
+          	{% if section.settings.veil_sheer_title1 != blank %}
+            <h3>{{ section.settings.veil_sheer_title1 | escape }}</h3>
+          	{% endif %}
+            {% if section.settings.veil_sheer_mobile_image != blank %}
+                <a class="bannerbg" href="{{ section.settings.veil_sheer_button_link }}" >
+                {% if section.settings.veil_sheer_mobile_image != blank %}
+                    <img class="banner-mob-img lazyload" data-src="{{ section.settings.veil_sheer_mobile_image | img_url: 'master' }}" src="{{ section.settings.veil_sheer_mobile_image | img_url: '100x100' }}" alt="Hourglass Cosmetics" > 
+                {% endif %}
+                </a>
+            {% endif %}          
+          	{% if section.settings.veil_sheer_content != blank %}
+            	<p>{{ section.settings.veil_sheer_content }}</p>
+          	{% endif %}
+            {% if section.settings.veil_sheer_button_label != blank and section.settings.veil_sheer_button_link != blank %}
+          	<div class="actions">
+                <a href="{{ section.settings.veil_sheer_button_link }}"> <span>{{ section.settings.veil_sheer_button_label | escape }}</span></a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "veil sheer magic",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "veil_sheer_image",
+          "label": {
+            "en": "Image",
+            "de": "Image",
+            "fr": "Image"
+          }
+        },
+		{
+          "type": "image_picker",
+          "id": "veil_sheer_mobile_image",
+          "label": {
+            "en": "Mobile Image",
+            "de": "Mobile Image",
+            "fr": "Mobile Image"
+          }
+        },
+		{
+           "type":"text",
+           "id":"veil_sheer_title",
+           "label":{
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+        },
+		{
+           "type":"text",
+           "id":"veil_sheer_title1",
+           "label":{
+              "en":"Sub Title",
+              "de":"Sub Title",
+              "fr":"Sub Title"
+           }
+        },
+        {
+           "type":"text",
+           "id":"veil_sheer_content",
+           "label":{
+              "en":"Text Content",
+              "de":"Text Content",
+              "fr":"Text Content"
+           }
+        },
+		{
+          "type": "text",
+          "id": "veil_sheer_button_label",
+          "label": {
+            "en": "Button label",
+            "de": "Button-Etikett",
+            "fr": "Texte du bouton"
+          }
+        },
+        {
+          "type": "url",
+          "id": "veil_sheer_button_link",
+          "label": {
+            "en": "Button link",
+            "de": "Button-Etikett",
+            "fr": "Lien du bouton"
+          }
+        }
+	],
+	"presets":[
+      {
+         "name":{
+            "de":"Veil Sheer Magic",
+            "en":"Veil Sheer Magic",
+            "fr":"Veil Sheer Magic"
+         },
+         "category":{
+            "de":"Collections",
+            "en":"Collections",
+            "fr":"Collections"
+         }
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

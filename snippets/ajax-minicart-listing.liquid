@@ -1,0 +1,149 @@
+{% raw %}
+<script type="tmpl" id='minicart-template-listing'>
+<span class="close skip-link-close Clsmin">×</span>
+  <div class="count">
+    RECENTLY ADDED ITEM(S)
+  </div>
+  
+  <% if (cart.item_count == 0) { %>
+  <p class="empty">You have no items in your shopping cart.</p>
+  <% } else { %>
+  <ul class="mini-products-list cart-sidebar">
+  <% var line = 1; %>
+  <%cart.items %>
+  <% _.each(cart.items, function(item) { %>
+    <li>
+     <a href="<%= item.url %>" title="<%- item.title %>" class="product-image">
+     	<div class="minicart-img-data" data-src="<%- item.image %>" data-alt="<%- item.title %>" ></div>
+        <img src="" width="78" height="78" alt="Hourglass Cosmetics" />
+      </a>
+      <div class="product-details">
+        <div class="carttitle-price">
+        <a href="<%= item.url %>" class="cartproduct-name"><%- item.title %></a>
+        <div class="mini-out-of-stock" data-miniid="<%- item.id %>"></div>
+        <div class="td-price"> <span class="item-price price"><%= item.price %></span></div>
+      </div>
+      <div class="qty-edititem-removeitem">
+        <label>Qty:</label>
+        <div class="cartquantity-update">
+          <input class="qty cart-item-quantity" name="miniqty" value="<%= item.quantity %>">
+          <button class="button quantity-button quntbtn" data-line="<%= line %>">Update</button>
+        </div>
+        <div class="cart-edit-remove">
+          <a href="<%= item.url %>" title="Edit item" class="cart-itemcmn btn-edit">Edit item</a>
+          <a href="javascript:void(0)" title="Remove This Item" class="cart-itemcmn remove rembtn" data-line="<%= line %>">Remove Item</a></div>
+        </div>
+      </div>
+    </li> 
+    <% line++; %>
+  <% }); %>
+ </ul>
+  <div class="subtotal">
+    <strong>CART SUBTOTAL: </strong>
+    <strong class="amount price"><%= cart.total_price %></strong>
+  </div>
+  
+  <div class="buttons">
+    <a href="/cart">View Cart</a>
+    <a class="checkout" href="/checkout">Checkout</a>
+  </div>
+ 
+ <% } %>
+  
+ 
+</script>
+{% endraw %}
+
+<div class="mini-cart"></div>
+
+<style>
+.mini-cart {
+  width: 350px;
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  z-index: 999;
+  background: #f5f5f5;
+  display: none;
+  padding: 3px;
+}
+
+/*.mini-cart .td-image {
+  width: 60px;
+}*/
+
+.mini-cart .count, .mini-cart .subtotal, .mini-cart .buttons {
+  padding: 10px;
+}
+
+.mini-cart .subtotal {
+  text-align: right;
+  padding-right: 5px;
+}
+.mini-cart .subtotal .amount {
+  display: inline-block;
+  width: 85px;
+  padding: 0 10px;
+}
+.mini-cart table tr, .mini-cart .count {
+  border-bottom: 1px solid #ccc;
+}
+.mini-cart table td {
+  border: none;
+}
+
+.mini-cart a {
+  padding: 5px;
+}
+.mini-cart a.checkout {
+  float: right;
+  background: #000;
+  color: #fff;
+}
+
+.mini-cart .td-price {
+  width: 85px;
+}
+
+.mini-cart .item-price {
+  float: right;
+  margin-right: 5px;
+}
+</style>
+<script type="text/javascript">
+  $variable = _ ;
+  $theme = window.theme;
+  // update selector to corresponding cart menu
+  $(document).ready(function(e) {
+      
+    $.getJSON('/cart.js', function(data) {
+      
+      // run template view
+      var template = $("#minicart-template-listing").html();
+      var tmpl = $variable.template(template);
+      var outofstock = 0;
+      // populate cart data
+      $(".mini-cart").html(tmpl({cart:data}));
+      
+      // format all prices
+      $('.price', '.mini-cart').each(function() {
+        $(this).html($theme.Currency.formatMoney(parseInt($(this).text())));
+      });
+      
+      // format image to small
+      $(".mini-products-list li a").each(function() {
+        var src = $(this).find(".minicart-img-data").attr("data-src");        
+        $(this).find("img").attr("src", src);
+        
+        //update image alt value
+        var title = $(this).find(".minicart-img-data").attr("data-alt");
+        $(this).find("img").attr("alt",title);
+                
+      });
+      
+      $('.mini-cart').show();
+    });
+    
+  });
+ 
+</script>

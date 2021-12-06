@@ -1,0 +1,36 @@
+<div class="non_human_banner">
+  <div class="page-content">    
+    <div class="container">            
+      <div class="content">
+        {% if section.settings.text1 != blank %}<div class="text1">{{section.settings.text1}}</div>{% endif %} 
+        {% if section.settings.image != blank %}
+        <img class="nonhuman_img lazyload" data-src="{{ section.settings.image | img_url: 'master' }}" src="{{ section.settings.image | img_url: '50x' }}" width="546" height="36" alt="Hourglass Cosmetics" >
+        {% endif %}
+        {% if section.settings.text2 != blank %}<div class="text2">{{section.settings.text2}}</div>{% endif %} 
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %} 
+  {
+  "name": "Product NonHuman Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text1",
+      "label": { "en": "Text 1" }
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": { "en": "Image" }
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": { "en": "Text 2" }
+    }
+  ]
+}
+{% endschema %}

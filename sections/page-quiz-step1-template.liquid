@@ -1,0 +1,121 @@
+<div id="shopify-section-quizstep-1" class="shopify-section">
+    {% if section.settings.question != blank %}
+        <h2>{{ section.settings.question }}</h2>
+    {% endif %}
+    {% if section.settings.text != blank %}
+        <p>{{ section.settings.text }}</p>
+    {% endif %}
+    <ul class="quizstep-list">
+    {% assign counter=0 %}
+    {% for block in section.blocks limit: section.blocks.size %}
+        {% if block.settings.title != '' %}
+         {% assign counter = counter | plus: 1 %}
+        <li>
+            <div class="custom-radio">
+                <input type="radio" id="{{block.settings.title | downcase }}" name="question1" value="{{block.settings.value }}" {% if counter==1 %} checked {% endif %} >
+                <label for="{{block.settings.title | downcase }}">
+                <span class="item-title">{{block.settings.title}}</span>
+                {% if block.settings.text != '' %}
+                    <span class="step-item-info">{{block.settings.text}}</span>
+                {% endif %}
+                {% if block.settings.image != blank %}
+                    <span class="step-item-info">
+                        <img src="{{ block.settings.image | img_url : '194x84' }}" alt="{{block.settings.title}}" />
+                    </span>
+                {% endif %}
+                </label>
+            </div>
+        </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+</div>
+{% schema %}
+{
+   "name":{
+      "de":"Quiz 1 Section",
+      "en":"Quiz 1 Section",
+      "fr":"Quiz 1 Section"
+   },
+   "class":"pickuplocation-list-section",
+   "max_blocks":8,
+   "settings":[
+      {
+         "type":"text",
+         "id":"question",
+         "label":{
+            "en":"Qustion",
+            "de":"Qustion",
+            "fr":"Qustion"
+         }
+      },
+      {
+         "type":"text",
+         "id":"text",
+         "label":{
+            "en":"Text",
+            "de":"Text",
+            "fr":"Text"
+         }
+      }
+   ],
+   "presets":[
+      {
+         "name":{
+            "de":"quiz1_section",
+            "en":"quiz1_section",
+            "fr":"quiz1_section"
+         },
+         "category":{
+            "de":"Collections",
+            "en":"Collections",
+            "fr":"Collections"
+         },
+         "blocks":[
+            {
+               "type":"quiz1selection"
+            },
+            {
+               "type":"quiz1selection"
+            }
+         ]
+      }
+   ],
+   "blocks":[
+      {
+         "type":"quiz1selection",
+         "name":{
+            "de":"quiz1_section",
+            "en":"quiz1_section",
+            "fr":"quiz1_section"
+         },
+         "settings":[
+            {
+               "id":"title",
+               "type":"text",
+               "label":"Title"
+            },
+			{
+              "id":"value",
+              "type":"text",
+              "label":"Value"
+            },
+            {
+               "id":"text",
+               "type":"text",
+               "label":"Text"
+            },
+            {
+               "type":"image_picker",
+               "id":"image",
+               "label":{
+                  "en":"Image",
+                  "de":"Image",
+                  "fr":"Image"
+               }
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

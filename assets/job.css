@@ -1,0 +1,67 @@
+@font-face{font-family:'Gotham';src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-BoldItalic.eot);src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-BoldItalic.eot?#iefix) format("embedded-opentype"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-BoldItalic.woff) format("woff"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-BoldItalic.ttf) format("truetype");font-weight:700;font-style:italic; font-display: swap;}
+@font-face{font-family:'Gotham Book';src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Book.eot);src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Book.eot?#iefix) format("embedded-opentype"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Book.woff) format("woff"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Book.ttf) format("truetype");font-weight:400;font-style:normal; font-display: swap;}
+@font-face{font-family:'Gotham';src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Bold.eot);src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Bold.eot?#iefix) format("embedded-opentype"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Bold.woff) format("woff"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Bold.ttf) format("truetype");font-weight:700;font-style:normal; font-display: swap;}
+@font-face{font-family:'Gotham';src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Light.eot);src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Light.eot?#iefix) format("embedded-opentype"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Light.woff) format("woff"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Light.ttf) format("truetype");font-weight:300;font-style:normal; font-display: swap;}
+@font-face{font-family:'Gotham';src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Medium.eot);src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Medium.eot?#iefix) format("embedded-opentype"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Medium.woff) format("woff"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-Medium.ttf) format("truetype");font-weight:500;font-style:normal; font-display: swap;}
+@font-face{font-family:'Gotham Book';src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-BookItalic.eot);src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-BookItalic.eot?#iefix) format("embedded-opentype"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-BookItalic.woff) format("woff"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-BookItalic.ttf) format("truetype");font-weight:400;font-style:italic; font-display: swap;}
+@font-face{font-family:'Gotham';src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-MediumItalic.eot);src:url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-MediumItalic.eot?#iefix) format("embedded-opentype"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-MediumItalic.woff) format("woff"),url(https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/Gotham-MediumItalic.ttf) format("truetype");font-weight:500;font-style:italic; font-display: swap;}
+html, body{font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif!important; padding-bottom:0px !important;}
+.accessible #content{ font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif!important;font-weight: 300; font-size: 14px;    line-height: 2.1em;}
+.company-name {font-size: 14px; font-weight: 300; }
+body .accessible .level-0 h2, body .accessible .level-0 h3, body .accessible .level-0 h4, body .accessible .level-0 h5, body .accessible .level-0 h6 { display: block; font-size: 13px;
+    font-weight: 700; color: #000;text-transform: uppercase; letter-spacing: 1px;}
+body .accessible .opening {line-height: 30px; }
+body .accessible h1 {font-size: 35px; font-weight: 300 !important; letter-spacing: 0; line-height: 1.5em; text-transform: uppercase; color: #000; font-family: "Gotham","Helvetica Neue",Verdana,Arial,sans-serif !important; margin-top: 0px; }
+body .accessible h2 {font-size: 30px; text-transform: uppercase; font-weight: 300; font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif; margin-bottom: 25px; }
+body .accessible .location {font-size: 14px; font-weight: 300; letter-spacing: normal; color: #000; font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif; clear: both; padding-top: 0px; display: block; margin: 0; line-height: normal; }
+body .opening a { font-size: 14px; font-weight:300; color: #000; border-bottom: #000 1px solid; padding-bottom: 1px; text-decoration: none; }
+body .opening a:hover {border-bottom: 1px solid transparent; }
+body .accessible .level-0 h3 {margin: 0px 0 2px 0px;}
+body #app_body {    max-width: 600px; position: relative; padding-left: 0px !important; margin: auto;}
+body #header {padding-right: 0; }
+body #app_body h1 {margin-bottom: 10px; font-size: 30px; margin-top:0px; }
+body #application div.required-fields{color: red}
+body #application .heading{ font-size: 14px; font-weight: normal; }
+body #main_fields div.field label, body #custom_fields div.field label, body #demographic_questions div.field label, body #eeoc_fields div.field label {    text-transform: uppercase;
+    font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif!important; letter-spacing: .04em; font-size: 11.5px; font-weight: 500;}
+#main_fields div.field input[type=text], #main_fields div.field textarea, #main_fields div.field .text-field, #main_fields #custom_fields div.field .select2-container-multi, #custom_fields #main_fields div.field .select2-container-multi, #custom_fields div.field input[type=text], #custom_fields div.field textarea, #custom_fields div.field .text-field, #custom_fields div.field .select2-container-multi, #demographic_questions div.field input[type=text], #demographic_questions div.field textarea, #demographic_questions div.field .text-field, #demographic_questions #custom_fields div.field .select2-container-multi, #custom_fields #demographic_questions div.field .select2-container-multi, #eeoc_fields div.field input[type=text], #eeoc_fields div.field textarea, #eeoc_fields div.field .text-field, #eeoc_fields #custom_fields div.field .select2-container-multi, #custom_fields #eeoc_fields div.field .select2-container-multi{ border-radius: 0px; font-size: 15px;}
+#main_fields div.field input[type=text]:focus, #main_fields div.field textarea:focus, #main_fields div.field .text-field:focus, #main_fields #custom_fields div.field .select2-container-multi:focus, #custom_fields #main_fields div.field .select2-container-multi:focus, #custom_fields div.field input[type=text]:focus, #custom_fields div.field textarea:focus, #custom_fields div.field .text-field:focus, #custom_fields div.field .select2-container-multi:focus, #demographic_questions div.field input[type=text]:focus, #demographic_questions div.field textarea:focus, #demographic_questions div.field .text-field:focus, #demographic_questions #custom_fields div.field .select2-container-multi:focus, #custom_fields #demographic_questions div.field .select2-container-multi:focus, #eeoc_fields div.field input[type=text]:focus, #eeoc_fields div.field textarea:focus, #eeoc_fields div.field .text-field:focus, #eeoc_fields #custom_fields div.field .select2-container-multi:focus, #custom_fields #eeoc_fields div.field .select2-container-multi:focus{    border-color: #000;}
+ #eeoc_fields div.field label[for="s2id_autogen2"]{ margin-top: 3px; line-height: normal;}
+body .accessible #submit_app, body .accessible #apply_button {background: #000; font-weight: normal; padding: 12px 20px 14px 20px; font-size: 13px; line-height: 17px; border-radius: 0; transition: background 0.15s ease 0s, border-color 0.15s ease 0s; -webkit-appearance: none; text-transform: uppercase;outline: none !important; font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif!important; letter-spacing: .04em;}
+body .accessible #submit_app:hover, .accessible #apply_button:hover {background: #171717; transition: background 0.15s ease 0s, border-color 0.15s ease 0s;}
+body #header a {color: #000; text-decoration: none; border-bottom: #000 1px solid; font-weight: 300; font-size: 14px; }
+body #header a:hover {border-bottom: 1px solid transparent; }
+body .link-container a{font-weight: 300; color: #000; border-bottom: #000 1px solid; }
+body .link-container a:hover{border-bottom: 1px solid transparent;}
+body #captcha_container +hr {display: none;}
+#main_fields div.field input[type=text], #main_fields div.field textarea, #eeoc_fields div.field input[type=text], #eeoc_fields div.field textarea{width: 85.5%;}
+#custom_fields div.field input[type=text], #custom_fields div.field textarea, #custom_fields div.field .text-field, #custom_fields div.field .select2-container-multi{width: 98.6%;}
+body .accessible {padding-top: 0 !important; padding-bottom: 40px !important;}
+body .accessible #app_body .location{    padding-top: 10px;}
+.accessible #content p:first-child strong {display: none; }
+.accessible ul{padding-bottom: 5px;}
+.accessible ul li{font-weight: 300; font-size: 14px; color: #000;margin-top:4px; }
+body .select2-results{ font-weight: 300; }
+.accessible #content p a, .accessible a{ color: #000; border-bottom: #000 1px solid; text-decoration: none !important; font-size: 14px;}
+.accessible #content p a:hover, .accessible a:hover{border-bottom:transparent 1px solid;}
+#eeoc_fields p strong, #eeoc_fields p {font-weight: 300; font-size: 14px; letter-spacing: .01em; line-height: 2.1em; color: #000; font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif; font-style: normal; }
+.select2-container .select2-choice>.select2-chosen{font-weight: 300; color: #000; font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif;}
+body #wrapper{ padding-top: 0px !important;}
+body #app_body {max-width: 100%; position: relative; padding-left: 20px !important; margin: auto; padding-right: 20px !important; }
+body #wrapper > h1{display: none;}
+body #application{max-width: 100%;}
+@media (max-width: 940px){
+#custom_fields div.field input[type=text], #custom_fields div.field textarea, #custom_fields div.field .text-field, #custom_fields div.field .select2-container-multi { width: 98.2%;}
+#main_fields div.field input[type=text], #main_fields div.field textarea, #eeoc_fields div.field input[type=text], #eeoc_fields div.field textarea { width: 80.9%;}
+body #app_body {padding-left: 10px !important;padding-right: 10px !important;}
+}
+@media (max-width: 767px){
+body .accessible h1, body #app_body h1{font-size: 20px;}
+body #application .heading{font-size: 14px;}
+body #application{ padding: 15px; }
+body #wrapper{padding: 0px 15px !important;}
+body #wrapper #wrapper{ padding: 0px 0px !important;}
+body #app_body {padding-left: 0px !important;padding-right: 0px !important;}
+body .accessible .location{ padding-top: 8px;}
+body .accessible h2{font-size: 22px;}
+}

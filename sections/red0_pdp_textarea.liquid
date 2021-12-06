@@ -1,0 +1,53 @@
+<div class="page-width red0_pdp_textarea_section">
+  <div class="grid">
+    <div class="grid__item ">
+      {% if section.settings.section_title != blank %}
+        <div class="rich-text__heading--medium text-center">
+          <h2 class="h3">{{ section.settings.section_title | escape }}</h2>
+        </div>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div class="rich-text__text--medium rte-setting text-center">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Red0 - Textarea"
+    },
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+        },
+        "default": {
+          "en": "Talk about your brand",
+          "de": "Reden Sie über Ihre Marke",
+          "fr": "Parlez de votre marque"
+        }
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "default": {
+          "en": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+          "de": "<p>Nutzen Sie diesen Text, um Infos über Ihre Marke mitzuteilen. Beschreiben Sie ein Produkt, kündigen Sie etwas an oder heißen Sie Kunden willkommen.</p>",
+          "fr": "<p>Utilisez ce texte pour partager des informations sur votre marque. Décrivez un produit, partagez des annonces, ou souhaitez la bienvenue à vos clients.</p>"
+        }
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,180 @@
+<div id="section13" class="section vegen-bestsellers-gifts">
+  <ul>
+    <li>
+      {% if section.settings.title1 != blank %}<span class="vbg-title">{{ section.settings.title1 }}</span>{% endif %}
+      {% if section.settings.button_label_1 != blank and section.settings.button_link_1 != blank %}<div class="actions vbg-actions-mobile"><a href="{{ section.settings.button_link_1 }}"> <span>{{ section.settings.button_label_1 | escape }}</span></a></div>{% endif %}
+      {% if section.settings.cat_image_1 != blank %}
+      <a href="{{ section.settings.button_link_1 }}">
+        <img class="banner-desk-img lazyload" data-src="{{ section.settings.cat_image_1 | img_url: '1728x1185' }}" src="{{ section.settings.cat_image_1 | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+        {% if section.settings.cat_image_1 %}
+          data-bgset="{% include 'bgset', image: section.settings.cat_image_1 %}"
+        {% endif %}
+        > 
+      </a>
+      {% endif %}
+      {% if section.settings.button_label_1 != blank and section.settings.button_link_1 != blank %}<div class="actions vbg-actions-desktop"><a href="{{ section.settings.button_link_1 }}"> <span>{{ section.settings.button_label_1 | escape }}</span></a></div>{% endif %}
+    </li>
+    <li>
+      {% if section.settings.title2 != blank %}<span class="vbg-title">{{ section.settings.title2 }}</span>{% endif %}
+      {% if section.settings.button_label_2 != blank and section.settings.button_link_2 != blank %}<div class="actions vbg-actions-mobile"><a href="{{ section.settings.button_link_2 }}"> <span>{{ section.settings.button_label_2 | escape }}</span></a></div>{% endif %}
+      {% if section.settings.cat_image_2 != blank %}
+      <a href="{{ section.settings.button_link_2 }}">  
+      	<img class="banner-desk-img lazyload" data-src="{{ section.settings.cat_image_2 | img_url: '1728x1185' }}" src="{{ section.settings.cat_image_2 | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+        {% if section.settings.cat_image_2 %}
+          data-bgset="{% include 'bgset', image: section.settings.cat_image_2 %}"
+        {% endif %}
+        >
+      </a>
+      {% endif %}
+      {% if section.settings.button_label_2 != blank and section.settings.button_link_2 != blank %}<div class="actions vbg-actions-desktop"><a href="{{ section.settings.button_link_2 }}"> <span>{{ section.settings.button_label_2 | escape }}</span></a></div>{% endif %}
+    </li>
+    <li>
+      {% if section.settings.title3 != blank %}<span class="vbg-title">{{ section.settings.title3 }}</span>{% endif %}
+      {% if section.settings.button_label_3 != blank and section.settings.button_link_3 != blank %}<div class="actions vbg-actions-mobile"><a href="{{ section.settings.button_link_3 }}"> <span>{{ section.settings.button_label_3 | escape }}</span></a></div>{% endif %}
+      {% if section.settings.cat_image_3 != blank %}
+      <a href="{{ section.settings.button_link_3 }}">
+        <img class="banner-desk-img lazyload" data-src="{{ section.settings.cat_image_3 | img_url: '1728x1185' }}" src="{{ section.settings.cat_image_3 | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+        {% if section.settings.cat_image_3 %}
+          data-bgset="{% include 'bgset', image: section.settings.cat_image_3 %}"
+        {% endif %}
+        > 
+      </a>
+      {% endif %}
+      {% if section.settings.button_label_3 != blank and section.settings.button_link_3 != blank %}<div class="actions vbg-actions-desktop"><a href="{{ section.settings.button_link_3 }}"> <span>{{ section.settings.button_label_3 | escape }}</span></a></div>{% endif %}
+    </li>
+  </ul>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Secondary Banner",
+      "de": "Secondary Banner",
+      "fr": "Secondary Banner"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+    {
+        "type": "text",
+        "id": "title1",
+        "label": {
+          "en": "Heading 1",
+          "de": "Titel  1",
+          "fr": "En-tête 1"
+        }
+     },
+	   {
+        "type": "image_picker",
+        "id": "cat_image_1",
+        "label": {
+          "en": "Category Image 1",
+          "de": "Category Image 1",
+          "fr": "Category Image 1"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label_1",
+        "label": {
+          "en": "Button label 1",
+          "de": "Button-Etikett 1",
+          "fr": "Texte du bouton 1"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link_1",
+        "label": {
+          "en": "Button link 1",
+          "de": "Button-Etikett 1",
+          "fr": "Lien du bouton 1"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title2",
+        "label": {
+          "en": "Heading 2",
+          "de": "Titel  2",
+          "fr": "En-tête 2"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "cat_image_2",
+        "label": {
+          "en": "Category Image 2",
+          "de": "Category Image 2",
+          "fr": "Category Image 2"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label_2",
+        "label": {
+          "en": "Button label 2",
+          "de": "Button-Etikett 2",
+          "fr": "Texte du bouton 2"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link_2",
+        "label": {
+          "en": "Button link 2",
+          "de": "Button-Etikett 2",
+          "fr": "Lien du bouton 2"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title3",
+        "label": {
+          "en": "Heading 3",
+          "de": "Titel  3",
+          "fr": "En-tête 3"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "cat_image_3",
+        "label": {
+          "en": "Category Image 3",
+          "de": "Category Image 3",
+          "fr": "Category Image 3"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label_3",
+        "label": {
+          "en": "Button label 3",
+          "de": "Button-Etikett 3",
+          "fr": "Texte du bouton 3"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link_3",
+        "label": {
+          "en": "Button link 3",
+          "de": "Button-Etikett 3",
+          "fr": "Lien du bouton 3"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Secondary Banner",
+          "de": "Secondary Banner",
+          "fr": "Secondary Banner"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

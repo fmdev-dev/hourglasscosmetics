@@ -1,0 +1,17 @@
+<div class="sticky-wishlist">
+  <div class="sticky-wishlist-cont">
+     {% if section.settings.wishlist_banner != blank %}
+    <a href='{{ section.settings.wishlist_button_link }}' class="sticky-wishlist-img">
+      <img class="lazyload" data-src="{{ section.settings.wishlist_banner | img_url: 'large' }}" src="{{ section.settings.wishlist_banner | img_url: '10x10' }}" />
+    </a>
+     {% endif %}
+    <div class="sticky-wishlist-info">
+     {% if section.settings.wishlist_text != blank %}
+      <strong>{{ section.settings.wishlist_text }}</strong>
+     {% endif %}
+     {% if section.settings.wishlist_button_label != blank and section.settings.wishlist_button_link != blank %}
+      <a href="{{ section.settings.wishlist_button_link }}">{{ section.settings.wishlist_button_label }}</a>
+     {% endif %}
+    </div>
+  </div>
+</div>

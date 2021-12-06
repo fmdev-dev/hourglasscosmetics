@@ -1,0 +1,61 @@
+<div class="giftguide-list">
+    {% for blocks in section.blocks %}
+        <div class="giftguide-item">
+            <div class="giftguide-img">
+                <img class="lazyload" data-src="{{ blocks.settings.image | img_url: 'master' }}" src="{{ blocks.settings.image | img_url: '100x100' }}" alt="Gift Guide">
+            </div>
+            <a href="{{ blocks.settings.link }}" class="giftguide-cont">
+                 <img class="lazyload" data-src="{{ blocks.settings.content_image | img_url: 'master' }}" src="{{ blocks.settings.content_image | img_url: '100x100' }}" alt="Gift Guide">
+            </a>        
+        </div>
+    {% endfor %}
+</div>
+{% schema %}
+{
+  "name": {
+    "en": "Gift Guide",
+      "de": "Gift Guide",
+      "fr": "Gift Guide"
+  },
+  "blocks": [
+    {
+      "type": "gift_guide_list",
+      "name": {
+        "en": "Gift Guide List",
+        "de": "Gift Guide List",
+        "fr": "Gift Guide List"
+      },
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": {
+            "en": "Gift Guide Image",
+            "de": "Gift Guide Image",
+            "fr": "Gift Guide Image"
+          }
+        },
+        {
+          "type": "image_picker",
+          "id": "content_image",
+          "label": {
+            "en": "Gift Guide Content Image",
+            "de": "Gift Guide Content Image",
+            "fr": "Gift Guide Content Image"
+          }
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": {
+            "en": "Gift Guide Link",
+            "de": "Gift Guide Link",
+            "fr": "Gift Guide Link"
+          }
+          
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

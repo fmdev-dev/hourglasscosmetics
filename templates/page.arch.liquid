@@ -1,0 +1,272 @@
+<div class="form-message form-message--success hide contact-message" id="SuccessMsg"></div>
+<div class="arch-scn-main">
+	{% section 'page-the-arch-video-template' %}
+	{% section 'page-arch-brow-collection-template' %}
+	{% section 'page-find-arch-template' %}
+	{% section 'unrestricted-brow-template' %}
+	{% section 'page-brow-finder-template' %}
+</div>
+<script type="text/javascript">
+	window.theme = window.theme || {}, theme.raQuickshop1 = function() {
+        function d(t, o, e, i) {
+            var a = window.innerHeight || $(window).height(),
+                s = t.closest(".shopify-ra-product"),
+                r = t.offset().top - $(window).scrollTop(),
+                p = t.offset().left,
+                n = t.width(),
+                c = (t.height(), $(window).width()),
+                l = (c - o) / 2,
+                u = (a - 596) / 2,
+                d = .8 * c < e ? .8 * c : e,
+                h = (c - d) / 2;
+            if ("open" == i) $("body").addClass("overlay-layer"), s.addClass("empty-box"), f = 1e3, $(window).width() < 768 && (f = 0), $(".ra-quickshop-template").css({
+                top: r,
+                left: p,
+                width: n,
+                height: 596
+            }).velocity({
+                top: u + "px",
+                left: l + "px",
+                width: o + "px"
+            }, $("body").hasClass("quickview-no-animate") ? 0 : f, [400, 20], function() {
+                $(".ra-quickshop-template").addClass("animate-width").velocity({
+                    left: h + "px",
+                    width: d + "px"
+                }, $("body").hasClass("quickview-no-animate") ? 0 : 300, "ease", function() {
+                    $(".ra-quickshop-template").addClass("add-content"), window.mySwiper = new Swiper(".ra-quickshop-template .swiper-container", {
+                        pagination: ".swiper-pagination",
+                        nextButton: ".swiper-button-next",
+                        prevButton: ".swiper-button-prev",
+                        preventClick: !0,
+                        preventClicksPropagation: !0,
+                        grabCursor: !0,
+                        onTouchStart: function() {
+                            g = !1
+                        },
+                        onTouchMove: function() {
+                            g = !1
+                        },
+                        onTouchEnd: function() {
+                            setTimeout(function() {
+                                g = !0
+                            }, 300)
+                        }
+                    }), (new theme.Sections).register("product-quickview-template", theme.ProductQS)
+                })
+            }).addClass("is-visible");
+            else {
+                var f = 300;
+                $(window).width() < 768 && (f = 0), $(".ra-quickshop-template").removeClass("add-content").velocity({
+                    top: u + "px",
+                    left: l + "px",
+                    width: o + "px"
+                }, $("body").hasClass("quickview-no-animate") ? 0 : f, "ease", function() {
+                    $("body").removeClass("overlay-layer").removeClass("quickview-no-animate"), $(".ra-quickshop-template").removeClass("animate-width").velocity({
+                        top: r,
+                        left: p,
+                        width: n
+                    }, $("body").hasClass("quickview-no-animate") ? 0 : 500, "ease", function() {
+                        $(".ra-quickshop-template").removeClass("is-visible"), s.removeClass("empty-box")
+                    })
+                })
+            }
+        }
+
+        function t() {
+            var t = window.innerHeight || $(window).height(),
+                o = ($(window).width() - $(".ra-quickshop-template").width()) / 2,
+                e = (t - $(".ra-quickshop-template").height()) / 2;
+            $(".ra-quickshop-template").css({
+                top: e,
+                left: o
+            })
+        }
+
+        function o(t, o) {
+            var e, i, a, s, r, p = ($(".ra-close"), $(".empty-box").find("img"));
+            p.length && (!$(".ra-quickshop-template").hasClass("velocity-animating") && $(".ra-quickshop-template").hasClass("add-content") ? d(p, t, o, "close") : (i = (e = p).closest(".shopify-ra-product"), a = e.offset().top - $(window).scrollTop(), s = e.offset().left, r = e.width(), $("body").removeClass("overlay-layer").removeClass("quickview-no-animate"), i.removeClass("empty-box"), $(".ra-quickshop-template").velocity("stop").removeClass("add-content animate-width is-visible").css({
+                top: a,
+                left: s,
+                width: r
+            })))
+        }
+
+        function h(t, o) {
+            if ("basic" != raQuickshopConfig.settings.general.plan) {
+                var e = "tracking_" + o,
+                    i = $(".ra-quickshop-template .ra-product").attr("data-tracking"),
+                    a = {
+                        shop: Shopify.shop,
+                        product: t,
+                        action: e,
+                        tracking: i
+                    };
+                $.ajax({
+                    type: "POST",
+                    url: "/apps/ra-quickshop",
+                    async: !0,
+                    cache: !1,
+                    data: $.param(a),
+                    dataType: "json",
+                    error: function(t) {},
+                    success: function(t) {
+                        $(".ra-quickshop-template .ra-product").attr("data-tracking", t)
+                    }
+                })
+            }
+        }
+
+        function s() {
+            return "undefined" != typeof raQuickshopConfig && null !== raQuickshopConfig
+        }
+        var g = !0;
+        return $("body").on("click", function(t) {
+            ($(t.target).is(".ra-close") || $(t.target).is("body.overlay-layer")) && !0 === g && (t.preventDefault(), o(480, 960))
+        }), $(document).keyup(function(t) {
+            "27" == t.which && o(480, 960)
+        }), $(window).on("resize", function() {
+            $(".ra-quickshop-template").hasClass("is-visible") && window.requestAnimationFrame(t)
+        }), {
+            init: function() {
+                var u;
+                s() && (function() {
+                    if (s()) {
+                        var t, o;
+                        "" != raQuickshopConfig.settings.general.font && "inherit" != raQuickshopConfig.settings.general.font && ((o = document.createElement("link")).setAttribute("rel", "stylesheet"), o.setAttribute("type", "text/css"), o.setAttribute("href", "//fonts.googleapis.com/css?family=" + raQuickshopConfig.settings.general.font), document.getElementsByTagName("head")[0].appendChild(o)), (t = document.createElement("link")).setAttribute("rel", "stylesheet"), t.setAttribute("type", "text/css"), t.setAttribute("href", raQuickshopConfig.cssUrl), t.setAttribute("media", "screen"), document.getElementsByTagName("head")[0].appendChild(t);
+                        var e = raQuickshopConfig.settings.general.font.replace(/\+/g, " ").split(":", 1),
+                            i = "";
+                        i += ".ra-quickshop-template .button{background-color:" + raQuickshopConfig.settings.color.addcart_bground + "!important;color:" + raQuickshopConfig.settings.color.addcart_color + "!important;}", i += ".shopify-ra-product .shopify-product-quickshop-button,.template__x.shopify-ra-product .shopify-product-quickshop-button:hover,.template__46.shopify-ra-product .shopify-product-quickshop-button:before{background-color:" + raQuickshopConfig.settings.color.button_bground + "!important;}", i += ".template__x.shopify-ra-product .shopify-product-quickshop-button,.template__33.shopify-ra-product .shopify-product-quickshop-button:hover,.template__34.shopify-ra-product .shopify-product-quickshop-button:hover,.template__37.shopify-ra-product .shopify-product-quickshop-button,.template__38.shopify-ra-product .shopify-product-quickshop-button,.template__43.shopify-ra-product .shopify-product-quickshop-button,.template__44.shopify-ra-product .shopify-product-quickshop-button,.template__48.shopify-ra-product .shopify-product-quickshop-button{color:" + raQuickshopConfig.settings.color.button_bground + "!important;}", i += ".template__x.shopify-ra-product .shopify-product-quickshop-button,.template__33.shopify-ra-product .shopify-product-quickshop-button:hover,.template__34.shopify-ra-product .shopify-product-quickshop-button:hover{border-color:" + raQuickshopConfig.settings.color.button_bground + "!important;}", i += ".shopify-ra-product .shopify-product-quickshop-button,.template__x.shopify-ra-product .shopify-product-quickshop-button:hover,.template__46.shopify-ra-product .shopify-product-quickshop-button:before{color:" + raQuickshopConfig.settings.color.button_color + "!important;}", i += ".ra-quickshop-template .price-old{color:" + raQuickshopConfig.settings.color.price_compare + "!important;}", i += ".ra-quickshop-template .price-old:before{background-color:" + raQuickshopConfig.settings.color.price_compare + "!important;}", i += ".ra-quickshop-template .price,.ra-quickshop-template .price-new{color:" + raQuickshopConfig.settings.color.price + "!important;}", i += ".ra-quickshop-template.animate-width{background-color:" + raQuickshopConfig.settings.color.bground + "!important;}", i += ".ra-quickshop-template .product_infos:after{background-color:" + raQuickshopConfig.settings.color.bground + "!important;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%," + raQuickshopConfig.settings.color.bground + " 70%)!important;}", i += ".ra-quickshop-template,.ra-quickshop-template p,.ra-quickshop-template h1,.ra-quickshop-template h2,.ra-quickshop-template h3,.ra-quickshop-template h4,.ra-quickshop-template h5,.ra-quickshop-template h6,.ra-quickshop-template button,.ra-quickshop-template select,.ra-quickshop-template input,.shopify-product-quickshop-button{color:" + raQuickshopConfig.settings.color.text + "!important;font-family:" + e + "!important;}", i += ".ra-quickshop-template .button::before,.ra-quickshop-template .button::after,.ra-quickshop-template .button span::before,.ra-quickshop-template .button span::after{background-color:" + raQuickshopConfig.settings.color.text + "!important;}", i += ".ra-quickshop-template .onsale:before,.ra-quickshop-template .single-option-selector:after{color:" + raQuickshopConfig.settings.color.main + "!important;}", i += ".ra-quickshop-template .single-option-selector,.ra-quickshop-template .quantity input{border-color:" + raQuickshopConfig.settings.color.main + "!important;}";
+                        var a = document.createElement("style");
+                        a.type = "text/css", a.innerHTML = i, document.getElementsByTagName("head")[0].appendChild(a)
+                    }
+                }(), $(".shopify-product-quickshop-button").each(function() {
+                    var t = $(this);
+                    if (1 != raQuickshopConfig.settings.general.disable) {
+                        1 == raQuickshopConfig.settings.general.disable_pc && t.addClass("ra-hide-tablet"), 1 == raQuickshopConfig.settings.general.disable_mb && t.addClass("ra-hide-mobile");
+                        var o = ""; - 1 != [5, 6, 7, 8, 9, 10, 11, 20, 30, 31, 32, 39, 44, 48, 49].indexOf(parseInt(raQuickshopConfig.settings.general.template)) && (o = " template__x"), t.html("<span>" + raQuickshopConfig.settings.translation.quick_shop + "</span>").css("display", "none"), t.parent().addClass("shopify-ra-product").addClass("template__" + raQuickshopConfig.settings.general.template + o).addClass("style__" + raQuickshopConfig.settings.general.style).addClass("effect__" + raQuickshopConfig.settings.general.effect).addClass(raQuickshopConfig.settings.general.position).addClass(raQuickshopConfig.settings.general.display), t.wrap('<span class="shopify-product-quickshop-wrap"></span>'), $('<span class="button-loader"></span>').insertAfter(t)
+                    } else t.addClass("ra-hide");
+                    t.addClass("ra-loaded")
+                }), 1 == raQuickshopConfig.photoSwipe && $("body").append('<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"><div class="pswp__bg"></div><div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" aria-label="Close (Esc)"></button><button class="pswp__button pswp__button--share" aria-label="Share"></button><button class="pswp__button pswp__button--fs" aria-label="Toggle fullscreen"></button><button class="pswp__button pswp__button--zoom" aria-label="Zoom in/out"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" aria-label="Previous (arrow left)"></button><button class="pswp__button pswp__button--arrow--right" aria-label="Next (arrow right)"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div></div>'), (u = $(".arch-quick")).each(function(l) {
+                    $(this).off("click"), $(this).on("click", function(t) {
+                        t.preventDefault();
+                        var o = $(this),
+                            p = o.closest(".shopify-ra-product"),
+                            e = o.attr("data-handle"),
+                            n = "/products/" + e,
+                            //c = p.find('img[src*="//cdn.shopify.com/"]').first();
+                            c = $(this).parent().parent().parent().find('.f-arch-subitem-img').find('img');
+                            console.log(c);
+                            p.addClass("loading"), $.ajax({
+                            url: "/products/" + e + "?view=ra-quickshop1",
+                            success: function(t) {
+                                if ($(".ra-quickshop-template").empty().html(t), void 0 !== raQuickshopConfig.collectionUrl && "" != raQuickshopConfig.collectionUrl) {
+                                    var o2 = raQuickshopConfig.collectionUrl + n;
+                                    $(".ra-quickshop-template").find(".product_link").attr("href", o2)
+                                }
+                                var e, i, a, s = (a = '<div class="ra_nav">', null != (e = u)[(i = l) - 1] && (a = a + '<div class="prev btn_nav" data-idx="' + (i - 1) + '"></div>'), null != e[i + 1] && (a = a + '<div class="next btn_nav" data-idx="' + (i + 1) + '"></div>'), a + "</div>");
+                                $(".ra-quickshop-template .ra-product").prepend(s);
+                                if (o.hasClass("no-animate")) $("body").addClass("quickview-no-animate");
+                                void 0 !== $.fn.bgLoaded ? $(".ra-quickshop-template .cover-image div").bgLoaded({
+                                    afterLoaded: function() {
+                                        setTimeout(function() {
+                                            p.removeClass("loading"), d(c, 480, 960, "open")
+                                        }, 300)
+                                    }
+                                }) : setTimeout(function() {
+                                    p.removeClass("loading"), d(c, 480, 960, "open")
+                                }, 300);
+                                var r = $(".ra-quickshop-template").find(".ra-product").attr("id");
+                                h((r = r.split("-"))[1], "view")
+                            },
+                            error: function(t) {
+                                p.removeClass("loading")
+                            }
+                        })
+                    })
+                }), $("body").on("click", ".ra-quickshop-template .add_to_cart_button", function() {
+                    var t = $(".ra-quickshop-template").find(".ra-product").attr("id");
+                    h((t = t.split("-"))[1], "hit")
+                }), $("body").on("click", ".ra_nav .btn_nav", function() {
+                    var t = $(this),
+                        o = t.attr("data-idx"),
+                        e = $(".shopify-product-quickshop-button")[o];
+                    t.closest(".ra-quickshop-template").find(".ra-close").trigger("click"), setTimeout(function() {
+                        $(e).trigger("click")
+                    }, 600)
+                }), $(document).ajaxComplete(function(t, o, e) {
+                    theme.raQuickshop1.refresh()
+                }))
+            },
+            refresh: function() {
+                var u;
+                s() && ($(".shopify-product-quickshop-button:not(.ra-loaded)").each(function() {
+                    var t = $(this);
+                    if (1 != raQuickshopConfig.settings.general.disable) {
+                        1 == raQuickshopConfig.settings.general.disable_pc && t.addClass("ra-hide-tablet"), 1 == raQuickshopConfig.settings.general.disable_mb && t.addClass("ra-hide-mobile");
+                        var o = ""; - 1 != [5, 6, 7, 8, 9, 10, 11, 20, 30, 31, 32, 39, 44, 48, 49].indexOf(parseInt(raQuickshopConfig.settings.general.template)) && (o = " template__x"), t.html("<span>" + raQuickshopConfig.settings.translation.quick_shop + "</span>").css("display", "none"), t.parent().addClass("shopify-ra-product").addClass("template__" + raQuickshopConfig.settings.general.template + o).addClass("style__" + raQuickshopConfig.settings.general.style).addClass("effect__" + raQuickshopConfig.settings.general.effect).addClass(raQuickshopConfig.settings.general.position).addClass(raQuickshopConfig.settings.general.display), t.wrap('<span class="shopify-product-quickshop-wrap"></span>'), $('<span class="button-loader"></span>').insertAfter(t)
+                    } else t.addClass("ra-hide");
+                    t.addClass("ra-loaded")
+                }), (u = $(".shopify-product-quickshop-button")).each(function(l) {
+                    $(this).off("click"), $(this).on("click", function(t) {
+                        t.preventDefault();
+                        var o = $(this),
+                            p = o.closest(".shopify-ra-product"),
+                            e = o.attr("data-id"),
+                            n = "/products/" + e,
+                            c = p.find('img[src*="//cdn.shopify.com/"]').first();
+                        c.length || (c = p.find('img[srcset*="//cdn.shopify.com/"]').first()), p.addClass("loading"), $.ajax({
+                            url: "/products/" + e + "?view=ra-quickshop1",
+                            success: function(t) {
+                                if ($(".ra-quickshop-template").empty().html(t), void 0 !== raQuickshopConfig.collectionUrl && "" != raQuickshopConfig.collectionUrl) {
+                                    var o2 = raQuickshopConfig.collectionUrl + n;
+                                    $(".ra-quickshop-template").find(".product_link").attr("href", o2)
+                                }
+                                var e, i, a, s = (a = '<div class="ra_nav">', null != (e = u)[(i = l) - 1] && (a = a + '<div class="prev btn_nav" data-idx="' + (i - 1) + '"></div>'), null != e[i + 1] && (a = a + '<div class="next btn_nav" data-idx="' + (i + 1) + '"></div>'), a + "</div>");
+                                $(".ra-quickshop-template .ra-product").prepend(s);
+                                if (o.hasClass("no-animate")) $("body").addClass("quickview-no-animate");
+                                void 0 !== $.fn.bgLoaded ? $(".ra-quickshop-template .cover-image div").bgLoaded({
+                                    afterLoaded: function() {
+                                        setTimeout(function() {
+                                            p.removeClass("loading"), d(c, 480, 960, "open")
+                                        }, 300)
+                                    }
+                                }) : setTimeout(function() {
+                                    p.removeClass("loading"), d(c, 480, 960, "open")
+                                }, 300);
+                                var r = $(".ra-quickshop-template").find(".ra-product").attr("id");
+                                h((r = r.split("-"))[1], "view")
+                            },
+                            error: function(t) {
+                                p.removeClass("loading")
+                            }
+                        })
+                    })
+                }))
+            }
+        }
+    }(), theme.raQuickshop1.init();
+    $(document).on('click', '.ra-close', function() {
+      $('.arch-collection').removeClass('overlay-layer');
+      $('.arch-collection .ra-quickshop-template').removeClass('is-visible animate-width add-content');
+    });
+	jQuery(document).ready(function(){
+      jQuery(window).resize(function() {
+        if (jQuery(window).width() < 767) {
+          jQuery(".unrestricted-video").insertAfter(jQuery( ".unrestricted-subtxt"));
+        }
+      });
+
+      jQuery('.arch-bnr').click(function() {
+        jQuery(this).addClass('hide_content');
+        var currentSrc = jQuery('#youtubevidid').attr("src") + "&autoplay=1&loop=1";
+        jQuery('#youtubevidid').attr("src", currentSrc);
+      });
+
+      jQuery('.unrestricted-video').click(function() {
+        jQuery(this).addClass('hide_content');
+        var currentSrc = jQuery('#youtubevidid').attr("src") + "&autoplay=1&loop=1";
+        jQuery('#youtubevidid').attr("src", currentSrc);
+      });
+	})
+</script>
+{{ page.content }}

@@ -1,0 +1,84 @@
+<div class="vanish-concealer-landing-page-2-bnr">
+  <div class="page-vclp2-content">
+    <div class="vlf-pdp">   
+      <div class="vanish-howtouse">
+              <h3>{{ section.settings.title }}</h3>
+          <div class="howtouse-steps">
+             {% for block in section.blocks %}
+                <div class="howtouse-col">
+                    <span>{{ block.settings.number }}</span>
+                    <p>{{ block.settings.description }}</p>
+                </div>
+          	 {% endfor %}             
+          </div>
+        <div class="howtouse-steps landing-howtouse-img">
+             {% for block in section.blocks %}
+                <div class="howtouse-col">
+                    {% if block.settings.gif_image != blank %}
+                    	<img class="lazyload" data-src="{{ block.settings.gif_image| img_url : 'master' }}" alt="Vanish airbrush concealer">
+                    {% endif %} 
+                </div>
+          	 {% endfor %}             
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+    "name": "How To Use",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "de": "Title",
+          "en": "Title",
+          "fr": "Title"
+        }
+      }
+	],   	  
+	"max_blocks":6, 
+ 	"blocks":[
+      {
+         "type":"howtouse",
+         "name":{
+            "de":"Howtouse Section",
+            "en":"Howtouse Section",
+            "fr":"Howtouse Section"
+         },
+         "settings":[
+            {
+               "id":"number",
+               "type":"text",
+               "label":{
+                  "en":"Number",
+                  "de":"Number",
+                  "fr":"Number"
+               }
+            },
+            {
+               "id":"description",
+               "type":"text",
+               "label":{
+                  "en":"Description",
+                  "de":"Description",
+                  "fr":"Description"
+               }
+            },
+            {
+               "type":"image_picker",
+               "id":"gif_image",
+               "label":{
+                  "en":"GIF Image",
+                  "de":"GIF Image",
+                  "fr":"GIF Image"
+               }
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

@@ -1,0 +1,92 @@
+<div class="eq_video_banner">
+  <div class="page-content">    
+    <div class="video-section">      
+      <video class="mobile_view" width="100%" playsinline loop muted autoplay>  
+        <source src="{{ section.settings.mobile_video_url }}" type="video/mp4">  
+      </video> 
+      <video class="desktop_view" width="100%" playsinline loop muted autoplay>  
+        <source src="{{ section.settings.desktop_video_url }}" type="video/mp4">  
+      </video> 
+    </div>
+    <div class="video-content-area">
+      <div class="container">            
+          <div class="content">
+            {% if section.settings.video_logo_image != blank %}
+            	<img class="video-image lazyload" src="{{ section.settings.video_logo_image| img_url : '100x' }}" data-src="{{ section.settings.video_logo_image| img_url : 'master' }}" alt="{{ section.settings.vanish_image.alt }}">
+            {% endif %} 
+            {% if section.settings.button_label != blank %}
+            	<a class="video-btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+            {% endif %} 
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %} 
+  {
+  "name": "Homepage Section",
+  "settings": [
+      {
+          "type": "header",
+          "content": " Video Section"
+      },
+      {
+        "type":"url",
+        "id":"mobile_video_url",
+        "label":{
+          "en":"Mobile Video URL"               
+        }
+      },
+      {
+        "type":"url",
+        "id":"desktop_video_url",
+        "label":{
+          "en":"Desktop Video URL"               
+        }
+      },
+      {
+          "type": "header",
+          "content": "Homepage Section"
+      },
+      {
+        "type": "image_picker",
+        "id": "video_logo_image",
+        "label": {
+          "en": "Logo Image"
+        }
+      },        
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+
+  ],
+  "presets": [
+     {
+        "name": {
+          "en": "EQ Video Section"        
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+     }
+  ]
+}
+{% endschema %}

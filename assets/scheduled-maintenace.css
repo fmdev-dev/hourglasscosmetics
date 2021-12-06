@@ -1,0 +1,43 @@
+/***SCHEDULED MAINTENANCE***/
+body.template-password{ background-color: #000; padding-top: 0px; }
+.password-page{ background-color: #000; }
+#shopify-section-password-header, #shopify-section-password-footer, #ContactPassword{display:none}
+.template-password .password-header{position: absolute;right: 0;}
+.template-password .password-main__inner{ padding: 0px; }
+.template-password .password-message { max-width: 100%; margin: 0;}
+.sheduled-maintence{ float: left; font-family: "Gotham","Helvetica Neue",Verdana,Arial,sans-serif; background-image: url(hg-maintenace-bg.jpg); background-repeat: no-repeat; background-color: #000; width: 100%; background-size: cover; height: 100vh; background-position: center top;}
+.sheduled-maintence .sheduled-m-cont{max-width: 630px; text-align: center;float: right;color: #fff;position: absolute;right: 130px;width: 100%;top: 50%;transform: translateY(-50%); -webkit-transform: translateY(-50%);}
+.sheduled-m-cont h3 { font-family: "Gotham","Helvetica Neue",Verdana,Arial,sans-serif;font-size: 40px; letter-spacing: 2px; font-weight: 300;margin-top: 25px;margin-bottom: 18px; text-transform: uppercase;}
+.sheduled-maintence .sheduled-m-cont p{ padding: 0px; line-height: 16px; font-family: "Gotham","Helvetica Neue",Verdana,Arial,sans-serif; text-align: center; font-size: 13px; color: #fff; margin-bottom: 15px;  }
+.sheduled-maintence .sheduled-m-cont p a{ text-decoration:none; color: #fff;}
+.sheduled-maintence .sheduled-m-cont p a:hover{ text-decoration: underline;}
+.sheduled-maintence .sheduled-m-cont p:last-child{ margin-bottom: 0px; }
+@media screen and (max-width: 1200px) {
+.sheduled-maintence .sheduled-m-cont{max-width: 50%;    right: 5%;}
+.sheduled-m-cont h3{ font-size: 32px;}
+}
+@media screen and (max-width: 992px) {
+.sheduled-maintence{ background-image: url(hg-maintenace-bg-mobile.jpg);     background-size: 100%; }	
+.sheduled-maintence .sheduled-m-cont {
+
+    max-width: 100%;
+    right: 0;
+    margin-top: 100%;
+    padding: 0 15px;
+    position: static;
+}
+  .sheduled-maintence .sheduled-m-cont p br{ display: none;}
+}
+@media screen and (max-width: 767px) {
+.sheduled-maintence{background-size: 67%; height:100%;}	
+.sheduled-m-cont h3{font-size: 22px;}	
+.sheduled-m-cont .logo{max-width: 80%;display: inline-block;}
+.sheduled-maintence .sheduled-m-cont{ margin-top: 80%;}
+
+}
+
+@media screen and (max-width: 599px) {
+.sheduled-maintence .sheduled-m-cont{    margin-top: 125%;}
+.sheduled-maintence{background-size: 100%; height: 100vh;}
+.sheduled-m-cont h3{font-size: 20px;}
+}

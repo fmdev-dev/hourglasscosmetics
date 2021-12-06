@@ -1,0 +1,86 @@
+<div class="waitlist-sticky-banner-palet waitlist-sticky-banner sticky-holiday-banner new_sticky_banner velvet_sticky_banner ">
+  <div class="sticky-bnr-cont hide"> 
+    <!--span class="close_banner">×</span-->
+    {% if settings.waitlist_sticky_desktop_image3 != blank %}
+      <img class="sticky-desktop-image-left lazyload" src="{{ settings.waitlist_sticky_desktop_image3 | img_url: '100x' }}" data-src="{{ settings.waitlist_sticky_desktop_image3 | img_url: 'master' }}" alt="{{ settings.waitlist_sticky_desktop_image3.alt }}" />
+    {% endif %}
+    
+    {% if settings.waitlist_sticky_mobile_image1 != blank %}
+      <img class="sticky-mobile-image lazyload" src="{{ settings.waitlist_sticky_mobile_image1 | img_url: '100x' }}" data-src="{{ settings.waitlist_sticky_mobile_image1 | img_url: 'master' }}" alt="{{ settings.waitlist_sticky_mobile_image1.alt }}" />
+    {% endif %}
+    <div class="sticky-wishlist-info">
+       <div class="content-section">
+        <div class="left-cont text-center">
+            <div class="title">{{ settings.waitlist_sticky_title2 }}</div>
+             <span  class="subtitle">{{ settings.waitlist_sticky_subtitle22 }} </span>
+             <span  class="description">{{ settings.waitlist_desc }} </span>
+              <div class="text">{{ settings.waitlist_sticky_title1 }}</div>
+          	 <span  class="subtext">{{ settings.waitlist_sticky_subtitle11 }} </span>
+             
+          </div>
+         
+         
+        
+       </div>    
+    </div>
+  </div>
+</div>
+<script>
+  /*-------START SET COOKIE FOR COMPARE PAGE--------*/
+window.setCookie=function(cname, cvalue, exdays){
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+};
+/*-------START GET COOKIE ON COMPARE PAGE--------*/
+window.getCookie=function(name){
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+};
+  
+ $(document).ready(function() {   
+    $(".new_sticky_banner .sticky-bnr-cont").removeClass("hide");
+   
+   /* DEFAULT ON LOAD EVENT */
+   var banner_visibility = window.getProductCookie('new_sticky_banner');
+   if($(".new_sticky_banner") && banner_visibility=="closed") {
+     $(".new_sticky_banner").remove();
+     $("body").removeClass("show_new_sticky_banner").addClass("close_new_sticky_banner");
+     $(".new_sticky_banner .sticky-bnr-cont").addClass("hide");     
+     /*HOLIDAY STICKY BANNER*/
+     jQuery(document).ready(function() {
+        var headerSticky = jQuery('#header.site-header').height();
+        {% if template == "collection" %}
+          jQuery('.sticky-bnr-height').height(headerSticky); 
+        {% else %}
+          jQuery('.sticky-bnr-height').height(0); 
+        {% endif %}
+     });
+   } else {    
+     /*HOLIDAY STICKY BANNER*/
+     jQuery(document).ready(function() {
+        var stickyholiday = jQuery('.new_sticky_banner').height();
+        var headerSticky = jQuery('#header.site-header').height();
+        jQuery('.sticky-bnr-height').height(stickyholiday + headerSticky); 
+     });
+   }
+      
+   /* ON CLOSE BUTTON CLICK EVENT */
+   $(".close_banner").click(function(){
+     window.setCookie('new_sticky_banner',"closed", 1);
+     $(".new_sticky_banner").remove();
+     $("body").removeClass("show_new_sticky_banner").addClass("close_new_sticky_banner");
+     $(".new_sticky_banner .sticky-bnr-cont").addClass("hide");
+     /*HOLIDAY STICKY BANNER*/
+     var headerSticky = jQuery('#header.site-header').height();
+        {% if template == "collection" %}
+          jQuery('.sticky-bnr-height').height(headerSticky); 
+        {% else %}
+          jQuery('.sticky-bnr-height').height(0); 
+        {% endif %}
+   });
+   
+ });
+</script>

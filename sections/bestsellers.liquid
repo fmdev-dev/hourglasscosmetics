@@ -1,0 +1,145 @@
+<div class="page-width">
+  <div id="section3" class="section newblock homepage-section3 bestsaller">
+	<div class="bestsaller-block">
+		<div class="bestsaller-imgs">
+          	{% if section.settings.desk_link != blank %}
+			<a href="{{ section.settings.desk_link }}">
+              	{% if section.settings.desk_image != blank %}
+					<img class="bestsaller-img-desktop lazyload" data-src="{{ section.settings.desk_image | img_url: '1728x1185' }}" src="{{ section.settings.desk_image | img_url: '200x200' }}" alt="Bestsellers"
+                    {% if section.settings.desk_image %}
+                         data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+                         data-sizes="auto"
+                         data-parent-fit="cover"
+                    {% endif %}
+                    >
+              	{% endif %}
+			</a> 
+          	{% endif %}
+          	{% if section.settings.mob_link != blank %}
+			<a href="{{ section.settings.mob_link }}">
+              	{% if section.settings.mob_image != blank %}
+              		{%- assign img_url = section.settings.mob_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+					<img class="bestsaller-img-mobile lazyload" data-src="{{ section.settings.mob_image | img_url: '1173x458' }}" src="{{ section.settings.mob_image | img_url: '200x200' }}" alt="Bestsellers">
+				{% endif %}
+          	</a>
+          	{% endif %}
+		</div>
+		<div class="bestsaller-caption">
+          	{% if section.settings.title != blank %}
+			<h3>{{ section.settings.title | escape }}</h3>
+          	{% endif %}
+          	{% if section.settings.sub_link != blank %}
+			<a class="linkstyle" href="{{ section.settings.sub_link }}"> 
+              {% if section.settings.title_sub != blank %}
+              	{{ section.settings.title_sub }}
+              {% endif %}  
+          	</a>
+			{% endif %}
+     	 </div>
+		</div>
+  </div>
+</div>
+
+<noscript>
+  <div class="hero hero--{{ section.settings.hero_size }}{% if section.settings.title != blank or section.settings.text != blank or section.settings.button_label != blank %} hero__overlay{% endif %}"{% if section.settings.image %} style="background-image: url('{{ section.settings.image | img_url: '2048x' }}'); background-position: center {{ section.settings.alignment }};"{% endif %}></div>
+</noscript>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Bestsellers",
+      "de": "Bestsellers",
+      "fr": "Bestsellers"
+    },
+    "class": "index-section",
+    "settings": [
+	 {
+        "type": "text",
+        "id": "title",
+        "label": {
+        "en": "Title",
+        "de": "Title",
+        "fr": "Title"
+        },
+        "default": {
+        "en": "Bestsellers",
+        "de": "Bestsellers",
+        "fr": "Bestsellers"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "url",
+        "id": "desk_link",
+        "label": {
+          "en": "Desktop link",
+          "de": "Desktop link",
+          "fr": "Desktop link"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	  {
+        "type": "url",
+        "id": "mob_link",
+        "label": {
+          "en": "Mobile link",
+          "de": "Mobile link",
+          "fr": "Mobile link"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title_sub",
+        "label": {
+        "en": "Small Heading",
+        "de": "Small Heading",
+        "fr": "Small Heading"
+        },
+        "default": {
+        "en": "Explore",
+        "de": "Explore",
+        "fr": "Explore"
+        }
+      },
+      {
+        "type": "url",
+        "id": "sub_link",
+        "label": {
+          "en": "Sub link",
+          "de": "Sub link",
+          "fr": "Sub link"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Bestsellers",
+          "de": "Bestsellers",
+          "fr": "Bestsellers"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

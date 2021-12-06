@@ -1,0 +1,118 @@
+<div class="eq_lp_banner eq_lp_video_banner">    
+  <div class="banner-image">
+    <span class="eq-skincare-play-button video_pause hide">PLAY/PAUSE</span> 
+    <div class="eq-skincare-sound hide"> 
+      <button class="off-button" id="sound-off" type="button">OFF</button> 
+      <button class="on-button" id="sound-on" type="button">ON</button> 
+    </div> 
+    {% if section.settings.mobile_video_url != blank %}
+      <video id="banner-mobile-video" class="banner-mobile-img" width="100%" playsinline loop muted autoplay>  
+        <source src="{{ section.settings.mobile_video_url }}" type="video/mp4">  
+      </video> 
+    {% endif %}
+    {% if section.settings.desktop_video_url != blank %}
+      <video id="banner-desk-video" class="banner-desk-img" width="100%" playsinline loop muted autoplay>  
+        <source src="{{ section.settings.desktop_video_url }}" type="video/mp4">  
+      </video>
+    {% endif %}
+  </div>
+  <div class="banner-content">
+    <div class="content-inner">            
+      <div class="content">
+        {% if section.settings.video_logo_image != blank %}
+        <img class="video-image lazyload" src="{{ section.settings.video_logo_image| img_url : '100x' }}" data-src="{{ section.settings.video_logo_image| img_url : 'master' }}" alt="{{ section.settings.vanish_image.alt }}">
+        {% endif %} 
+        <a class="video-btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %}
+<script type="text/javascript">
+  window.addEventListener('load', function(){     
+    $(document).on('click', "#sound-off",function() {
+      $("#banner-mobile-video").prop('muted', true);
+      $("#banner-desk-video").prop('muted', true);
+      $(this).css("display", "none");
+      $('#sound-on').css("display", "block");
+    });
+    $(document).on('click', "#sound-on",function() {
+      $("#banner-mobile-video").prop('muted', false);
+      $("#banner-desk-video").prop('muted', false);
+      $(this).css("display", "none");
+      $('#sound-off').css("display", "block");
+    });
+    $(document).on('click', ".eq-skincare-play-button",function() {
+      $("#banner-mobile-video").trigger('click');
+      $("#banner-desk-video").trigger('click');            
+    });
+    $(document).on('click', "#banner-mobile-video,#banner-desk-video",function() {
+      if(this.paused) {   
+        $('.eq-skincare-play-button').removeClass('video_play');
+        $('.eq-skincare-play-button').addClass('video_pause');  
+      }else{         	
+        $('.eq-skincare-play-button').addClass('video_play');
+        $('.eq-skincare-play-button').removeClass('video_pause');
+      }
+      this.paused ? this.play() : this.pause();
+    });
+  });
+</script>
+{% endcomment %}
+
+
+{% schema %} 
+{
+    "name": "EQ Vidoe Banner",
+    "settings": [
+      {
+          "type": "header",
+          "content": "EQ Vidoe Banner Section"
+      },
+      {
+        "type":"url",
+        "id":"desktop_video_url",
+        "label":{
+          "en":"Video URL"               
+        }
+      },
+      {
+          "type": "header",
+          "content": "Homepage Section"
+      },
+      {
+        "type": "image_picker",
+        "id": "video_logo_image",
+        "label": {
+          "en": "Logo Image"
+        }
+      },        
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+
+  	]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,93 @@
+<div class="red0_image_text_overlay_section">
+  <div class="left-section" style="background-color: {{ section.settings.left_bgcolor }};">
+    <div class="content-inner">      
+      {% if section.settings.left_description != blank %}<div class="left_title1">{{ section.settings.left_description }}</div>{% endif %} 
+    </div>
+  </div>   
+  <div class="right-section">
+    <div class="banner-content">
+      <div class="content-inner">	
+      	<div class="cont">
+          <img class="eq_logo lazyload" data-src="{{ section.settings.right_logo | img_url: 'master' }}" src="{{ section.settings.right_logo | img_url: '50x' }}" alt="{{ section.settings.right_title1 }}">
+          {% if section.settings.right_title1 != blank %}<div class="right_title1">{{ section.settings.right_title1 }}</div>{% endif %} 
+          {% if section.settings.right_description != blank %}<div class="right_description">{{ section.settings.right_description }}</div>{% endif %}     
+        </div>
+        {% if section.settings.right_desk_image != blank or section.settings.right_mob_image != blank  %}
+          <img class="desktop_view lazyload" data-src="{{ section.settings.right_desk_image | img_url: 'master' }}" src="{{ section.settings.right_desk_image | img_url: '100x' }}" alt="{{ section.settings.right_title1 }}">
+          <img class="mobile_view lazyload" data-src="{{ section.settings.right_mob_image | img_url: 'master' }}" src="{{ section.settings.right_mob_image | img_url: '100x' }}" alt="{{ section.settings.right_title1 }}">
+        {% endif %}
+      </div>
+    </div>
+  </div>  
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Red0 Image Text Overlay"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+
+
+	  {
+        "type": "header",
+		"content": "Left Content"
+	  },
+	  {
+        "type": "color",
+        "id": "left_bgcolor",
+        "label": { "en": "Background color" }
+      },
+	  {
+        "type":"textarea",
+        "id":"left_description",
+        "label":{ "en":"Description" }
+      },
+
+
+	  {
+        "type": "header",
+		"content": "Right Content"
+	  },
+	  {
+        "type": "image_picker",
+        "id": "right_desk_image",
+        "label": { "en": "Desktop Image" }
+      },
+	  {
+        "type": "image_picker",
+        "id": "right_mob_image",
+        "label": { "en": "Mobile Image" }
+      },
+	  {
+        "type": "image_picker",
+        "id": "right_logo",
+        "label": { "en": "Logo" }
+      },
+	  {
+        "type":"text",
+        "id":"right_title1",
+        "label":{ "en":"Title" }
+      },
+	  {
+        "type":"textarea",
+        "id":"right_description",
+        "label":{ "en":"Description" }
+      }
+
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Red0 Image Text Overlay"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        } 
+      }
+    ]
+  }
+{% endschema %}

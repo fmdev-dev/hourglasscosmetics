@@ -1,0 +1,151 @@
+<div class="red0_image_content_section">
+  <div class="left-section">
+    <div class="content-inner">  
+      
+      <div class="detail">
+        {% if section.settings.left_title1 != blank %}<div class="left_title1">{{ section.settings.left_title1 }}</div>{% endif %} 
+        {% if section.settings.left_title2 != blank %}<div class="left_title2">{{ section.settings.left_title2 }}</div>{% endif %} 
+        {% if section.settings.left_title3 != blank %}<div class="left_title3">{{ section.settings.left_title3 }}</div>{% endif %} 
+        {% if section.settings.left_button_label != blank and section.settings.left_button_link != blank %}
+          <div class="actions"><a href="{{ section.settings.left_button_link }}"> <span>{{ section.settings.left_button_label | escape }}</span> </a></div>
+        {% endif %}    
+      </div>
+
+      {% if section.settings.left_desk_image != blank or section.settings.left_mob_image != blank  %}
+        <img class="desktop_view lazyload" data-src="{{ section.settings.left_desk_image | img_url: 'master' }}" src="{{ section.settings.left_desk_image | img_url: '100x' }}" alt="{{ section.settings.left_title1 }} - {{ section.settings.left_title2 }}">
+        <img class="mobile_view lazyload" data-src="{{ section.settings.left_mob_image | img_url: 'master' }}" src="{{ section.settings.left_mob_image | img_url: '100x' }}" alt="{{ section.settings.left_title1 }} - {{ section.settings.left_title2 }}">
+      {% endif %}
+      
+    </div>
+  </div>   
+  <div class="right-section">
+    <div class="banner-content">
+      <div class="content-inner">
+
+        <div class="detail">
+          {% if section.settings.right_title1 != blank %}<div class="right_title1">{{ section.settings.right_title1 }}</div>{% endif %} 
+          {% if section.settings.right_title2 != blank %}<div class="right_title2">{{ section.settings.right_title2 }}</div>{% endif %} 
+          {% if section.settings.right_button_label != blank and section.settings.right_button_link != blank %}
+            <div class="actions"><a href="{{ section.settings.right_button_link }}"> <span>{{ section.settings.right_button_label | escape }}</span> </a></div>
+          {% endif %}
+        </div>
+
+        {% if section.settings.right_desk_image != blank or section.settings.right_mob_image != blank  %}
+          <img class="desktop_view lazyload" data-src="{{ section.settings.right_desk_image | img_url: 'master' }}" src="{{ section.settings.right_desk_image | img_url: '100x' }}" alt="{{ section.settings.right_title1 }} - {{ section.settings.right_title2 }}">
+          <img class="mobile_view lazyload" data-src="{{ section.settings.right_mob_image | img_url: 'master' }}" src="{{ section.settings.right_mob_image | img_url: '100x' }}" alt="{{ section.settings.right_title1 }} - {{ section.settings.right_title2 }}">
+        {% endif %}
+        
+ 		{% if section.settings.right_title3 != blank %}<div class="right_title3">{{ section.settings.right_title3 }}</div>{% endif %}     
+
+      </div>
+    </div>
+  </div>  
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Red0 HalfWidth ImageText"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+
+
+	  {
+        "type": "header",
+		"content": "Left Content"
+	  },
+	  {
+        "type": "image_picker",
+        "id": "left_desk_image",
+        "label": { "en": "Desktop Image" }
+      },
+	  {
+        "type": "image_picker",
+        "id": "left_mob_image",
+        "label": { "en": "Mobile Image" }
+      },
+	  {
+        "type":"text",
+        "id":"left_title1",
+        "label":{ "en":"Title 1" }
+      },
+	  {
+        "type":"text",
+        "id":"left_title2",
+        "label":{ "en":"Title 2" }
+      },
+	  {
+        "type":"text",
+        "id":"left_title3",
+        "label":{ "en":"Title 3" }
+      },
+      {
+        "type": "text",
+        "id": "left_button_label",
+        "label": { "en": "Button label" }
+      },
+      {
+        "type": "url",
+        "id": "left_button_link",
+        "label": { "en": "Button link" }
+      }, 
+
+
+
+	  {
+        "type": "header",
+		"content": "Right Content"
+	  },
+	  {
+        "type": "image_picker",
+        "id": "right_desk_image",
+        "label": { "en": "Desktop Image" }
+      },
+	  {
+        "type": "image_picker",
+        "id": "right_mob_image",
+        "label": { "en": "Mobile Image" }
+      },
+	  {
+        "type":"text",
+        "id":"right_title1",
+        "label":{ "en":"Title 1" }
+      },
+	  {
+        "type":"text",
+        "id":"right_title2",
+        "label":{ "en":"Title 2" }
+      },
+	  {
+        "type":"text",
+        "id":"right_title3",
+        "label":{ "en":"Title 3" }
+      },
+      {
+        "type": "text",
+        "id": "right_button_label",
+        "label": { "en": "Button label" }
+      },
+      {
+        "type": "url",
+        "id": "right_button_link",
+        "label": { "en": "Button link" }
+      }
+
+
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Red0 HalfWidth ImageText"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        } 
+      }
+    ]
+  }
+{% endschema %}

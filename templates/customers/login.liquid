@@ -1,0 +1,182 @@
+<div class="form-message form-message--success hide" id="ResetSuccess">
+  {{ 'customer.recover_password.success' | t }}
+</div>
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--one-half medium-up--push-one-quarter">
+      <div id="CustomerLoginForm" class="form-vertical">
+        {% form 'customer_login' %}
+          {% if shop.checkout.guest_login %}
+          <h1 class="text-center">Checkout</h1>
+          {% else %}
+          <h1 class="text-center">{{ 'customer.login.title' | t }}</h1>
+          {% endif %}
+          <div class="col2-set">
+            {% if shop.checkout.guest_login %}
+            <div class="col-1">
+                <h3>Checkout as a Guest or Register</h3>
+                <p class="description">Register with us for future convenience:</p>
+                <ul class="form-list">
+                    <li class="control">
+                        <input type="radio" name="checkout_method" id="login:guest" value="guest" checked="checked" class="radio">
+                        <label for="login:guest">Checkout as Guest</label>
+                    </li>
+                    <li class="control">
+                        <input type="radio" name="checkout_method" id="login:register" value="register" class="radio">
+                        <label for="login:register">Register and Checkout</label>
+                    </li>
+                </ul>
+                <div class="buttons-set">
+                    <p class="required">&nbsp;</p>
+                    <button id="onepage-guest-register-button" type="button" class="btn cmn-btn" onclick="checkoutsetMethod();"><span><span>Continue</span></span>
+                    </button>
+                </div>
+                <div class="buttons-set disnon">
+                {{ 'layout.customer.create_account' | t | customer_register_link }}
+              </div>
+            </div>
+            {% else %}
+            <div class="col-1 new-users">
+              <div class="content">
+                <h2>New Here?</h2>
+                <p class="form-instructions">Registration is free and easy!</p>
+                <ul class="benefits">
+                  <li>Faster checkout</li>
+                  <li>Save multiple shipping addresses</li>
+                  <li>View and track orders and more</li>
+                </ul>
+              </div>
+              <div class="buttons-set">
+                {{ 'layout.customer.create_account' | t | customer_register_link }}
+              </div>
+            </div>
+            {% endif %}
+            <div class="col-2 registered-users">
+              {% comment %} {%- if form.errors -%}
+            <div class="form-message form-message--error">
+              {{ form.errors | default_errors }}
+            </div>
+            {%- endif -%} {% endcomment %}
+              {%- if form.errors -%}
+              <ul class="messages error-messages">
+                <li class="error-msg">
+                  <ul>
+                    <li>{{ form.errors | default_errors }}</li>
+                  </ul>
+                </li>
+              </ul>
+              {%- endif -%}
+              <div class="content fieldset">
+                {% if shop.checkout.guest_login %}
+                <h2>Returning Customers</h2>
+                <p class="form-instructions">Sign in to speed up your checkout process</p>
+                {% else %}
+                <h2>Already registered?</h2>
+                <p class="form-instructions">If you have an account with us, please log in.</p>
+                {% endif %}
+                <p class="required">* Required Fields</p>
+                <ul class="form-list">
+                  <li>
+                    <label for="CustomerEmail" class="required">{{ 'customer.login.email' | t }}</label>
+                    <input placeholder="Your Email Address" type="email" name="customer[email]" id="CustomerEmail" class="{% if form.errors contains 'email' %} input--error{% endif %}" autocorrect="off" autocapitalize="off" autofocus></li>
+                    <li>{% if form.password_needed %}
+                      <label for="CustomerPassword" class="required">{{ 'customer.login.password' | t }}</label>
+                      <input placeholder="Your Password" type="password" value="" name="customer[password]" id="CustomerPassword" class="{% if form.errors contains 'password' %} input--error{% endif %}">
+                    {% endif %}
+                  </li>
+                  <li>       <div>
+                    {% if form.password_needed %}
+                      <a href="#recover" id="RecoverPassword" class="f-left forgotpassword">{{ 'customer.login.forgot_password' | t }}</a>
+                    {% endif %}
+                  </div></li>
+                  <input type="submit" class="btn cmn-btn" value="{{ 'customer.login.sign_in' | t }}">
+                  
+                </div>
+              {% endform %}
+            </ul>
+          </div>
+        </div>
+        <div class="passwordForm-main">
+          <div id="RecoverPasswordForm">
+            <div class="text-center">
+              <h2>{{ 'customer.recover_password.title' | t }}</h2>
+              <!---<p>{{ 'customer.recover_password.subtext' | t }}</p>-->
+            </div>
+            <div class="fieldset">
+              <h3>Retrieve your password here</h3>
+              <p class="form-instructions">Please enter your email address below. You will receive a link to reset your password.</p>
+              <p class="required">* Required Fields</p>
+              <div class="form-vertical">
+                {% form 'recover_customer_password' %}
+                  {% comment %} {%- if form.errors -%}
+                  <div class="form-message form-message--error">
+                    {{ form.errors | default_errors }}
+                  </div>
+                  {%- endif -%} {% endcomment %}
+                  {%- if form.errors -%}
+                  <ul class="messages error-messages">
+                    <li class="error-msg">
+                      <ul>
+                        <li>{{ form.errors | default_errors }}</li>
+                      </ul>
+                    </li>
+                  </ul>
+                  {%- endif -%}
+                  {% comment %}
+                  Add a hidden span to indicate the form was submitted succesfully.
+                {% endcomment %}
+                {% if form.posted_successfully? %}
+                  <span class="hide reset-password-success"></span>
+                {% endif %}
+                <ul class="form-list">
+                  <li>
+                <label for="RecoverEmail" class="required">{{ 'customer.recover_password.email' | t }}</label>
+                <input placeholder="Your Email Address" type="email" value="" name="email" id="RecoverEmail" class="input-full"autocorrect="off" autocapitalize="off">
+                </li>
+                </ul>
+                <div class="buttons-set"><p class="back-link"><a href="/account/login/" class="back-link"><small>« </small>Back to Login</a></p>
+                <input type="submit" class="btn cmn-btn" value="{{ 'customer.recover_password.submit' | t }}">
+                
+              </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4 class="requiredtag"></h4>
+  {% comment %}
+  If accounts are set as optional, the following will be shown as an option
+  during checkout, not on the default /login page.
+{% endcomment %}
+{% if shop.checkout.guest_login %}
+  <div class="text-center disnon">
+    <hr class="hr--invisible">
+    <h2>{{ 'customer.login.guest_title' | t }}</h2>
+    {% form 'guest_login' %}
+      <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+    {% endform %}
+  </div>
+{% endif %}
+</div>
+</div>
+</div>
+<script type="text/javascript">
+  $type = window.location.hash.substr(1);
+  if( $type == "recover" ){
+    $('#ResetSuccess').removeClass('hide');
+  }
+</script>
+<script type="text/javascript">
+function checkoutsetMethod() {
+  var radioValue = $("input[name='checkout_method']:checked").val();
+   if(radioValue){
+     if(radioValue == 'register'){
+       $customer_register_link = $('#customer_register_link').attr('href');
+       window.location.href = $customer_register_link;
+     }else{
+       $( "#customer_login_guest" ).submit();
+     }
+   }
+}
+</script>

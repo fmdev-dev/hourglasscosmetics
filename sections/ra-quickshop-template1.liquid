@@ -1,0 +1,861 @@
+<style>.btn_nav{display:none !important;}</style>
+{% assign widthfull = 'widthfull' %}
+<div id="messages_product_view">
+  <ul class="messages" style="display: none;">
+      <li class="success-msg">
+          <ul>
+              <li>
+                  <span>{{ product.title }} - Unlocked was added to your shopping cart.</span><a class="msg-close" href="javascript:;">X</a>
+              </li>
+          </ul>
+      </li>
+  </ul>
+</div>
+<div id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product-quickview-template" data-enable-history-state="false">
+  <div id="product-{{ product.id }}" class="ra-product">
+    <a href="#0" class="ra-close"></a>
+    
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+    {%- assign featured_image_alt = current_variant.featured_image.alt | default: product.featured_image.alt -%}
+    <div class="ra-slider-wrapper">
+      <div class="ra-slider-dtl">
+      <div class="cover-image">
+        <div class="phantom-image" style="background-image:url({{ featured_image | img_url: '650x' }});"></div>
+        <img src="{{ featured_image | img_url: '500x' }}" alt="{{ featured_image_alt | escape }}" />
+      </div>
+      <div class="swiper-container photoswipe-wrapper">
+        <div class="swiper-wrapper images">
+          <div class="swiper-slide photoswipe-item">
+            <a class="FeaturedImage-{{ section.id }}" href="{{ featured_image | img_url: 'master' }}" data-size="{{ featured_image.width }}x{{ featured_image.height }}">
+              <img src="{{ featured_image | img_url: '650x' }}" alt="{{ featured_image_alt | escape }}" />
+              <div class="phantom-image" style="background-image:url({{ featured_image | img_url: '650x' }});"></div>
+            </a>
+          </div>
+          {%- if product.images.size > 1 -%}
+          {%- for image in product.images -%}
+          {%- unless image == featured_image -%}
+          {% unless image.alt contains "-color" %}
+          <div class="swiper-slide photoswipe-item">
+            <a class="FeaturedImage-{{ section.id }}" href="{{ image.src | img_url: 'master' }}" data-size="{{ image.width }}x{{ image.height }}">
+              <img src="{{ image.src | img_url: '650x' }}" alt="{{ image.alt | escape }}" />
+              <div class="phantom-image" style="background-image:url({{ image.src | img_url: '650x' }});"></div>
+            </a>
+          </div>
+          {%else%}
+          {% endunless %}
+          {%- endunless -%}
+          {%- endfor -%}
+          {%- endif -%}
+        </div>
+        
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        {%- endif -%}
+    </div>
+    </div>
+    {% comment %}For color images{% endcomment %}
+    {%- if product.images.size > 1 -%}
+    <div style="display:none;" class="color-image">
+      {%- for image in product.images -%}
+      	{%- unless image == featured_image -%}
+      		{% if image.alt contains "-color" %}
+      			<img src="{{ image.src | img_url: '650x' }}" alt="{{ image.alt | escape }}" />
+            {% endif %}
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+    {% comment %}End For color images{% endcomment %}
+    <div class="ra-item-info">
+      <div class="product_infos">
+        <div class="quickview-badges product-images-wrapper catalog-mode">
+          <span class="product-price__sale-label-{{ section.id }} ribbon onsale{% unless current_variant.compare_at_price > current_variant.price %} ra-hide{% endunless %}">
+            <span data-price="{{current_variant.price}}" data-compare-at-price="{{current_variant.compare_at_price}}"></span>
+          </span>
+        </div>
+        <a class="product_link" href="{{ product.url | within: collections.all }}"><h1 class="product_title entry-title">{{ product.title }}</h1></a>
+
+        <div class="product_price">
+          {%- if product.price_varies -%}
+          <p class="price">
+            {% comment %}<span class="price-new"><span class="money">{{ product.price_min | money }} - {{ product.price_max | money }}</span></span> {% endcomment %}
+            <span id="ProductPrice-{{ section.id }}" class="price-new"><span
+{% comment %} START Global-e VAT tag {% endcomment %}
+{% if current_variant.taxable == false %}data-product-vat="0" {% endif %}
+{% if current_variant.metafields.GlobalE.product_meta != blank %} data-product-meta='{{current_variant.metafields.GlobalE.product_meta | json | escape}}' {% endif %}
+{% comment %}END Global-e VAT tag {% endcomment %} 
+ class="money">{{ current_variant.price | money }}</span></span>
+          </p>
+          {%- else -%}
+          <div class="product-single__price-{{ section.id }}">
+            <p class="price">
+              <span id="ComparePrice-{{ section.id }}" class="price-old{% unless current_variant.compare_at_price > current_variant.price %} ra-hide{% endunless %}"><span class="money">{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</span></span>
+              {% comment %}<span id="ProductPrice-{{ section.id }}" class="price-new"><span
+{% comment %} START Global-e VAT tag {% endcomment %}
+{% if current_variant.taxable == false %}data-product-vat="0" {% endif %}
+{% if current_variant.metafields.GlobalE.product_meta != blank %} data-product-meta='{{current_variant.metafields.GlobalE.product_meta | json | escape}}' {% endif %}
+{% comment %}END Global-e VAT tag {% endcomment %} 
+ class="money">{{ current_variant.price | money }}</span></span>{% endcomment %}
+            </p>
+          </div>
+          {%- endif -%}
+        </div>
+
+        <div class="product_excerpt">
+          <p>
+            {{- product.description | strip_html | truncatewords: 30 -}}
+          </p>
+        </div>
+
+        <div class="catalog-mode">
+           {% assign isAvailable = 'disnon' %}
+          {%- if product.available -%}
+          <form action="/cart/add" method="post" enctype="multipart/form-data" class="variations_form cart"> 
+            {%- unless product.options.size == 1 and product.variants[0].title == 'Default Title' -%}
+            {% assign x = 1 %}
+            {%- for option in product.options_with_values -%}
+              {% assign stock_ary = '' %}
+              {% assign varids_ary = '' %}
+              
+              {% if option.name == "Color" %}
+                {% for vrnt in product.variants %}
+                  {% assign vrnt_apd = '' %}
+                    {% case x %}
+                      {% when 1 %}
+                       {% assign vrnt_apd = vrnt.option1 %}
+                      {% when 2 %}
+                       {% assign vrnt_apd = vrnt.option2 %}
+                      {% when 3 %}
+                       {% assign vrnt_apd = vrnt.option3 %}
+                    {% endcase %}
+                  {% assign vrnt_aid = vrnt.id %}
+                
+                  {% if varids_ary == '' %}
+                    {% assign varids_ary = varids_ary | append: vrnt_aid %}
+                  {% else %}
+                    {% assign varids_ary = varids_ary | append: '#' | append: vrnt_aid %}
+                  {% endif %}
+
+                  {% if vrnt.available == false %}
+                    {% if stock_ary == '' %}
+                      {% assign stock_ary = stock_ary | append: vrnt_apd %}
+                    {% else %}
+                      {% assign stock_ary = stock_ary | append: '#' | append: vrnt_apd %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+              {% assign x = x | plus: 1 %}
+              
+              {% assign widthfull = '' %}
+            
+              {% unless product.metafields.hourprod.comming_soon == 1 %}
+            	{% if option.name == "Shade 1" or option.name == "Shade 2" or option.name == "Shade 3" %}
+                  <div class="selector-wrapper js product-form__item normal-option">
+                    <select style="display: none;" class="single-option-selector single-option-selector-{{ section.id }} product-form__input single-option-{{ option.name | handleize }}" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                      {% assign varids = varids_ary | split:'#' %}
+                      {% assign k = 0 %}
+                      {% for value in option.values %}
+                      {% comment %}For Waitlist{% endcomment %}
+                      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %} data-productid="{{ product.id }}">{{ value }}</option>
+                      {% assign k = k | plus: 1 %}
+                      {% endfor %}
+                    </select>
+                    {% assign is_color = true %}
+                    <label class="colorsltShare" id="{{ option.name | handleize }}-select">
+                      <span>{{ option.name }}</span>
+                      <div id="option-{{ option.name | handleize }}-name"></div>
+                      <div id="option-{{ option.name | handleize }}-image" class="option-shade-img">
+                        <img id="{{ option.name | handleize }}-dynamicimgsrc" src="">
+                      </div>
+                    </label>
+                    <div class="color-pallets-wrap {{ option.name | handleize }}-pallets-wrap"></div>
+                  </div>
+                {% else %}
+            	  <div class="selector-wrapper js product-form__item {% if option.name != "Color" %} normal-option {% endif %}">
+                    <select style="{% if option.name == "Color" %}display: none;{% endif %}" class="single-option-selector single-option-selector-{{ section.id }} product-form__input single-option-{{ option.name }}" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                      {% assign varids = varids_ary | split:'#' %}
+                      {% assign k = 0 %}
+                      {% for value in option.values %}
+                        {% assign is_in_stock = true %}
+                        {% if option.name == "Color" %}
+                          {% assign outstocks = stock_ary | split:'#' %}
+                          {% for outstock in outstocks %}
+                            {% if outstock == value %}
+                              {% assign is_in_stock = false %}
+                            {% endif %}
+                          {% endfor %}
+                        {% endif %}
+                        <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %} data-instock={% if is_in_stock == false %}"0"{% else %}"1"{% endif %} {% if option.name == "Color" %}data-id="{{ varids[k] }}"{% else %}data-productid="{{ product.id }}"{% endif %} >{{ value }}</option>
+                        {% assign k = k | plus: 1 %}
+                      {% endfor %}
+                    </select>
+                    {% if option.name == "Color" %}
+                      {% assign is_color = true %}
+                      <label class="colorsltShare" id="colorselect">
+                        <span>Shade</span>
+                        <div id="option-color-name"></div>
+                        <div id="option-color-image" class="option-shade-img">
+                          <img id="dynamicimgsrc" src="https://cdn.shopify.com/s/files/1/0081/1660/0950/files/default-shade.png" alt="Color Shade">
+                        </div>
+                      </label>
+                      <div class="color-pallets-wrap"></div>
+                    {% endif %}
+                  </div>
+            	{% endif %}
+              {% endunless %}
+            
+            {%- endfor -%}
+            {%- endunless -%}
+
+            <select name="id" id="ProductSelect-{{ section.id }}" data-section="{{ section.id }}" class="variation-select no-js">
+              {%- for variant in product.variants -%}
+              {%- if variant.available -%}
+              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                {{- variant.title -}}
+              </option>
+              {% else %}
+              <option disabled="disabled">{{ variant.title }} - Sold out</option>
+              {%- endif -%}
+              {%- endfor -%}
+            </select>
+
+            {%- if product.price_varies -%}
+            <div class="variation-price product-single__price-{{ section.id }}{% unless current_variant.available %} invisible{% endunless %}">
+              <span class="price">
+                <span id="ComparePrice-{{ section.id }}" class="price-old{% unless current_variant.compare_at_price > current_variant.price %} ra-hide{% endunless %}"><span class="money">{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</span></span>
+              </span>
+            </div>
+            {%- endif -%}
+
+              <div class="quantity {{ widthfull }}">
+                <span class="qty-minus">-</span>
+              	<input type="text" pattern="\d*" id="Quantity" name="quantity" value="1" min="1" maxlength="12" title="Qty" class="input-text qty text" pattern="[0-9]*">
+                <span class="qty-plus">+</span>
+              </div>              
+              <input type="hidden" name="varids" id="varID" value="{{ product.selected_or_first_available_variant.id }}">
+              <button id="AddToCart-{{ section.id }}" type="button" onClick="instantBuy()" class="add_to_cart_button button btn{% unless current_variant.available %} ra-hide{% endunless %}" {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+                <span id="AddToCartText-{{ section.id }}">
+                  {%- unless current_variant.available -%}
+                    Out of stock
+                  {%- else -%}
+                    Add to Cart
+                  {%- endunless -%}
+                </span>
+                <i class="button-loader"></i>
+              </button>
+     
+          </form>
+          {%- else -%}
+          {% assign isAvailable = '' %}
+          <div class="cart">
+            <p class="stock out-of-stock">Out of stock</p>
+          </div> 
+          
+          {%- endif -%}
+          
+          {% assign selected_varient = product.selected_variant.id %}
+
+              {% if selected_varient == blank %}
+                {% if product.variants.size > 1 %}
+                  {% assign selected_varient = product.selected_or_first_available_variant.id %}
+                {% else %}
+                  {% assign selected_varient = product.selected_or_first_available_variant.id %}
+                {% endif %}
+           {% endif %}
+          <div id="mydiv" class="{{ isAvailable }}" data-src="https://migration.hourglasscosmetics.com/listwaitlist/{{ product.id }}/{{ selected_varient }}" data-url="https://migration.hourglasscosmetics.com/listwaitlist/{{ product.id }}" ></div>
+        </div>
+
+        
+        <div class="favorite-share-main">
+            <ul class="add-to-links">
+              <li>
+                <div class="wishl-add-wrapper">
+                    <a href="{{ product.url | within: collection }}" style="font-size: 12px;" class="add-to-wishl  add-to-wishl-main" title="See product details">
+                        <span>See product details</span>
+                    </a>
+                </div>
+              </li>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+<script>
+    window.dataLayer.push(
+    {
+        "event": "productDetailView",
+        "ecommerce": {
+            "currencyCode": "USD",
+            "detail": {
+                "products": [
+                    {
+                    "name": "{{ product.title }}",
+                    "id": "{{ current_variant.sku }}",
+                    "price": {{ current_variant.price | money_without_currency }},
+                    "brand": "{{ product.vendor }}",
+                    "variant": "{{ current_variant.title }}",
+                    {% if collection %}
+                        "category": "{{ collection.title | remove: "'" }}",
+                    {% else %}
+                        "category": "All Products",
+                    {% endif %}
+                    }
+                ]
+            }
+        }
+    }
+);
+</script>
+
+<script type="text/javascript">
+  function instantBuy(){
+       var $ = jQuery;
+       var formParams = $('form.cart').serialize();
+       $qtty = $('#Quantity').val();
+
+       if($qtty > 4){
+          $('ul.messages li').removeClass('success-msg');
+          $('ul.messages li').addClass('error-msg');
+          $('ul.messages li span').text('THE MAXIMUM QUANTITY ALLOWED FOR PURCHASE IS 4.');
+          $('.messages').css('display','block');
+          setTimeout(function(){
+              $('.messages').css('display','none');
+          }, 3000);
+       }else{
+
+        var myjon = 0;
+        $.ajax({
+          async: false,
+          type: 'GET',
+          url: '/cart.js',
+          dataType: 'json',
+          success: function(data) {
+            $.each(data.items, function( k, v ) {
+              $vvarID = parseInt($('#varID').val());
+              $vquty = $('#Quantity').val();
+              if($vvarID == v.variant_id){
+                $totalqty = parseInt($vquty) + parseInt(v.quantity);
+                if($totalqty > 4){
+                  myjon = 1;
+                }
+              }
+            });
+          }
+        });
+        
+        if(myjon == 1){
+          $('ul.messages li').removeClass('success-msg');
+          $('ul.messages li').addClass('error-msg');
+          $('ul.messages li span').text('THE MAXIMUM QUANTITY ALLOWED FOR PURCHASE IS 4.');
+          $('.messages').css('display','block');
+          setTimeout(function(){
+            $('.messages').css('display','none');
+          }, 3000);
+          return false;
+        }else{
+          $varid = $('#ProductSelect-ra-quickshop-template1').val();
+          var projsondata = JSON.parse(document.getElementById('ProductJson-ra-quickshop-template1').innerHTML);
+          var varientdata = '';
+          $.each(projsondata.variants, function(k, v) {
+              /// do stuff
+              if($varid == v.id){
+                varientdata = v;
+              }
+          });
+          $theme = window.theme;
+          var varprice = $theme.Currency.formatMoney(parseInt(varientdata.price));
+          varprice = varprice.substring(1, varprice.length);
+          window.dataLayer.push(
+          {
+                "event": "addToCart",
+                "ecommerce": {
+                    "currencyCode": "USD",
+                    "add": {
+                        "products": [
+                            {
+                            "name": "{{ product.title }}",
+                            "id": varientdata.sku,
+                            "price": varprice,
+                            "brand": "hourglasscosmetics",
+                            "variant": varientdata.title,
+                            "quantity": $qtty,
+                            {% if collection %}
+                                "category": "{{ collection.title | remove: "'" }}",
+                            {% else %}
+                                "category": "All Products",
+                            {% endif %}
+                            }
+                        ]
+                    }
+                }
+            }
+          );
+
+         $.ajax({
+            url: "/cart/add",
+            type: "post",
+            data: formParams,
+            success: function(){
+                  window.location = window.location.href; 
+                  localStorage['quick-view-listing'] = "yes";
+            },
+            error: function(){
+            }
+          });
+        }
+      }
+  }
+
+</script>
+
+{%- unless product == empty -%}
+  <script type="application/json" id="ProductJson-{{ section.id }}">
+    {{- product | json -}}
+  </script>
+{%- endunless -%}
+<script type="text/javascript">
+  $divsrc = $('#mydiv').data('src');
+  $('#mydiv').load($divsrc, function(response, status, xhr) {
+      if (status == "error") {
+          var msg = "Sorry but there was an error: ";
+          console.log(msg + xhr.status + " " + xhr.statusText);
+      }
+  });
+</script> 
+<script>
+  jQuery(".qty-plus").click(function(e) {
+    e.preventDefault();
+    var currentVal = parseInt(jQuery(this).prev("#Quantity").val());
+    if (!currentVal || currentVal == "" || currentVal == "NaN") {
+      currentVal = 1;
+    }
+    jQuery(this).prev("#Quantity").val(currentVal + 1);
+  });
+  jQuery(".qty-minus").click(function(e) {
+    e.preventDefault();
+    var currentVal = parseInt(jQuery(this).next("#Quantity").val());
+    if (currentVal == "NaN") currentVal = 1;
+    if (currentVal > 1) {
+      jQuery(this).next("#Quantity").val(currentVal - 1);
+    }
+  });
+</script>
+{% if widthfull == 'widthfull' %}
+<script type="text/javascript">
+  $('.product-template__container > .product').addClass('product_width');
+</script>
+{% endif %}
+{% if is_color == true %}
+<script type="text/javascript">
+  
+  var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+          sParameterName = sURLVariables[i].split('=');
+
+          if (sParameterName[0] === sParam) {
+              return sParameterName[1] === undefined ? true : sParameterName[1];
+          }
+      }
+  };
+  
+  var variant = getUrlParameter('variant');
+  
+  if(variant !== undefined) {
+    
+    var color_value = $(".single-option-Color option:selected").val();
+    var imgurl = $('img[alt="'+color_value+'-color"]').attr('src');
+    $('#dynamicimgsrc').attr('src',imgurl);
+    $('#colorselect >span').text(color_value);
+    
+    var shade1_value = $(".single-option-shade-1 option:selected").val();
+    var imgurl = $('img[alt="'+shade1_value+'-shade-1"]').attr('src');
+    $('#shade-1-dynamicimgsrc').attr('src',imgurl);
+    $('#shade-1-select >span').text(shade1_value);
+    
+    var shade2_value = $(".single-option-shade-2 option:selected").val();
+    var imgurl = $('img[alt="'+shade2_value+'-shade-2"]').attr('src');
+    $('#shade-2-dynamicimgsrc').attr('src',imgurl);
+    $('#shade-2-select >span').text(shade2_value);
+    
+    var shade3_value = $(".single-option-shade-3 option:selected").val();
+    var imgurl = $('img[alt="'+shade3_value+'-shade-3"]').attr('src');
+    $('#shade-3-dynamicimgsrc').attr('src',imgurl);
+    $('#shade-3-select >span').text(shade3_value);
+    
+  }
+  
+</script>
+{% endif %}
+<script type="text/javascript">
+  
+  // Color Palette On Click
+  jQuery(document).on('click','.color-palettte a', function(){
+    
+      jQuery('.color-pallets-wrap').slideUp();
+      $listimg = $(this).find('img').attr('src');
+      $listtxt = $(this).data('title');
+    
+      /*simple Load*/
+      $varientid = $(this).data('id');
+      jQuery('#ProductSelect-ra-quickshop-template1').val($varientid);
+      $waitsrc = jQuery('#mydiv').data('url');
+      $waitsrc = $waitsrc+'/'+$varientid;
+      waitlistingframe($waitsrc);
+      
+      if($(this).data('available') == 0){
+        jQuery('#mydiv').removeClass('disnon');
+      }else{
+        jQuery('#mydiv').addClass('disnon');
+      }
+      //console.log($varientid);
+      //jQuery('#ProductSelect-ra-quickshop-template1').val($varientid).trigger('change');
+      //jQuery('#ProductSelect-ra-quickshop-template1').val($varientid).change();
+      //jQuery('.single-option-Color').val($listtxt).change();
+      
+      //jQuery("#ProductSelect-ra-quickshop-template1 option[value='"+$varientid+"']").prop("selected","selected");
+      
+      /*endsimple Load*/
+      //console.log(jQuery('#ProductSelect-ra-quickshop-template1').val());
+      //commented 14-03-2018
+      //jQuery('.single-option-Color').val($listtxt).trigger('change');
+      /*console.log(window.mySwiper); 
+      window.mySwiper[1].slideTo(3,1e3,!1);*/
+    
+      var select = document.querySelector('.single-option-Color');
+      select.value = $listtxt;
+      select.dispatchEvent(new Event('change'));
+    
+      jQuery('#dynamicimgsrc').attr('src',$listimg);
+      jQuery('#colorselect >span').text($listtxt);
+      
+      if($('img[alt="'+$listtxt+'"]').length > 0){
+        jQuery('.gird-sid > .grid__item').css("display", "none");      
+        jQuery('img[alt="'+$listtxt+'"]').parent().parent('li').css("display", "block");
+      }
+      //console.log(jQuery('img[alt="'+listtxt+'"]').parent().parent('li'));
+
+  });
+    
+  function waitlistingframe($waitsrc) {
+    $('#mydiv').attr('data-src','');
+    $('#mydiv').attr('data-src',$waitsrc);
+    //console.log($waitsrc);
+    $('#mydiv').load($waitsrc, function(response, status, xhr) {
+        if (status == "error") {
+            var msg = "Sorry but there was an error: ";
+            console.log(msg + xhr.status + " " + xhr.statusText);
+          }
+    });
+  }
+  
+  // For Simple Option 1 Click
+  jQuery(document).on('change','#SingleOptionSelector-0', function(event){
+      event.preventDefault();
+      $product_id = $("#SingleOptionSelector-0 option:selected").data('productid');
+      $listtxt = $("#SingleOptionSelector-0 option:selected").val();
+      $get_url = '/admin/products/'+$product_id+'/variants.json?limit=250';
+      var data = {{product.variants | json}};
+      //console.log($data);
+      
+      var option1 = $("#SingleOptionSelector-0 option:selected").val();
+
+      var current_title = option1;
+
+      var inventory = 0;
+      var varientid = 0;
+
+      jQuery.each(data, function(index, item) {
+        if( item.title ==  current_title){
+          inventory = item.inventory_quantity;
+          varientid = item.id;
+        }
+      });
+
+      /*simple Load*/
+      $waitsrc = jQuery('#mydiv').data('url');
+      $waitsrc = $waitsrc+'/'+varientid;
+      //$waitsrc = $waitsrc+'/'+varientid;
+      waitlistingframe($waitsrc);
+
+      $('#varID').val(varientid);
+
+      if($(this).data('available') == 0){
+        jQuery('#mydiv').removeClass('disnon');
+      }else{
+        jQuery('#mydiv').addClass('disnon');
+      }
+      /*endsimple Load*/
+
+      if($('img[alt="'+$listtxt+'"]').length > 0){
+        jQuery('.gird-sid > .grid__item').css("display", "none");
+        jQuery('img[alt="'+$listtxt+'"]').parent().parent('li').css("display", "block");
+      }
+  });
+  function waitlistingframe($waitsrc) {
+    $('#mydiv').attr('data-src','');
+    $('#mydiv').attr('data-src',$waitsrc);
+    //console.log($waitsrc);
+    $('#mydiv').load($waitsrc, function(response, status, xhr) {
+        if (status == "error") {
+            var msg = "Sorry but there was an error: ";
+            console.log(msg + xhr.status + " " + xhr.statusText);
+          }
+    });
+  }
+  
+  function getAvailable($product_id){
+    
+    var data = {{product.variants | json}};
+    
+    var shade1 = $(".single-option-shade-1 option:selected").val();
+    var shade2 = $(".single-option-shade-2 option:selected").val();
+    var shade3 = $(".single-option-shade-3 option:selected").val();
+    var current_title = shade1+' / '+shade2+' / '+shade3;
+
+    var inventory = 0;
+    var varientid = 0;
+    var inventory_management = '';
+
+    jQuery.each(data, function(index, item) {
+      if( item.title ==  current_title){
+        inventory_management = item.inventory_management;
+        inventory = item.inventory_quantity;
+        varientid = item.id;
+      }
+    });
+
+    /*simple Load*/
+    $waitsrc = jQuery('#mydiv').data('url');
+    $waitsrc = $waitsrc+'/'+varientid;
+    waitlistingframe($waitsrc);
+
+    $('#varID').val(varientid);
+
+    if($(this).data('available') == 0){
+      jQuery('#mydiv').removeClass('disnon');
+    }else{
+      jQuery('#mydiv').addClass('disnon');
+    }
+    /*endsimple Load*/   
+        
+  }
+    
+  // Shade 1 Palette On Click
+  jQuery(document).on('click','.shade-1-palette a', function(){
+      
+      jQuery('.shade-1-pallets-wrap').slideUp();
+      $listimg = $(this).find('img').attr('src')
+      $listtxt = $(this).data('title');
+    
+      $product_id = $(this).data('productid');
+      
+      getAvailable($product_id);
+    
+      //jQuery('.single-option-shade-1').val($listtxt).trigger('change');
+      var select = document.querySelector('.single-option-shade-1');
+      select.value = $listtxt;
+      select.dispatchEvent(new Event('change'));
+    
+      jQuery('.shade-img1-box > img').attr('src',$listimg);
+      jQuery('#shade-1-dynamicimgsrc').attr('src',$listimg);
+      jQuery('#shade-1-select > span').text($listtxt);
+    
+  });
+    
+  // Shade 2 Palette On Click
+  jQuery(document).on('click','.shade-2-palette a', function(){
+    
+      jQuery('.shade-2-pallets-wrap').slideUp();
+      $listimg = $(this).find('img').attr('src')
+      $listtxt = $(this).data('title');
+    
+      $product_id = $(this).data('productid');
+    
+      getAvailable($product_id);
+    
+      //jQuery('.single-option-shade-2').val($listtxt).trigger('change');
+      var select = document.querySelector('.single-option-shade-2');
+      select.value = $listtxt;
+      select.dispatchEvent(new Event('change'));
+    
+      jQuery('.shade-img2-box > img').attr('src',$listimg);
+      jQuery('#shade-2-dynamicimgsrc').attr('src',$listimg);
+      jQuery('#shade-2-select >span').text($listtxt);
+    
+  });
+    
+  // Shade 3 Palette On Click
+  jQuery(document).on('click','.shade-3-palette a', function(){
+    
+      jQuery('.shade-3-pallets-wrap').slideUp();
+      $listimg = $(this).find('img').attr('src')
+      $listtxt = $(this).data('title');
+    
+      $product_id = $(this).data('productid');
+    
+      getAvailable($product_id);
+    
+      //jQuery('.single-option-shade-3').val($listtxt).trigger('change');
+      var select = document.querySelector('.single-option-shade-3');
+      select.value = $listtxt;
+      select.dispatchEvent(new Event('change'));
+    
+      jQuery('.shade-img3-box > img').attr('src',$listimg);
+      jQuery('#shade-3-dynamicimgsrc').attr('src',$listimg);
+      jQuery('#shade-3-select >span').text($listtxt);
+    
+  });
+  jQuery(document).ready(function(e){
+    jQuery('.colorsltShare').click(function(){
+      jQuery('.normal-option-infos .color-pallets-wrap').stop().slideUp()
+      jQuery(this).next().stop().slideToggle();
+    });
+
+  $handle = '{{product.handle}}';
+  $varasiam = $('.shopify-product-quickshop-button[data-id="'+$handle+'"]').data('asiam');
+  if($varasiam == 1){
+    // For Color Select Option
+    jQuery('.single-option-Color option').each(
+      function() {
+          //$image = $('.grid__item:has(img[alt="'+$(this).val()+'"])');
+          $image_url = $('img[alt="'+$(this).val()+'-color"].costerbord').attr('src');
+          $noimage = '';
+          
+          if(typeof $image_url === 'undefined'){
+            $noimage = 'noimage';
+          }
+        
+          $outtext = '';
+          $available = 1;
+          if($(this).data('instock') == '0'){
+            $outtext = '<strong>OUT OF STOCK | </strong>';
+            $available = 0;
+          }
+        
+          $varid = $(this).data('id');
+          
+          if($noimage !== 'noimage'){
+            $('.color-pallets-wrap').append('<div class="color-palettte palette '+$noimage+'"><a href="javascript:void(0)" data-title="'+$(this).val()+'" data-available="'+$available+'" data-id="'+$varid+'"><img src="'+$image_url+'" alt="'+$outtext+''+$(this).text()+'" /><span class="shades_label_overlay">'+$outtext+''+$(this).text()+'</span></a></div>');
+          }
+    });
+  }else{
+    jQuery('.single-option-Color option').each(
+      function() {
+          //$image = $('.grid__item:has(img[alt="'+$(this).val()+'"])');
+          $image_url = $('img[alt="'+$(this).val()+'-color"]').attr('src');
+          $noimage = '';
+          if(typeof $image_url === 'undefined'){
+            $noimage = 'noimage';
+          }
+        
+          $outtext = '';
+          $available = 1;
+          if($(this).data('instock') == '0'){
+            $outtext = '<strong>OUT OF STOCK | </strong>';
+            $available = 0;
+          }
+        
+          $varid = $(this).data('id');
+          
+        $('.color-pallets-wrap').append('<div class="color-palettte palette '+$noimage+'"><a href="javascript:void(0)" data-title="'+$(this).val()+'" data-available="'+$available+'" data-id="'+$varid+'"><img src="'+$image_url+'" alt="'+$outtext+''+$(this).text()+'" /><span class="shades_label_overlay">'+$outtext+''+$(this).text()+'</span></a></div>');
+    });
+  }
+    
+  // For shade 1 Select Option
+  jQuery('.single-option-shade-1 option').each(
+    function() {
+      
+        $image_url = $('img[alt="'+$(this).val()+'-shade-1"]').attr('src');
+        $noimage = '';
+        if(typeof $image_url === 'undefined'){
+          $noimage = 'noimage';
+        }
+      
+        $varid = $(this).data('productid');
+        
+       $('.shade-1-pallets-wrap').append('<div class="shade-1-palette palette '+$noimage+'"><a href="javascript:void(0)" data-title="'+$(this).val()+'" data-productid="'+$varid+'"><img src="'+$image_url+'" alt="'+$(this).text()+'" /><span class="shades_label_overlay">'+$(this).text()+'</span></a></div>');
+  });
+    
+  // For shade 2 Select Option
+  jQuery('.single-option-shade-2 option').each(
+    function() {
+      
+        $image_url = $('img[alt="'+$(this).val()+'-shade-2"]').attr('src');
+        $noimage = '';
+        if(typeof $image_url === 'undefined'){
+          $noimage = 'noimage';
+        }
+      
+        $varid = $(this).data('productid');
+        
+       $('.shade-2-pallets-wrap').append('<div class="shade-2-palette palette '+$noimage+'"><a href="javascript:void(0)" data-title="'+$(this).val()+'" data-productid="'+$varid+'"><img src="'+$image_url+'" alt="'+$(this).text()+'" /><span class="shades_label_overlay">'+$(this).text()+'</span></a></div>');
+  });
+    
+  // For shade 3 Select Option
+  jQuery('.single-option-shade-3 option').each(
+    function() {
+      
+        $image_url = $('img[alt="'+$(this).val()+'-shade-3"]').attr('src');
+        $noimage = '';
+        if(typeof $image_url === 'undefined'){
+          $noimage = 'noimage';
+        }
+      
+        $varid = $(this).data('productid');
+        
+       $('.shade-3-pallets-wrap').append('<div class="shade-3-palette palette '+$noimage+'"><a href="javascript:void(0)" data-title="'+$(this).val()+'" data-productid="'+$varid+'"><img src="'+$image_url+'" alt="'+$(this).text()+'" /><span class="shades_label_overlay">'+$(this).text()+'</span></a></div>');
+  });
+  
+  jQuery(document).on('click','.variant_image', function(){
+    
+  $imgurl = $(this).data('imgurl');
+    $imgsec = $(this).data('sectionid');
+    $imgwidths = $(this).data('widths');
+    
+    if($imgurl !== "undefined"){
+      
+      $imgurl_main = $imgurl
+      $varray = [];
+      // For secret
+      jQuery.each( $imgwidths, function( i, val ) {
+        $imgstr = $imgurl.replace("300x300", val+'x');
+        $imgstr = $imgstr+' '+val+'w';
+        $varray.push($imgstr);
+      });
+      
+      jQuery('img#ProductCardImage-'+$imgsec).attr('src',$imgurl);
+      jQuery('img#ProductCardImage-'+$imgsec).attr('srcset',$varray.toString());
+      
+    }
+    
+    $varUrl = $(this).data('url')+'?variant='+$(this).data('id');
+    $(this).parent().prev('a').attr('href',$varUrl);
+    $(this).closest(".grid-view-item").find('a.grid-view-item__link').attr('href',$varUrl);
+    console.log($(this).parent().prev('a'));
+    
+  });
+  
+});
+
+/**Multiple Shade in Quick**/  
+jQuery(document).ready(function() {
+	 setTimeout(function(){
+	   jQuery('.product_infos .normal-option').closest('.ra-item-info').addClass('normal-option-infos')
+	 },1000); 
+});
+
+</script>

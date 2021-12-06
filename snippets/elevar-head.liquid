@@ -1,0 +1,69 @@
+<script>
+    var url = window.location.href;
+    var url_array = url.split('#');
+    var url_section = url_array[1];
+    var page_type='other';
+    {% if template.name == "index" %}
+            page_type = "Home Page";
+    {% elsif page.handle == "search-results-page" or template.name == "search" %}
+            page_type = "Search Page";
+    {% elsif template.name == "collection" %}
+            page_type = "Category Page";
+    {% elsif template.name == "product" %}
+            page_type = "Product Detail Page";
+    {% elsif template.name == "cart" %}
+            page_type = "Cart Page";
+	{% elsif page_title contains "Thank you" and page_title contains "Checkout" %} 
+			page_type = "Order Confirmation Page";
+    {% elsif page_title contains "Checkout" %}
+            page_type = "Checkout Page";  
+    {% elsif page.handle == "contact-us" %}
+            page_type = "Contact Page";
+    {% elsif template.name == "account" %}
+            page_type = "Account Page"
+    {% elsif template.name == "register" %}
+          page_type = "Register Page";;
+    {% else %}
+      page_type = "Other";
+    {% endif %}
+    if(url_section=="wishlist"){
+       page_type = "Wishlist Page"; 
+    }          
+  dataLayer = [{
+    'pageType': page_type,
+    'userID': '{{ customer.id }}',
+    'loginStatus': '{% if shop.customer_accounts_enabled %}{% if customer  %}Logged In{% else %}Logged Out{% endif %}{% endif %}'
+  }];   
+</script>
+
+<!-- Anti-flicker snippet (recommended) -->
+<style>.async-hide { opacity: 0 !important} </style>
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+})(window,document.documentElement,'async-hide','dataLayer',4000,
+{'GTM-PPH3BK3':true});</script>
+
+<!-- Google Tag Manager -->
+<script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+    new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+    "https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,"script","dataLayer","GTM-PPH3BK3");
+</script>
+<!-- End Google Tag Manager -->
+
+<!-- Global site tag (gtag.js) - DoubleClick -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=DC-8942988"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-954685305"></script>
+<!-- End of global snippet: Please do not remove -->
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'DC-8942988');
+    gtag('config', 'AW-954685305');
+</script>
+
+<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"5739278"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>

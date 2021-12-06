@@ -1,0 +1,128 @@
+<div class="eq_content_blocks_wrap">
+  <div class="left_section">
+    <div class="content">
+      <a href="{{ section.settings.product_link }}">
+        {% if section.settings.desktop_video_url != blank %}
+          <video class="video_desktop_grid" width="100%" playsinline loop muted autoplay>  
+            <source src="{{ section.settings.desktop_video_url }}" type="video/mp4">  
+          </video> 
+		{% endif %}
+        {% if section.settings.mobile_video_url != blank %}
+          <video class="video_mobile_grid" width="100%" playsinline loop muted autoplay>  
+            <source src="{{ section.settings.mobile_video_url }}" type="video/mp4">  
+          </video> 
+		{% endif %}
+      </a>
+      {% if section.settings.section_title != blank %}
+      <div class="section-description">
+        {% if section.settings.description != blank %}
+        <div class="description">
+          {% if section.settings.section_title != blank %}
+            <div class="section-title">{{ section.settings.section_title }}</div>
+            {% endif %}
+            {% if section.settings.section_header_text != blank %}
+            <div class="section-header">{{ section.settings.section_header_text }}</div>
+           {% endif %}
+          <span class="desc-txt">{{ section.settings.description }}</span></div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>    
+  <div class="right_section">
+    <div class="content">        
+      {% if section.settings.right_image != blank %}
+        <a href="{{ section.settings.right_link }}">
+          <img class=" lazyload" data-src="{{ section.settings.right_image | img_url: 'master' }}" src="{{ section.settings.right_image | img_url: 'master' }}" alt="Hourglass Cosmetics">
+        </a>
+      {% endif %}  
+    </div>
+  </div>  
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Content Block"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+      {
+          "type": "header",
+          "content": "Left Section"
+      },
+      {
+        "type":"url",
+        "id":"desktop_video_url",
+        "label":{
+          "en":"Desktop Video URL"               
+        }
+      },
+      {
+        "type":"url",
+        "id":"mobile_video_url",
+        "label":{
+          "en":"Mobile Video URL"               
+        }
+      },	  
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": {
+          "en": "Title"         
+        }
+      },
+	  {
+        "type": "text",
+        "id": "section_header_text",
+        "label": {
+          "en": "Header Text"         
+        }
+      },
+	  {
+        "type": "text",
+        "id": "description",
+        "label": {
+          "en": "Description"         
+        }
+      },
+      {
+        "type": "url",
+        "id": "product_link",
+        "label": {
+          "en": "Product Link"         
+        }
+      },
+      {
+          "type": "header",
+          "content": "Right Section"
+      },
+	  {
+        "type": "image_picker",
+        "id": "right_image",
+        "label": {
+          "en": "Right Image"         
+        }
+      },
+      {
+        "type": "url",
+        "id": "right_link",
+        "label": {
+          "en": "Right Link"         
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "EQ Content block"        
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

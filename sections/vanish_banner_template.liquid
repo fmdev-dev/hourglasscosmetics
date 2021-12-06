@@ -1,0 +1,101 @@
+<div id="bgimage_with_rightcontent_section" class="bgimage_with_rightcontent_section fullheightblock ambient-banner ambient_and_vanish_banner_section vanish-blush-stick">
+    {% if section.settings.desk_image != blank %}
+    	<img class="banner-desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: 'master' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics"
+         {% if section.settings.desk_image %}
+         data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+         {% endif %}> 
+    {% endif %}
+    <div class="banner-content {{ section.settings.content_position }}">
+      <div class="content-inner">
+        {% if section.settings.title != blank %}
+        <div class="title">{{ section.settings.title }}</div>
+        {% endif %}
+
+        {% if section.settings.sub_title != blank %}
+        <div class="sub_title">{{ section.settings.sub_title }}</div>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+        <div class="description">{{ section.settings.description }}</div>
+        {% endif %}
+
+      </div> 
+    </div>
+  {% if section.settings.mob_image != blank %}
+        <img class="banner-mob-img lazyload" data-src="{{ section.settings.mob_image | img_url: 'master' }}" src="{{ section.settings.mob_image | img_url: '100x' }}" alt="Hourglass Cosmetics"
+             {% if section.settings.mob_image %}
+             data-bgset="{% include 'bgset', image: section.settings.mob_image %}"
+             {% endif %}> 
+        {% endif %}
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Blush Banner"
+    },
+    "class": "index-section index-section--flush product-vanish-blush",
+    "settings": [
+      {
+        "type": "select",
+        "id": "content_position",
+        "label": {  "en": "Content position" },
+        "default": "right",
+        "options": [
+          {
+            "label": { "en": "Left" },
+            "value": "left"
+          },
+          {
+            "label": { "en": "Right" },
+            "value": "right"
+          }
+        ]
+      },
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	  {
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+	  {
+           "type":"text",
+           "id":"sub_title",
+           "label":{ 
+              "en":"Sub Title",
+              "de":"Sub Title",
+              "fr":"Sub Title"
+           }
+      },
+      {
+           "type":"textarea",
+           "id":"description",
+           "label":{ 
+              "en":"Description",
+              "de":"Description",
+              "fr":"Description"
+           }
+      }
+    ]
+  }
+{% endschema %}

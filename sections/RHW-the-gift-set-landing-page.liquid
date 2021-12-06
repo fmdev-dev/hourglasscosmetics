@@ -1,0 +1,219 @@
+{%- assign max_height = 345 -%}
+{%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
+<div class="banner-main text-center">
+  {% if section.settings.desk_image != blank %}
+    <span class="bg-desktop" style="background-image: url({{section.settings.desk_image | img_url:'master' }});"></span>
+  {% endif %}
+  
+  
+  <div class="bnr-container">
+    <div class="bnr-cont">
+      <h1>{{ section.settings.heading }}</h1>
+      
+	  <h2 class="requiredtag"></h2>
+	  <h3 class="requiredtag"></h3>
+      
+      {% if section.settings.subheading != blank %}
+        <span class="hastitle-txt">{{ section.settings.subheading }}</span>
+      {% endif %}
+    </div>
+    {% if section.settings.mob_image != blank %}
+        <span class="bg-mobile"><img src="{{section.settings.mob_image | img_url:'master' }}" alt="" /></span>
+      {% endif %}
+  </div>
+  
+</div>
+<div class="rte">
+  {% for block in section.blocks limit: section.blocks.size %}
+  <div class="rte-collection">
+    <div class="collection-prt">
+      <div class="row-heading">{{ block.settings.collection_title }}</div>
+      <img class="collection_desktop_desktop lazyload" src="{{ block.settings.collection_image | img_url:'100x' }}"  data-src="{{ block.settings.collection_image | img_url:'master' }}">
+      <img class="collection_desktop_mobile lazyload" src="{{ block.settings.collection_image_mob | img_url:'100x' }}"  data-src="{{ block.settings.collection_image_mob | img_url:'master' }}">
+    </div>   
+    <div class="collection_list">
+      <div class="coll-list-slider">
+          {% for product in collections[block.settings.collection].products %}
+        	{% if forloop.index == block.settings.quote_position %}
+              <div class="coll-list-item quote-grid">
+                <a class="full-width-link" href="{{block.settings.quote_url}}">&nbsp;</a>
+                <div class="contain">
+                  	<span class="coll-list-contain-txt">{{block.settings.quote_description}}</span>
+                    <span class="coll-list-contain-img"><img src="{{ block.settings.quote_image | img_url: 'master' }}" alt="{{ block.settings.collection_title }}"></span>
+                  
+                </div>
+                 
+              </div>
+        	{% endif %}
+        	<div class="coll-list-item">
+       			{% include 'product-card-grid-slider', max_height: max_height %}
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{{ 'slick.min.js' | asset_url | script_tag }}
+<script type="text/javascript">
+ 	$('.coll-list-slider').slick({
+        dots: false,
+        infinite: false,
+      	autoplay: false,
+        speed: 300,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        loop: false,
+        responsive: [
+          {
+            breakpoint: 1160,
+            settings: {
+              slidesToShow: 2,
+             
+            }
+          }
+        ]
+      });
+</script>
+{% schema %}
+  {
+    "name": "The Gift Set",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading",
+          "de": "Heading",
+          "fr": "Heading"
+        }
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": {
+          "en": "Subheading",
+          "de": "Subheading",
+          "fr": "Subheading"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      }
+   ],
+   "blocks": [
+      {
+        "type": "featured_collection",
+        "name": {
+          "en": "Collection",
+          "de": "Kategorie",
+          "fr": "Collection"
+        },
+        "settings": [
+      {
+            "type": "image_picker",
+            "id": "collection_image",
+            "label": {
+              "en": "Collection Desktop Image",
+              "de": "Collection Desktop Image",
+              "fr": "Collection Desktop Image"
+            }
+          },
+          {
+            "type": "image_picker",
+            "id": "collection_image_mob",
+            "label": {
+              "en": "Collection Mobile Image",
+              "de": "Collection Mobile Image",
+              "fr": "Collection Mobile Image"
+            }
+          },
+          {
+            "type": "text",
+            "id": "collection_title",
+            "label": {
+              "en": "Collection Title",
+              "de": "Collection Title",
+              "fr": "Collection Title"
+            }
+          },
+          {
+            "label": {
+              "en": "Collection",
+              "de": "Kategorie",
+              "fr": "Collection"
+            },
+            "id": "collection",
+            "type": "collection"
+          },
+          {
+			"type": "header",
+			"content": "Quote Grid"
+          },
+          {
+            "type": "textarea",
+            "id": "quote_description",
+            "label": {
+              "en": "Quote",
+              "de": "Quote",
+              "fr": "Quote"
+            }
+          },
+          {
+            "type": "url",
+            "id": "quote_url",
+            "label": {
+              "en": "URL",
+              "de": "URL",
+              "fr": "URL"
+            }
+          },
+          {
+            "type": "image_picker",
+            "id": "quote_image",
+            "label": {
+              "en": "Image",
+              "de": "Image",
+              "fr": "Image"
+            }
+          },
+          {
+            "type": "range",
+            "id": "quote_position",
+            "label": {
+              "en": "Position",
+              "de": "Position",
+              "fr": "Position"
+            },
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "default": 1
+          }		  
+
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

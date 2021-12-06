@@ -1,0 +1,426 @@
+<div class="form-message form-message--success hide contact-message" id="SuccessMsg"></div>
+<div class="take-quiz-template" id="takesection">{% section 'page-tack-quiz-template' %}</div>
+<h1 class="requiredtag"></h1>
+<div id="quizstep" class="quizstep-main" style="display:none;">
+   <div>
+      <div id="quizstep-1" class="">
+      {% section 'page-quiz-step1-template' %}
+      </div>
+      <div id="quizstep-2" class="">
+      {% section 'page-quiz-step2-template' %}
+      </div>
+      <div id="quizstep-3" class="">
+      {% section 'page-quiz-step3-template' %}
+      </div>
+      <div id="quizstep-4" class="">
+      {% section 'page-quiz-template' %}
+      <div class="the-arch-browreco-main" style="display:none">
+        {% section 'page-quiz-product-template' %} 
+        {% section 'page-quiz-product-template-2' %} 
+      </div>
+     </div> 
+   </div>
+   <ul class="stepnumberlist">
+      <li><a href="#quizstep-1">1</a></li>
+      <li><a href="#quizstep-2">2</a></li>
+      <li><a href="#quizstep-3">3</a></li>
+      <li><a href="#quizstep-4">4</a></li>
+   </ul>
+</div>
+<h3 class="requiredtag"></h3>
+
+ <script>
+  /* SET SELECTED DATA TO HIDDEN FILED QQ1 QQ2 QQ3 */
+  $( document ).ready(function() {
+      $('#qq1').val($('input:radio[name=question1]:checked').val());
+      $('#qq2').val($('input:radio[name=question2]:checked').val());
+      $('#qq3').val($('input:radio[name=question3]:checked').val());
+  });
+ </script>
+<script>
+$(document).on('click', '#takequize', function(e) {
+   e.preventDefault();
+   $('#takesection').css('display','none');
+   $('#quizstep').css('display','block');
+});
+$(document).on('click', '#all-to-cart-button',function(e){
+   $( "#added-to-cart" ).remove();
+   $('.product-form-product-template').each(function () {
+      $varientid = $(this).find('select[name=id] option:selected').val();
+      $quty = $(this).find('#Quantity').val();
+      /*jQuery.post('/cart/add.js', {
+         quantity: $quty,
+         id: $varientid,
+      });*/
+      jQuery.ajax({
+         type: "POST",
+         url: '/cart/add.js',
+         dataType: 'json',
+         data: {quantity: $quty,id: $varientid},
+         async: false,
+         success: function(){
+         }
+      });
+      var value = $('#CartCount > .desktop-CartCount').html() || '0'; if(value<0){ value = 0; }
+      var cartcount = parseInt(value)+1;
+      $('.site-header__cart-count span').text(value.replace(/[0-9]+/, cartcount));
+      $('.desktop-cart-count span').text(value.replace(/[0-9]+/, cartcount));
+   });
+   $('#all-to-cart-button').after('<span class="arch-brow-addtocart" id="added-to-cart">Added to Cart</span>');
+   $.getJSON('/cart.js', function(data) {
+      // run template view
+      var template = $("#minicart-template").html();
+      var tmpl = $variable.template(template);
+      var outofstock = 0;
+      // populate cart data
+      $(".mini-cart").html(tmpl({cart:data}));
+      
+      // format all prices
+      $('.price', '.mini-cart').each(function() {
+        //console.log($(this).text());
+        $(this).html($theme.Currency.formatMoney(parseFloat($(this).text())));
+      });
+      
+      // format image to small
+      $('img', '.mini-cart').each(function() {
+        var src = $(this).attr('src');
+        src = src.replace('.jpg', '_78x78.jpg'); // if using jpg
+        src = src.replace('.jpeg', '_78x78.jpeg'); // if using jpeg
+        $(this).attr('src', src);
+      });
+      $('.mini-cart').addClass('skip-active');
+      $('.overlay-wrap').addClass('active');
+    });
+   //window.location.href = "https://stagehourglasscosmetics.myshopify.com/cart";
+});
+</script>
+<script type="text/javascript">
+  // For Simple Option 1 Click
+  /***Product Zoom Start***/
+  $("input:radio[name='question1']").click(function(){
+      $('#qq1').val($('input:radio[name=question1]:checked').val());
+  });
+  $("input:radio[name='question2']").click(function(){
+      $('#qq2').val($('input:radio[name=question2]:checked').val());
+  });
+  $("input:radio[name='question3']").click(function(){
+      $('#qq3').val($('input:radio[name=question3]:checked').val());
+  });
+  var buttonpressed;
+  $('.btnn').click(function() {
+      buttonpressed = $(this).attr('value')
+  })
+  $('#product_arch_form').on('submit', function (e) {
+	   e.preventDefault();
+      $('.redid').remove();
+      var sub = 0;
+      if ( buttonpressed == 'button1' ){
+         var arch_email = $('#arch_email').val();
+         if (arch_email.length < 1) {
+            sub = 1;
+            $('#arch_email').after('<div class="error validation-advice redid" >This is a required field.</div>');
+         }
+
+         if(sub == 0){
+            if(!isEmail(arch_email)){
+               sub = 1;
+               $('#arch_email').after('<div class="error validation-advice redid" >Please enter valid eail id.</div>');
+            }
+         }
+      }
+
+      var q1 = $("input[name='q1']:checked").val();
+      var q2 = $("input[name='q1']:checked").val();
+      var q3 = $("input[name='q1']:checked").val();
+      //var formdata = JSON.stringify({ email : arch_email, question1 : question1, question2 : question2, question3 : question3 });
+      if( sub == 0 ){
+         var formdata = new FormData(this);
+         $('.loader-wrap ').removeClass('desabled');
+         $.ajax({
+            type: 'post',
+            data: formdata,
+            url: 'https://migration.hourglasscosmetics.com/arch',
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function (data) {
+                var dataContent = jQuery.parseJSON(data);
+               $("#shopify-section-quizstep-4").css("display", "none");
+               $( "#archData" ).html( dataContent );
+               //document.getElementById(archData).innerHTML = dataContent;
+               $('html, body').animate({ scrollTop: 0 }, 0);
+               $('.loader-wrap ').addClass('desabled');
+               $(".the-arch-browreco-main").css("display", "block");
+              
+              
+              /*-----------------start Brow Quiz ==> productImpression datalayer--------------------*/
+               var items = [];  
+               var i = 0;
+               $('.arch-brow-c-item').each(function (data) {
+                 i=i+1;
+                 
+                 var for_you = $(this).find('.for-you-lable').html();
+                 if(for_you=="For You"){ var dimension22 = "Yes"; }  else { var dimension22 = "No"; } 
+                 
+                  var product_handle = $(this).find('.arch-brow-info a').attr('href');
+                 //console.log(product_handle);
+                  $.ajax({
+                        async: false,
+                        type: 'GET',
+                        url: ''+product_handle+'.js',
+                        dataType: 'json',
+                        success: function(data1) {   
+                          var dimension11 = '';
+                          if (data1.options[0].name == "Color" || data1.options[0].name == "Shade") {
+                              dimension11 =  $('#colorselect-'+data1.id).find('span').html();
+                          } else {
+                              dimension11 = 'Not Applicable';
+                          }
+                          items.push({
+                            id: data1.id,
+                            name: data1.title,
+                            price: (data1.price / 100),
+                            brand: data1.vendor,
+                            category: window.getCateNameCookie(data1.handle),
+                            list: 'Brow Quiz',
+                            variant: data1.variants[0].sku,
+                            position: i,
+                            dimension11: dimension11,
+                            dimension22: dimension22,
+                          });
+                        }
+                    });
+  			    });              
+                window.dataLayer.push({
+                  event: 'productImpression',
+                  ecommerce: {
+                      impressions: items
+                  }
+                });
+              /*-----------------end Brow Quiz ==> productImpression datalayer--------------------*/
+              
+              
+              
+            }
+         });
+      }else{
+         //$('#replymsg').after('<div class="error validation-advice">'+$msg+'</div>');
+      }
+  });
+function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
+
+/*-----------------start Brow Quiz ==> recommended productClick datalayer--------------------*/
+ $(document).on('click', ".arch-brow-list .arch-brow-c-item .arch-brow-info a",function() {
+     var items = [];  
+
+     var for_you = $(this).parent('.arch-brow-info').parent('.arch-brow-c-cont').parent('.arch-brow-c-item').find('.for-you-lable').html();
+     if(for_you=="For You"){ var dimension22 = "Yes"; }  else { var dimension22 = "No"; } 
+     var product_handle = $(this).attr('href'); 
+   
+     var i = 0;
+     var position = 0;
+     $('.arch-brow-c-item').each(function (data) {
+       i=i+1;
+       var p_handle = $(this).find('.arch-brow-info a').attr('href');
+       if(p_handle==product_handle){ position=i; }
+     });
+                 
+     $.ajax({
+       async: false,
+       type: 'GET',
+       url: ''+product_handle+'.js',
+       dataType: 'json',
+       success: function(data1) {   
+         var dimension11 = '';
+         if (data1.options[0].name == "Color" || data1.options[0].name == "Shade") {
+           dimension11 =  $('#colorselect-'+data1.id).find('span').html();
+         } else {
+           dimension11 = 'Not Applicable';
+         }
+         items.push({
+           id: data1.id,
+           name: data1.title,
+           price: (data1.price / 100),
+           brand: data1.vendor,
+           category: window.getCateNameCookie(data1.handle),
+           variant: data1.variants[0].sku,
+           position: position,
+           dimension11: dimension11,
+           dimension22: dimension22,
+         });
+       }
+     });      
+     window.dataLayer.push({
+       event: 'productClick',
+       ecommerce: {
+         click:{
+           actionField:{ list: 'Brow Quiz' },
+           products:items
+         }
+       }
+     });  
+ });
+/*-----------------end Brow Quiz ==> recommended productClick datalayer--------------------*/
+
+
+/*-----------------start Brow Quiz ==> pairwith productClick datalayer--------------------*/
+ $(document).on('click', ".pair-with-list a",function() {
+     var items = [];  
+     var product_handle = $(this).attr('href'); 
+   
+     var i = 0;
+     var position = 0;
+     $('.pair-with-list a').each(function (data) {
+       i=i+1;
+       var p_handle = $(this).attr('href');
+       if(p_handle==product_handle){ position=i; }
+     });
+         
+     $.ajax({
+       async: false,
+       type: 'GET',
+       url: ''+product_handle+'.js',
+       dataType: 'json',
+       success: function(data1) {  
+         //console.log(data1);
+         var dimension11 = '';
+         if (data1.options[0].name == "Color" || data1.options[0].name == "Shade") {
+           dimension11 = data1.variants[0].name;
+         } else {
+           dimension11 = 'Not Applicable';
+         }
+         items.push({
+           id: data1.id,
+           name: data1.title,
+           price: (data1.price / 100),
+           brand: data1.vendor,
+           category: window.getCateNameCookie(data1.handle),
+           variant: data1.variants[0].sku,
+           position: position,
+           dimension11: dimension11
+         });
+       }
+     });      
+     window.dataLayer.push({
+       event: 'productClick',
+       ecommerce: {
+         click:{
+           actionField:{ list: 'Brow Quiz:Cross Sell' },
+           products:items
+         }
+       }
+     });  
+ });
+/*-----------------end Brow Quiz ==> pairwith productClick datalayer--------------------*/
+
+/*-----------------start Brow Quiz ==> recommended addToCart datalayer--------------------*/
+ $(document).on('click', ".product-form-product-template .product-form__item--submit button",function() {
+     var product_handle = $(this).parent('div').parent('form').parent('div').parent('div').parent('.arch-brow-c-item').find('.arch-brow-c-cont .arch-brow-info a').attr("href");  
+   	 var product_qty = $(this).parent('div').parent('form').find('.qty-control-wrapper .product-form__item--quantity input').val();   
+     var items = [];  
+     
+     var for_you = $(this).parent('div').parent('form').parent('div').parent('div').parent('.arch-brow-c-item').find('.for-you-lable').html();  
+     if(for_you=="For You"){ var dimension22 = "Yes"; }  else { var dimension22 = "No"; } 
+   
+   	 var dimension = $(this).parent('div').parent('form').find('.qty-control-wrapper .selector-wrapper label span').html();
+     if(dimension==undefined){
+		dimension ="";
+     }
+   
+     $.ajax({
+       async: false,
+       type: 'GET',
+       url: ''+product_handle+'.js',
+       dataType: 'json',
+       success: function(data1) {  
+         var dimension11 = '';
+         if (data1.options[0].name == "Color" || data1.options[0].name == "Shade") {
+           dimension11 = dimension;
+         } else {
+           dimension11 = 'Not Applicable';
+         }
+         items.push({
+           id: data1.id,
+           name: data1.title,
+           price: (data1.price / 100),
+           brand: data1.vendor,
+           category: window.getCateNameCookie(data1.handle),
+           variant: data1.variants[0].sku,
+           quantity: product_qty,
+           dimension11: dimension11,
+           dimension12: 'Brow Quiz',
+           dimension22: dimension22
+         });
+       }
+     });      
+     window.dataLayer.push({
+       event: 'addToCart',
+       ecommerce: {
+         add:{
+           actionField:{ list: 'Brow Quiz' },
+           products:items
+         }
+       }
+     });  
+    
+ });
+/*-----------------end Brow Quiz ==> recommended addToCart datalayer--------------------*/
+   
+/*-----------------start Brow Quiz ==> All recommended addToCart datalayer--------------------*/
+ $(document).on('click', "#all-to-cart-button",function() { 
+   var items = [];  
+    $('.arch-brow-c-item').each(function (data) {
+      var product_handle = $(this).find('.arch-brow-info a').attr('href');
+      var product_qty = $(this).find('.shopify-section form .qty-control-wrapper .product-form__item--quantity input').val();
+      
+      
+      var for_you = $(this).find('.for-you-lable').html();  
+      if(for_you=="For You"){ var dimension22 = "Yes"; }  else { var dimension22 = "No"; } 
+   
+      
+      $.ajax({
+        async: false,
+        type: 'GET',
+        url: ''+product_handle+'.js',
+        dataType: 'json',
+        success: function(data1) {
+          
+          var dimension11 = '';
+          if (data1.options[0].name == "Color" || data1.options[0].name == "Shade") {
+            dimension11 =  $('#colorselect-'+data1.id).find('span').html();
+          } else {
+            dimension11 = 'Not Applicable';
+          }
+          items.push({
+            id: data1.id,
+            name: data1.title,
+            price: (data1.price / 100),
+            brand: data1.vendor,
+            category: window.getCateNameCookie(data1.handle),
+            variant: data1.variants[0].sku,
+            quantity: product_qty,
+            dimension11: dimension11,
+            dimension12: 'Brow Quiz',
+            dimension22: dimension22
+          });
+        }
+      });
+    });              
+    window.dataLayer.push({
+      event: 'addToCart',
+      ecommerce: {
+         add:{
+           actionField:{ list: 'Brow Quiz' },
+           products:items
+         }
+       }
+    });
+   
+ });
+ /*-----------------end Brow Quiz ==> All recommended addToCart datalayer--------------------*/
+
+
+</script>

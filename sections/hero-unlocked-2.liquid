@@ -1,0 +1,183 @@
+<div id="hero-unlocked-2-section" class="section fullheightblock unlocked-2-scn">
+  	<div class="left-section">
+      <div class="unlocked-2-container">
+        <div class="content-inner">
+          {% if section.settings.heading != blank %}
+              <h3 class="heading">{{ section.settings.heading | escape }}</h3>
+          {% endif %}
+          {% if section.settings.sub_heading != blank %}
+              <div class="sub_heading">{{ section.settings.sub_heading | escape }}</div>
+          {% endif %} 
+          <div class="before-after">
+            <span class="left">BEFORE</span>
+            <span class="left">AFTER</span>
+          </div>
+          <a href="{{ section.settings.action_url }}">
+            <video playsinline="" autoplay="autoplay" loop="loop" muted="">
+              <source src="{{ section.settings.video_link }}" type="video/mp4" />
+            </video>
+          </a>
+          {% if section.settings.description != blank %}
+              <div class="description">{{ section.settings.description }}</div>
+          {% endif %}  
+        </div>
+      </div>
+    </div>
+  	<div class="right-section">
+      <div class="unlocked-2-container">
+        <div class="content-inner">        
+          {% if section.settings.product_name != blank %}
+              <h3 class="product_name">{{ section.settings.product_name }}</h3>
+          {% endif %}
+          {% if section.settings.product_image != blank %}
+          	  <img class="product_image lazyload" data-src="{{ section.settings.product_image | img_url: 'master' }}" src="{{ section.settings.product_image | img_url: '100x100' }}" alt="Hourglass Cosmetics">       
+          {% endif %}
+          {% if section.settings.product_price != blank %}
+              <div class="product_price">{{ section.settings.product_price }}</div>
+          {% endif %}    
+          {% assign producthandle = section.settings.product_handle %}
+          {% if producthandle != blank %}
+            {% assign product = all_products[producthandle] %}
+            {% include 'product-addtocart-unlocked', product: product %}
+          {% endif %}  
+        </div>
+      </div>
+    </div>  
+</div>
+
+
+<script>
+  jQuery(document).ready(function(e) {
+    jQuery('.search-btn').click(function() {
+      jQuery('.search-header').addClass('active skip-active');
+    });
+    jQuery(document).on('click', '.closesearch', function() {
+      jQuery('.search-header').removeClass('active skip-active');
+    });
+    jQuery(".search-header").append("<span class='closesearch'></span>");
+    jQuery(".qty-plus").click(function(e) {
+      e.preventDefault();
+      var currentVal = parseInt(jQuery(this).prev("#Quantity").val());
+      if (!currentVal || currentVal == "" || currentVal == "NaN") {
+        currentVal = 1;
+      }
+      jQuery(this).prev("#Quantity").val(currentVal + 1);
+    });
+    jQuery(".qty-minus").click(function(e) {
+      e.preventDefault();
+      var currentVal = parseInt(jQuery(this).next("#Quantity").val());
+      if (currentVal == "NaN") currentVal = 1;
+      if (currentVal > 1) {
+        jQuery(this).next("#Quantity").val(currentVal - 1);
+      }
+    });
+  });  
+</script>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Unlocked section 2",
+      "de": "Unlocked section 2",
+      "fr": "Unlocked section 2"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [      
+	  {
+        "type": "header",
+        "content": {
+          "en": "Left section",
+          "de": "Left section",
+          "fr": "Left section"
+        }
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading",
+          "de": "Heading",
+          "fr": "Heading"
+        }
+      },
+      {
+        "type": "text",
+        "id": "sub_heading",
+        "label": {
+          "en": "Sub Heading",
+          "de": "Sub Heading",
+          "fr": "Sub Heading"
+        }
+      },
+      {
+        "type": "url",
+        "id": "video_link",
+        "label": {
+          "en": "Video Link",
+          "de": "Video Link",
+          "fr": "Video Link"
+        }
+      },
+      {
+        "type": "url",
+        "id": "action_url",
+        "label": {
+          "en": "Video Action URL",
+          "de": "Video Action URL",
+          "fr": "Video Action URL"
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": {
+          "en": "Description",
+          "de": "Description",
+          "fr": "Description"
+        }
+      },
+	  {
+        "type": "header",
+        "content": {
+          "en": "Right section",
+          "de": "Right section",
+          "fr": "Right section"
+        }
+      },
+      {
+        "id":"product_name",
+        "type":"text",
+        "label":"Product Name"
+      },
+      {
+        "id":"product_price",
+        "type":"text",
+        "label":"Product Price"
+      },
+      {
+        "type":"image_picker",
+        "id":"product_image",
+        "label":"Product Image"
+      },
+      {
+        "id":"product_handle",
+        "type":"text",
+        "label":"Product Handle"
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Unlocked section 2",
+          "de": "Unlocked section 2",
+          "fr": "Unlocked section 2"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

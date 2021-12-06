@@ -1,0 +1,127 @@
+<div id="section12" class="section fullheightblock eventholiday-scn">
+  <div class="eventholiday-cont">
+    <div class="eventh-cont-dtl" onclick="location.href='{{ section.settings.button_link }}'">	
+      {% if section.settings.title_sub != blank %}
+        <span class="dicoverthe-txt">{{ section.settings.title_sub }}</span>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.title1 != blank %}
+        <h3>{{ section.settings.title1 }}</h3>
+      {% endif %}
+      {% if section.settings.title2 != blank %}
+        <h3>{{ section.settings.title2 }}</h3>
+      {% endif %}
+      {% if section.settings.title3 != blank %}
+        <h3>{{ section.settings.title3 }}</h3>
+      {% endif %}
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <div class="actions">
+            <a href="{{ section.settings.button_link }}"> <span>{{ section.settings.button_label | escape }}</span> </a>
+        </div>
+      {% endif %}
+      {% if section.settings.lasttext != blank %}
+        <span class="discountoffer">{{ section.settings.lasttext }}</span>
+      {% endif %}
+    </div>
+  </div>
+ </div>
+{% schema %}
+  {
+    "name": {
+      "en": "Holiday Events",
+      "de": "Holiday Events",
+      "fr": "Holiday Events"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+     {
+        "type": "text",
+        "id": "title_sub",
+        "label": {
+        "en": "Small Heading",
+        "de": "Titel",
+        "fr": "En-tête"
+        }
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title1",
+        "label": {
+          "en": "Offer 1",
+          "de": "Offer 1",
+          "fr": "Offer 1"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title2",
+        "label": {
+          "en": "Offer 2",
+          "de": "Offer 2",
+          "fr": "Offer 2"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title3",
+        "label": {
+          "en": "Offer 3",
+          "de": "Offer 3",
+          "fr": "Offer 3"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label 1",
+          "de": "Button-Etikett 1",
+          "fr": "Texte du bouton 1"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link 1",
+          "de": "Button-Etikett 1",
+          "fr": "Lien du bouton 1"
+        }
+      },
+      {
+        "type": "text",
+        "id": "lasttext",
+        "label": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Text"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Holiday Events",
+          "de": "Holiday Events",
+          "fr": "Holiday Events"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

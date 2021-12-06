@@ -1,0 +1,221 @@
+<div class="vanish-concealer-landing-page-1-bnr" style="background-color:black;">
+  <div class="page-vclp1-content">
+    
+    <div class="video-wrapper vclp2-image-vimeo vanish-concealer-video" id="vanish_video_url">
+      <span class="vanish-v2-play-button"></span> <div class="vanish-v2-sound"> <button class="off-button" id="sound-off" type="button">OFF</button> <button class="on-button" id="sound-on" type="button">ON</button> </div> <video id="vanish-v2-video" title="Vanish Airbrush Concealer" class="vimiovideo" playsinline loop muted autoplay ><source type="video/mp4" src="{{ section.settings.vanish_video_url }}"><source type="video/webm" src="{{ section.settings.vanish_video_url }}"></video>
+    </div>
+    <style>
+      .vanish-v2-play-button {   z-index: 11; }
+      #sound-off{display:none;}
+    </style>
+    <script type="text/javascript">
+    	window.addEventListener('load', function(){       
+          $('.vanish-v2-desktop-image').hide(); 
+          $('.vanish-v2-mobile-image').hide();
+          {% comment %}//$("#vanish_video_url").append('<span class="vanish-v2-play-button"></span> <div class="vanish-v2-sound"> <button class="off-button" id="sound-off" type="button">OFF</button> <button class="on-button" id="sound-on" type="button">ON</button> </div> <video id="vanish-v2-video" class="vimiovideo" playsinline loop muted autoplay ><source type="video/mp4" src="{{ section.settings.vanish_video_url }}"><source type="video/webm" src="{{ section.settings.vanish_video_url }}"></video>'); {% endcomment %}
+          $('.arch-bnr').addClass('hide_content');
+          $('.arch-bnr .vimiovideo').attr("src", "{{ section.settings.vanish_video_url }}");
+          $(document).on('click', "#sound-off",function() {
+            document.getElementById("vanish-v2-video").muted = true;
+            $(this).css("display", "none");
+            $('#sound-on').css("display", "block");
+          });
+          $(document).on('click', "#sound-on",function() {
+            document.getElementById("vanish-v2-video").muted = false;
+            $(this).css("display", "none");
+            $('#sound-off').css("display", "block");
+          });
+          $(document).on('click', ".vanish-v2-play-button",function() {
+            $("#vanish-v2-video").trigger('click');            
+          });
+          $(document).on('click', "#vanish-v2-video",function() {
+            if(this.paused)
+            {              	
+              $('.vanish-v2-play-button').addClass('vanish-v2-play');
+              $('.vanish-v2-play-button').removeClass('vanish-v2-pause');
+            }else{
+              $('.vanish-v2-play-button').removeClass('vanish-v2-play');
+              $('.vanish-v2-play-button').addClass('vanish-v2-pause'); 
+            }
+            this.paused ? this.play() : this.pause();
+          });
+    	});
+    </script>
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+            jQuery('.image-vimeo > img').click(function() {
+                jQuery(this).addClass('hide_content');
+                var currentSrc = jQuery(this).next('div').find('video').attr("src") + "?autoplay=1&loop=1";
+                //var currentSrc = $('#vimiovideo').attr("src") + "&autoplay=1&loop=1";
+                jQuery(this).next('div').find('video').attr("src", currentSrc);
+            });   
+        });
+    </script>
+           
+    <div class="vclp1-detail">
+        <div class="shopify-section unrestricted-brow-scn skin-perfection-vanish-scn">
+            <div class="container-fix">
+                <div class="unrestricted-video">
+                    <div class="u-video-dtl">
+                        {% if section.settings.gif_image != blank %}
+                          <img class="vclp1-gif-image lazyload" data-src="{{ section.settings.gif_image| img_url : 'master' }}" src="{{ section.settings.gif_image| img_url : '10x10' }}" alt="Vanish airbrush concealer">
+                        {% endif %}     
+                    </div>
+                </div>
+                <div class="unrestricted-brow-cont">
+                    <div class="u-brow-cont-dtl">
+                        {% if section.settings.vanish_image != blank %}
+                          <img class="vclp1-vanish-image lazyload" data-src="{{ section.settings.vanish_image| img_url : 'master' }}" alt="Vanish airbrush concealer">
+                        {% endif %} 
+                        <div class="vclp1-desc">{{ section.settings.description }}</div>
+                        <div class="vclp1-tags">{{ section.settings.tags }}</div>
+                        <a class="vclp1-btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="how_to_use" class="vclp1-image-vimeo" style="text-align: center;">  
+      <div class="image-vimeo-img-dtl">	
+      {% comment %}
+      	{% if section.settings.video_d_image != blank %}
+        	<img class="vclp1-image-desktop" src="{{ section.settings.video_d_image| img_url : 'master' }}" alt="Vanish airbrush concealer">
+        {% endif %}    
+      	{% if section.settings.video_m_image != blank %}
+        	<img class="vclp1-image-mobile" src="{{ section.settings.video_m_image| img_url : 'master' }}" alt="Vanish airbrush concealer">
+        {% endif %}
+      {% endcomment %}
+      	<iframe id="vimeo-video" title="How To Use Vanish Airbrush Concealer" class="vanish-howtoplay-video" style="display:none;" src="" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <!--<video class="vanish-howtoplay-video" style="display:none;" width="815" height="415"  autoplay loop muted > <source src="{{ section.settings.video_url }}" type="video/mp4"> </video>-->
+        {% if section.settings.video_d_image != blank %}
+      		<div class="vanish-howtoplay-image"><img  style="cursor: pointer;"  class="lazyload" data-src="{{ section.settings.video_d_image | img_url : 'master', scale : 2  }}" alt="Vanish airbrush concealer" /></div>
+        {% endif %}
+        <script type="text/javascript">
+          jQuery('.vanish-howtoplay-image').click(function() {
+            
+            var url = "{{ section.settings.video_url }}?api=1&background=0&autoplay=1&loop=1&muted=1";
+            jQuery('#vimeo-video').attr("src",url);
+            
+            jQuery(this).hide();
+            jQuery('.vanish-howtoplay-video').show();
+            jQuery('.image-vimeo-img-dtl').addClass('vanish-vimeo-show');
+			
+          });
+        </script>
+    </div>
+  </div>
+</div>
+</div>
+
+
+{% schema %}
+{
+    "name": "Vanish Concealer Section",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Vanish Video Section"
+        },
+            {
+                "type":"url",
+                "id":"vanish_video_url",
+                "label":{
+                   "en":"Vanish Video URL",
+                   "de":"Vanish Video URL",
+                   "fr":"Vanish Video URL"
+                }
+            },
+        {
+            "type": "header",
+            "content": "Vanish Concealer Section"
+        },
+            {
+              "type": "image_picker",
+              "id": "gif_image",
+              "label": {
+                "de": "GIF Image",
+                "en": "GIF Image",
+                "fr": "GIF Image"
+              }
+            },
+            {
+              "type": "image_picker",
+              "id": "vanish_image",
+              "label": {
+                "de": "Vanish Image",
+                "en": "Vanish Image",
+                "fr": "Vanish Image"
+              }
+            },
+            {
+               "type":"textarea",
+               "id":"description",
+               "label":{
+                  "en":"Description",
+                  "de":"Description",
+                  "fr":"Description"
+               }
+            },
+            {
+               "type":"text",
+               "id":"tags",
+               "label":{
+                  "en":"Tags",
+                  "de":"Tags",
+                  "fr":"Tags"
+               }
+            },
+            {
+              "type": "text",
+              "id": "button_label",
+              "label": {
+                "en": "Button label",
+                "de": "Button-Etikett",
+                "fr": "Texte du bouton"
+              }
+            },
+            {
+              "type": "url",
+              "id": "button_link",
+              "label": {
+                "en": "Button link",
+                "de": "Button-Etikett",
+                "fr": "Lien du bouton"
+              }
+            },
+        {
+        "type": "header",
+        "content": "Video Section"
+        },
+          {
+              "type": "image_picker",
+              "id": "video_d_image",
+              "label": {
+                "de": "Desktop Image",
+                "en": "Desktop Image",
+                "fr": "Desktop Image"
+              }
+          },
+          {
+              "type": "image_picker",
+              "id": "video_m_image",
+              "label": {
+                "de": "Mobile Image",
+                "en": "Mobile Image",
+                "fr": "Mobile Image"
+              }
+          },
+          {
+               "type":"url",
+               "id":"video_url",
+               "label":{
+                  "en":"Video URL",
+                  "de":"Video URL",
+                  "fr":"Video URL"
+               }
+          }
+
+
+	]
+}
+{% endschema %}

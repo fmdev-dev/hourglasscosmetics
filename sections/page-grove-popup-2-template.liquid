@@ -1,0 +1,51 @@
+ 
+<div class="open-visit-scn">
+	<div class="open-visit-left"><span class="visit-left-img"><img src="https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/grove-popup6.jpg" alt="Grove popup left image" /></span>
+	<div class="open-visit-cont">
+	<p>{{ section.settings.description }}</p>
+	</div>
+	</div>
+	<div class="open-visit-center"><img src="{{ section.settings.image | img_url: '478x426' }}" alt="Grove popup center image" /></div>
+	<div class="open-visit-right">
+	<div class="grove-hours-info">
+	<div class="open-title">{{ section.settings.open_text }}</div>
+	<p>{{ section.settings.hour_text }}</p>
+	</div>
+	</div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Hourglass Pop-Up Opening",
+      "de": "Hourglass Pop-Up Opening",
+      "fr": "Hourglass Pop-Up Opening"
+    },
+    "settings": [    
+	  {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description"
+      },
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },   
+	  {
+        "type": "textarea",
+        "id": "open_text",
+        "label": "Open Text"
+      },   
+	  {
+        "type": "textarea",
+        "id": "hour_text",
+        "label": "Hour Text"
+      }
+	 
+    ]
+
+  }
+{% endschema %}

@@ -1,0 +1,116 @@
+<div class="section veil-collection">
+  <div class="veil-coll-cont">
+   <div class="veil-coll-cont-info">      
+	  <h1 class="requiredtag"></h1>
+      {% if section.settings.title != blank %}
+        <span class="veil-col-title">{{ section.settings.title }}</span>
+      {% endif %}
+      {% if section.settings.title1 != blank %}
+        <span class="veil-col-subtitle">{{ section.settings.title1 }}</span>
+      {% endif %}
+      {% if section.settings.veil_mobile_image != blank %}
+        <img class="lazyload mobile-image" data-src="{{ section.settings.veil_mobile_image | img_url: 'master' }}" src="{{ section.settings.veil_mobile_image | img_url: '10x10' }}" alt="{{ section.settings.title }} {{ section.settings.title1 }}" />
+      {% endif %}
+      {% if section.settings.content != blank %}
+        <p>{{ section.settings.content }}</p>
+      {% endif %}
+      {% if section.settings.veil_button_label != blank and section.settings.veil_button_link != blank %}
+        <a class="veil-button-btn" href="{{ section.settings.veil_button_link }}">{{ section.settings.veil_button_label }}</a>
+      {% endif %}      
+	  <h2 class="requiredtag"></h2>
+    </div>   
+  {% if section.settings.veil_image != blank %}
+  	<img class="lazyload desktop-image" data-src="{{ section.settings.veil_image | img_url: 'master' }}" src="{{ section.settings.veil_image | img_url: '10x10' }}" alt="{{ section.settings.title }} {{ section.settings.title1 }}" />
+  {% endif %}
+</div>
+  </div>
+{% schema %}
+  {
+    "name": "Veil Collection",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "veil_image",
+          "label": {
+            "en": "Image",
+            "de": "Image",
+            "fr": "Image"
+          }
+        },
+		{
+          "type": "image_picker",
+          "id": "veil_mobile_image",
+          "label": {
+            "en": "Mobile Image",
+            "de": "Mobile Image",
+            "fr": "Mobile Image"
+          }
+        },
+		{
+           "type":"text",
+           "id":"title",
+           "label":{
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+        },
+		{
+           "type":"text",
+           "id":"title1",
+           "label":{
+              "en":"Sub Title",
+              "de":"Sub Title",
+              "fr":"Sub Title"
+           }
+        },
+        {
+           "type":"text",
+           "id":"content",
+           "label":{
+              "en":"Text Content",
+              "de":"Text Content",
+              "fr":"Text Content"
+           }
+        },
+		{
+          "type": "text",
+          "id": "veil_button_label",
+          "label": {
+            "en": "Button label",
+            "de": "Button-Etikett",
+            "fr": "Texte du bouton"
+          }
+        },
+        {
+          "type": "url",
+          "id": "veil_button_link",
+          "label": {
+            "en": "Button link",
+            "de": "Button-Etikett",
+            "fr": "Lien du bouton"
+          }
+        }
+	],
+	"presets":[
+      {
+         "name":{
+            "de":"veilcollection",
+            "en":"veilcollection",
+            "fr":"veilcollection"
+         },
+         "category":{
+            "de":"Collections",
+            "en":"Collections",
+            "fr":"Collections"
+         }
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

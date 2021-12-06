@@ -1,0 +1,91 @@
+<div class="vlf-pdp">   
+<div class="vanish-howtouse">
+    <div class="heading-style-border">
+        <h3>HOW TO USE</h3>
+    </div>
+    <div class="howtouse-steps">
+        <div class="howtouse-col">
+            <span>1</span>
+            <h4>HYDRATE</h4>
+            <p>No primer needed</p>
+        </div>
+        <div class="howtouse-col">
+            <span>2</span>
+            <h4>1/2 OF A PUMP</h4>
+            <p>Dot onto face</p>
+        </div>
+        <div class="howtouse-col">
+            <span>3</span>
+            <h4>BLEND</h4>
+            <p>Using Vanish™ Seamless Finish Foundation Brush or the Nº 2 Foundation Brush*</p>
+            <p>*If using makeup sponge, use damp</p>
+        </div>
+    </div>
+</div>
+<div class="product-carousel-section owl-carousel owl-theme" id="product-video-carousel">
+    <div class="item"><div class="product-video-item">
+        <div class="product-content-video">
+            <span>How to apply</span>
+            <h3>Full Coverage</h3>
+            <a class="videoplay-icon" href="https://www.youtube.com/embed/x-JIeSCtkkg" data-fancybox="bigbuckbunny" data-width="640" data-height="360">&nbsp;</a>
+        </div>
+    </div>
+    </div>
+    <div class="item">
+    <div class="product-video-item">
+        <div class="product-content-video">
+            <span>How to apply</span>
+            <h3>Diffused Coverage</h3>
+            <a class="videoplay-icon" href="https://www.youtube.com/embed/sLB9KujmEYo" data-fancybox="bigbuckbunny" data-width="640" data-height="360">&nbsp;</a>
+        </div>
+    </div>
+    </div>
+    <div class="item">
+    <div class="product-video-item">
+        <div class="product-content-video">
+            <span>How to apply</span>
+            <h3>Luminous Coverage</h3>
+            <a class="videoplay-icon" href="https://www.youtube.com/embed/nnDh8U0nP6g" data-fancybox="bigbuckbunny" data-width="640" data-height="360">&nbsp;</a>
+        </div>
+    </div>
+    </div>
+    <div class="item">
+    <div class="product-video-item">
+        <div class="product-content-video">
+            <span>How to apply</span>
+            <h3>Targeted Coverage</h3>
+            <a class="videoplay-icon" href="https://www.youtube.com/embed/WxW45lLgdK4" data-fancybox="bigbuckbunny" data-width="640" data-height="360">&nbsp;</a>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+
+<div class="howtousepopup">
+<div class="fancybox-overlay">
+<span class="howtousepopup-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path></svg></span>
+</div>
+<div class="fancybox-box-main">
+    <iframe id="youtubevidid" class="fancybox-iframe" width="640" height="360" src="" frameborder="0" title="Hourglass Cosmetics" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+     jQuery('.howtousepopup').appendTo('.main-content')
+      jQuery('.videoplay-icon').click(function(event){
+        event.preventDefault();
+        var currentSrc = jQuery(this).attr("href") + "?autoplay=1&loop=1";
+        jQuery('#youtubevidid').attr("src", currentSrc);
+        jQuery('.fancybox-overlay, .fancybox-box-main').show();
+      })
+      
+
+      jQuery('.howtousepopup-close, .fancybox-overlay').click(function(event){
+        event.preventDefault();
+        jQuery('#youtubevidid').attr("src",'');
+        jQuery('.fancybox-overlay, .fancybox-box-main').hide();
+      })
+
+    })
+</script>

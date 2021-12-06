@@ -1,0 +1,127 @@
+<div id="shopify-section-unrestricted" class="shopify-section unrestricted-brow-scn">
+    <div class="container-fix">
+        <div class="unrestricted-brow-cont">
+            <div class="u-brow-cont-dtl">
+                <h2>
+                    <span>{{ section.settings.title1 }}</span> {{ section.settings.title2 }}
+                </h2>
+                <span class="unrestricted-subtxt">{{ section.settings.heading }}</span>
+                <div class="unrestricted-txt">{{ section.settings.description }}</div>
+                <div class="u-client-info">
+                    <span class="u-client-name">{{ section.settings.client_name }}</span>
+                    <span class="uclient-infotxt">{{ section.settings.client_text }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="unrestricted-video">
+            <div class="u-video-dtl">
+                {% if section.settings.image != blank %}
+                  <img class="lazyload" data-src="{{ section.settings.image | img_url : '816x756' }}" src="{{ section.settings.image | img_url : '100x100' }}" alt="{{ section.settings.image.alt }}" />
+                {% endif %}
+                <div class="video-wrapper" id="banvideo1">
+                    {% comment %}
+					<iframe id="youtubevidid11" src="{{ section.settings.link }}" allow="autoplay" width="100%" height="100%" frameborder="0"></iframe>
+					{% endcomment %}
+                    <video id="unrestricted-vimiovideo" title="{{ section.settings.title2 }}" class="vimiovideo videoDataLayer" playsinline autoplay controls><source type="video/mp4" src="https://cdn.shopify.com/s/files/1/0016/7116/8064/files/UNREST-16x9_FL_CJ_R3.mp4"></video>
+              	</div>
+                <script type="text/javascript">
+                  jQuery('.u-video-dtl img').click(function() {
+                    var vidurl = "{{ section.settings.link }}";
+                    //jQuery("#banvideo1").append('<video id="vimiovideo" class="vimiovideo" playsinline autoplay controls><source type="video/mp4" src="https://cdn.shopify.com/s/files/1/0016/7116/8064/files/UNREST-16x9_FL_CJ_R3.mp4"><source type="video/webm" src="https://cdn.shopify.com/s/files/1/0016/7116/8064/files/UNREST-16x9_FL_CJ_R3.mp4"></video>');
+                    jQuery(this).addClass('hide_content');
+                    jQuery('.u-video-dtl .vimiovideo').attr("src", "https://cdn.shopify.com/s/files/1/0081/1660/0950/files/Arch-Brow-Tutorial-Fair-Brows.mp4");
+                    var currentSrc = jQuery(this).next('div').find('iframe').attr("src") + "?autoplay=1&loop=1";
+                    jQuery(this).next('div').find('iframe').attr("src", currentSrc);
+                  });
+				</script>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Unrestricted Brow",
+      "de": "Unrestricted Brow",
+      "fr": "Unrestricted Brow"
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "title1",
+        "label": {
+          "en": "Title 1",
+          "de": "Title 1",
+          "fr": "Title 1"
+        }
+      }, 
+      {
+        "type": "text",
+        "id": "title2",
+        "label": {
+          "en": "Title 2",
+          "de": "Title 2",
+          "fr": "Title 2"
+        }
+      },      
+      {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading",
+          "de": "Heading",
+          "fr": "Heading"
+        }
+      },      
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": {
+          "en": "Description",
+          "de": "Description",
+          "fr": "Description"
+        }
+      },      
+      {
+        "type": "text",
+        "id": "client_name",
+        "label": {
+          "en": "Client Name",
+          "de": "Client Name",
+          "fr": "Client Name"
+        }
+      },      
+      {
+        "type": "textarea",
+        "id": "client_text",
+        "label": {
+          "en": "Client Text",
+          "de": "Client Text",
+          "fr": "Client Text"
+        }
+      },  
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": {
+          "en": "Image",
+          "de": "Image",
+          "fr": "Image"
+        }
+      },      
+      {
+        "type": "url",
+        "id": "link",
+        "label": {
+          "en": "Video Link",
+          "de": "Video Link",
+          "fr": "Video Link"
+        }
+      }
+    ]
+  }
+{% endschema %}

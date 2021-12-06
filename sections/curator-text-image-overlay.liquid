@@ -1,0 +1,245 @@
+<div class="curator_text_image_overlay">
+  <div class="left-section">
+    <div class="content-inner">      
+       
+    <!--img class="left_image lazyload" data-src="{{ section.settings.left_image | img_url: 'master' }}" src="{{ section.settings.left_image | img_url: '100x' }}" alt="{{ section.settings.title }}"-->
+        
+        <video class="left_image desktop_view" width="100%" playsinline loop muted autoplay >  
+        <source src="{{ section.settings.desktop_video_url }}" type="video/mp4">
+        </video>
+        <video class="bg-image mobile_view" width="100%" playsinline loop muted autoplay>  
+          <source src="{{ section.settings.mobile_video_url }}" type="video/mp4">  
+        </video>
+        <div class="choose-changes-cont">
+        {% if section.settings.title != blank %}
+        <div class="title">{{ section.settings.title }}</div>
+        {% endif %}    
+
+        {% if section.settings.subtitle != blank %}
+        <div class="subtitle">{{ section.settings.subtitle }}</div>
+        {% endif %}  
+        
+        {% if  section.settings.curator_btn_label != blank and  section.settings.curator_btn_link != blank %}
+         <div class="button"><a href="{{  section.settings.curator_btn_link }}">{{  section.settings.curator_btn_label }}</a></div>
+        {% endif %}
+          
+      </div>
+      
+        
+    </div>
+  </div> 
+  
+ <div class="right-section">
+    <div class="banner-content {{ section.settings.content_position }} curator-content-{{ section.settings.position }}">
+      <div class="content-inner"> 
+        <div class="pre-curated-cont">         
+          {% if section.settings.right_title1 != blank %}
+          <div class="right_title1">{{ section.settings.right_title1 }}</div>
+          {% endif %} 
+          {% if section.settings.right_description != blank %}
+          <div class="right_description">{{ section.settings.right_description }}</div>
+          {% endif %}     
+          {% if  section.settings.btn_label != blank and  section.settings.btn_link != blank %}
+          <div class="button"><a href="{{  section.settings.btn_link }}">{{  section.settings.btn_label }}</a></div>
+          {% endif %} 
+        </div>
+        <div class="right-panel-img">
+        {% if section.settings.right_desk_image != blank or section.settings.right_mob_image != blank  %}
+          <img class="desktop_view lazyload" width="668" height="798" data-src="{{ section.settings.right_desk_image | img_url: 'master' }}" src="{{ section.settings.right_desk_image | img_url: '100x' }}" alt="{{ section.settings.right_title1 }}">
+          <img class="mobile_view lazyload" width="414" height="480" data-src="{{ section.settings.right_mob_image | img_url: 'master' }}" src="{{ section.settings.right_mob_image | img_url: '100x' }}" alt="{{ section.settings.right_title1 }}">
+        {% endif %}
+        </div>
+        
+        <div class="left-panel-img">
+           {% if section.settings.left_desk_image != blank or section.settings.left_mob_image != blank  %}
+              <img class="desktop_view lazyload" width="668" height="798" data-src="{{ section.settings.left_desk_image | img_url: 'master' }}" src="{{ section.settings.left_desk_image | img_url: '100x' }}" alt="{{ section.settings.right_title1 }}">
+              <img class="mobile_view lazyload" width="414" height="480" data-src="{{ section.settings.left_mob_image | img_url: 'master' }}" src="{{ section.settings.left_mob_image | img_url: '100x' }}" alt="{{ section.settings.right_title1 }}">
+            {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<script>
+  $(window).on('load', function(){
+    var mobile_view = $('.mobile_lazyload').data('src');
+    var desktop_view = $('.desktop_lazyload').data('src');
+    $('.mobile_lazyload').attr('src',mobile_view);
+    $('.desktop_lazyload').attr('src',desktop_view);
+  });
+</script>
+
+{% schema %}
+  {
+    "name": {
+      "en":  "curator TextImage Overlay"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+
+
+    {
+        "type": "header",
+    "content": "Left Content"
+    },
+
+    {
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+      },
+    {
+           "type":"text",
+           "id":"subtitle",
+           "label":{ 
+              "en":"SubTitle",
+              "de":"SubTitle",
+              "fr":"SubTitle"
+           }
+      },
+      {
+        "type": "text",
+        "id": "curator_btn_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button label",
+          "fr": "Button label"
+        }
+      },
+      {
+        "type": "url",
+        "id": "curator_btn_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button link",
+          "fr": "Button link"
+        }
+      },
+    
+    {
+        "type": "url",
+        "id": "desktop_video_url",
+        "label": {
+          "en": "Desktop link",
+          "de": "Desktop link",
+          "fr": "Desktop link"
+        }
+      },
+        {
+        "type": "url",
+        "id": "mobile_video_url",
+        "label": {
+          "en": "Mobile link",
+          "de": "Mobile link",
+          "fr": "Mobilr link"
+        }
+      },
+
+
+    {
+        "type": "header",
+    "content": "Right Content"
+    },
+    {
+        "type": "select",
+        "id": "content_position",
+        "label": {  "en": "Content position" },
+        "default": "right",
+        "options": [
+          {
+            "label": { "en": "Left" },
+            "value": "left"
+          },
+          {
+            "label": { "en": "Right" },
+            "value": "right"
+          }
+        ]
+      },
+    {
+        "type": "select",
+        "id": "position",
+        "label": {  "en": "Image position" },
+        "default": "right",
+        "options": [
+          {
+            "label": { "en": "Left" },
+            "value": "left"
+          },
+          {
+            "label": { "en": "Right" },
+            "value": "right"
+          }
+        ]
+      },
+    {
+        "type": "image_picker",
+        "id": "left_desk_image",
+        "label": { "en": "Left Desktop Image" }
+      },
+    {
+        "type": "image_picker",
+        "id": "left_mob_image",
+        "label": { "en": "Left Mobile Image" }
+      },
+    {
+        "type": "image_picker",
+        "id": "right_desk_image",
+        "label": { "en": "Right Desktop Image" }
+      },
+    {
+        "type": "image_picker",
+        "id": "right_mob_image",
+        "label": { "en": "Right Mobile Image" }
+      },
+    
+   
+    {
+        "type":"text",
+        "id":"right_title1",
+        "label":{ "en":"Title" }
+      },
+    {
+        "type":"textarea",
+        "id":"right_description",
+        "label":{ "en":"Description" }
+      },
+     {
+        "type": "text",
+        "id": "btn_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button label",
+          "fr": "Button label"
+        }
+      },
+      {
+        "type": "url",
+        "id": "btn_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button link",
+          "fr": "Button link"
+        }
+      }
+
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "curator TextImage Overlay"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        } 
+      }
+    ]
+  }
+{% endschema %}

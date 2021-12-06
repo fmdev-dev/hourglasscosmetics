@@ -1,0 +1,99 @@
+ 
+
+<div class="grove-location">
+	<div class="grove-l-img grove-left"><img src="{{ section.settings.image1 | img_url: '463x263' }}" alt="Grove popup left image" /></div>
+	<div class="grove-l-cont"><span class="grove-l-title">{{ section.settings.title }}</span>
+	<p style="color: black;">{{ section.settings.address }}</p>
+	<a href="{{ section.settings.btn_link }}" target="_blank" class="g-directions-btn">{{ section.settings.btn_label }}</a></div>
+	<div class="grove-l-img grove-right"><img src="{{ section.settings.image2 | img_url: '463x263' }}" alt="Grove popup right image" /></div>
+</div>
+<div class="event-schedule-scn"><span class="event-s-title">{{ section.settings.event_title }}</span>
+
+<p>
+
+    {% for block in section.blocks %}
+		<span>{{ block.settings.event_date_time }}</span> {{ block.settings.event_text }}<br>
+    {% endfor %}
+
+	<!--span>July 11, 6–8pm:</span> Complimentary brow consultations with <strong>Kristie Streicher</strong>
+	<span>July 14, 12–2pm:</span> Meet + Greet with Rosie <strong>Huntington-Whiteley</strong>
+	<span>July 20, 12–2pm:</span> Meet + Greet with <strong>iluvsarahii</strong-->
+</p>
+
+</div>
+
+</div>
+
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Location Section",
+      "de": "Location Section",
+      "fr": "Location Section"
+    },
+    "settings": [   
+	  {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Image 1"
+      },   
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },    
+	  {
+        "type": "textarea",
+        "id": "address",
+        "label": "Address"
+      },   
+	  {
+        "type": "text",
+        "id": "btn_label",
+        "label": "Button Label"
+      },   
+	  {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button Link"
+      },   
+	  {
+        "type": "image_picker",
+        "id": "image2",
+        "label": "Image 2"
+      },   
+	  {
+        "type": "text",
+        "id": "event_title",
+        "label": "Event Title"
+      }
+	 
+    ],
+    "max_blocks": 6,
+    "blocks": [
+    {
+      "type": "eventschedule",
+      "name": {
+        "de": "Event Schedule",
+        "en": "Event Schedule",
+        "fr": "Event Schedule"
+      },
+      "settings": [
+          {
+            "id": "event_date_time",
+            "type": "text",
+            "label": "Event Date & Time"
+          },
+          {
+            "id": "event_text",
+            "type": "text",
+            "label": "Event Text"
+          }
+        ]
+    }
+  	]
+
+  }
+{% endschema %}

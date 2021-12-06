@@ -1,0 +1,111 @@
+<div class="veil-comingsoon unlocked-waitlist skincare-coming-soon">
+  
+  <video class="bg-image desktop_view" width="100%" playsinline loop muted autoplay >  
+    <source src="{{ section.settings.desktop_video_url }}" type="video/mp4">
+  </video>
+  <video class="bg-image mobile_view" width="100%" playsinline loop muted autoplay>  
+    <source src="{{ section.settings.mobile_video_url }}" type="video/mp4">  
+  </video> 
+  
+  {% comment %}
+  <img class="bg-image mobile_view mobile_lazyload" src="{{ section.settings.mobile_image | img_url : '100x' }}" data-src="{{ section.settings.mobile_image | img_url : 'master' }}" alt="{{ section.settings.mobile_image.alt }}" style="width:100%">
+  <img class="bg-image desktop_view desktop_lazyload" src="{{ section.settings.desktop_image | img_url : '300x' }}" data-src="{{ section.settings.desktop_image | img_url : 'master' }}" alt="{{ section.settings.desktop_image.alt }}" style="width:100%">
+  {% endcomment %}
+  
+  <div class="video-image-section">
+    <div class="waitlist-section">
+      <strong class="date">{{ section.settings.date }}</strong> 
+      <span class="title">{{ section.settings.title }}</span>
+      <img class="logo lazyload" src="{{ section.settings.logo | img_url : '50x' }}" data-src="{{ section.settings.logo | img_url : 'master' }}" alt="{{ section.settings.logo.alt }}">
+      <div class="description">{{ section.settings.description }}</div>
+      <div class="waitlist_form"><div class="klaviyo-form-YA3JKV"></div></div>
+    </div>
+  </div>
+  
+</div>
+{% comment %}
+<script>
+  $(window).on('load', function(){
+    var mobile_view = $('.mobile_lazyload').data('src');
+    var desktop_view = $('.desktop_lazyload').data('src');
+    $('.mobile_lazyload').attr('src',mobile_view);
+    $('.desktop_lazyload').attr('src',desktop_view);
+  });
+</script>
+{% endcomment %}
+{% schema %}
+  {
+    "name": "Coming Soon",
+    "settings": [
+
+        {
+          "type": "url",
+          "id": "desktop_video_url",
+          "label": {
+            "en": "Desktop view video URL",
+            "de": "Video-URL der Desktop-Ansicht",
+            "es": "URL de video de vista de escritorio",
+            "fr": "URL de la vidéo pour le bureau",
+            "it": "URL del video di visualizzazione desktop",
+            "ja": "デスクトップビューの動画URL",
+            "nl": "Video-URL voor desktopweergave",
+            "pt-BR": "URL de vídeo da área de trabalho",
+            "zh-CN": "桌面视图视频网址",
+            "zh-TW": "桌面視圖視頻網址"
+          } 
+        },
+        {
+          "type": "url",
+          "id": "mobile_video_url",
+          "label": {
+            "en": "Mobile view video URL",
+            "de": "Video-URL für mobile Ansicht",
+            "es": "URL de video de vista móvil",
+            "fr": "URL de la vidéo pour mobile",
+            "it": "URL del video per dispositivi mobili",
+            "ja": "モバイルビューの動画URL",
+            "nl": "Video-URL voor mobiele weergave",
+            "pt-BR": "URL do vídeo para visualização em dispositivos móveis",
+            "zh-CN": "行动观看影片网址",
+            "zh-TW": "行動觀看影片網址"
+          } 
+        },
+		{
+           "type":"text",
+           "id":"date",
+           "label":{
+              "en":"Date",
+              "de":"Date",
+              "fr":"Date"
+           }
+        },
+		{
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+        },
+		{
+          "type": "image_picker",
+          "id": "logo",
+          "label": {
+            "en": "Logo",
+            "de": "Logo",
+            "fr": "Logo"
+          }
+        },
+		{
+           "type":"text",
+           "id":"description",
+           "label":{ 
+              "en":"Description",
+              "de":"Description",
+              "fr":"Description"
+           }
+        }
+	]
+  }
+{% endschema %}

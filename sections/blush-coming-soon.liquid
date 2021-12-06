@@ -1,0 +1,98 @@
+<div class="veil-comingsoon vanish-blush-sign-up-page friends-family-event">
+  
+  {% comment %}
+  <video class="bg-image desktop_view" width="100%" playsinline loop muted autoplay >  
+    <source src="{{ section.settings.desktop_video_url }}" type="video/mp4">
+  </video>
+  <video class="bg-image mobile_view" width="100%" playsinline loop muted autoplay>  
+    <source src="{{ section.settings.mobile_video_url }}" type="video/mp4">  
+  </video> 
+  {% endcomment %}
+  
+  <img class="bg-image mobile_view mobile_lazyload lazyload" src="{{ section.settings.mobile_image | img_url : '100x' }}" data-src="{{ section.settings.mobile_image | img_url : 'master' }}" alt="{{ section.settings.mobile_image.alt }}" style="width:100%">
+  <img class="bg-image desktop_view desktop_lazyload lazyload" src="{{ section.settings.desktop_image | img_url : '300x' }}" data-src="{{ section.settings.desktop_image | img_url : 'master' }}" alt="{{ section.settings.desktop_image.alt }}" style="width:100%">
+  
+  <div class="video-image-section">
+    <div class="waitlist-section">
+	  {% if section.settings.exclusive_badge %}
+      <span class="exclusive">{{ section.settings.exclusive_badge }}</span>
+      {% endif %}
+      
+      {% if section.settings.title %}
+      <div class="title">{{ section.settings.title }}</div>
+      {% endif %}
+      
+      {% if section.settings.subtitle %}
+      <span class="subtitle">{{ section.settings.subtitle }}</span>
+      {% endif %}
+      
+      {% if section.settings.description %}
+      <span class="description">{{ section.settings.description }}</span>
+      {% endif %}
+      
+      <div class="waitlist_form"><div class="klaviyo-form-URRKz9"></div></div>
+    </div>
+  </div>
+  
+</div>
+{% comment %}
+<script>
+  $(window).on('load', function(){
+    var mobile_view = $('.mobile_lazyload').data('src');
+    var desktop_view = $('.desktop_lazyload').data('src');
+    $('.mobile_lazyload').attr('src',mobile_view);
+    $('.desktop_lazyload').attr('src',desktop_view);
+  });
+</script>
+{% endcomment %}
+{% schema %}
+  {
+    "name": "Blush Coming Soon",
+    "settings": [
+
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image" 
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image" 
+        },
+		 {
+          "type": "text",
+          "id": "exclusive_badge",
+          "label": "Exclusive Badge" 
+        },
+		{
+           "type":"text",
+           "id":"title",
+           "label":{ 
+              "en":"Title",
+              "de":"Title",
+              "fr":"Title"
+           }
+        },
+		{
+           "type":"text",
+           "id":"subtitle",
+           "label":{ 
+              "en":"Subtitle",
+              "de":"Subtitle",
+              "fr":"Subtitle"
+           }
+        },
+		{
+           "type":"text",
+           "id":"description",
+           "label":{ 
+              "en":"Description",
+              "de":"Description",
+              "fr":"Description"
+           }
+        }
+		
+	]
+  }
+{% endschema %}

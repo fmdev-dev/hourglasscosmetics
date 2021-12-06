@@ -1,0 +1,111 @@
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+{%- layout none -%}
+{{ 'jquery.js' | asset_url | script_tag }}
+{{ 'underscore.js' | asset_url | script_tag }}
+<script>
+  var theme1 = {
+    strings: {
+      addToCart: {{ 'products.product.add_to_cart' | t | json }},
+      soldOut: {{ 'products.product.sold_out' | t | json }},
+      unavailable: {{ 'products.product.unavailable' | t | json }},
+      regularPrice: {{ 'products.product.regular_price' | t | json }},
+      sale: {{ 'products.product.on_sale' | t | json }},
+      showMore: {{ 'general.filters.show_more' | t | json }},
+      showLess: {{ 'general.filters.show_less' | t | json }},
+      addressError: {{ 'sections.map.address_error' | t | json }},
+      addressNoResults: {{ 'sections.map.address_no_results' | t | json }},
+      addressQueryLimit: {{ 'sections.map.address_query_limit_html' | t | json }},
+      authError: {{ 'sections.map.auth_error_html' | t | json }},
+      newWindow: {{ 'general.accessibility.link_messages.new_window' | t | json }},
+      external: {{ 'general.accessibility.link_messages.external' | t | json }},
+      newWindowExternal: {{ 'general.accessibility.link_messages.new_window_and_external' | t | json }}
+    },
+    moneyFormat: {{ shop.money_format | json }}
+  }
+
+  document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+</script>
+<!--[if (lte IE 9) ]>{{ 'match-media.min.js' | asset_url | script_tag }}<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+{% comment %} <!--[if lte IE 9]><script src="{{ 'vendor.js' | asset_url }}"></script><![endif]--> {% endcomment %}
+<!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'theme1.js' | asset_url }}" defer="defer"></script>
+{{ 'owl.carousel.min.css' | asset_url | stylesheet_tag }}
+{% section 'product-simple' %}
+<script>
+jQuery(".btn-countnue").click(function(){
+  $varientid = $('#colorselect').data('id');
+  console.log($varientid);
+  if ($varientid == '') {
+    $('ul.messages li').removeClass('success-msg');
+    $('ul.messages li').addClass('error-msg');
+    $('ul.messages li span').text('PLEASE CHOOSE AN OPTION.');
+    $('.messages').css('display', 'block');
+    setTimeout(function() {
+        $('.messages').css('display', 'none');
+    }, 3000);
+  }else{
+    $product_id = $(this).data('id');
+    $('#'+$product_id).next('li').trigger("click");
+  }
+});
+</script>
+{{ 'owl.carousel.js' | asset_url | script_tag }}
+{{ 'custom1.js' | asset_url | script_tag }}
+
+{% comment %} <script>
+  // Override default values of shop.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  theme.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }}
+  }
+</script>
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "url": "{{ shop.url }}{{ product.url }}",
+  {%- if product.featured_image -%}
+    {%- assign image_size = product.featured_image.width | append: 'x' -%}
+    "image": [
+      "https:{{ product.featured_image.src | img_url: image_size }}"
+    ],
+  {%- endif -%}
+  "description": "{{ product.description | strip_html | escape }}",
+  {%- if current_variant.sku != blank -%}
+    "sku": "{{ current_variant.sku }}",
+  {%- endif -%}
+  {%- if current_variant.barcode != blank -%}
+  "mpn": "{{ current_variant.barcode }}",
+  {% else %}
+  "mpn": "{{ product.id }}",
+  {%- endif -%}
+  "brand": {
+    "@type": "Thing",
+    "name": "{{ product.vendor | escape }}"
+  },
+  "offers": [
+    {%- for variant in product.variants -%}
+      {
+        "@type" : "Offer",
+        {%- if variant.sku != blank -%}
+          "sku": "{{ variant.sku }}",
+        {%- endif -%}
+        "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "price" : "{{ variant.price | divided_by: 100.00 }}",
+        "priceCurrency" : "{{ shop.currency }}",
+        "url" : "{{ shop.url }}{{ variant.url }}",
+        "priceValidUntil" : "2020-11-05"
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script> {% endcomment %}

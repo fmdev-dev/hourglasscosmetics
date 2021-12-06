@@ -1,0 +1,135 @@
+<div class="section fullheightblock veil-collection-2-section">
+  
+  {% for block in section.blocks %}
+  	<div class="veil-section">
+      <div class="banner-content top">
+          <div class="content-inner">              
+              <div class="new-badge">{% if block.settings.new_badge != blank %}NEW{% endif %}</div>              
+              {% if block.settings.title_sub != blank %}
+                  <div class="sub-heading">{{ block.settings.title_sub | escape }}</div>
+              {% endif %}
+              {% if block.settings.heading != blank %}
+                  <div class="heading">{{ block.settings.heading | escape }}</div>
+              {% endif %}          
+              {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+              <div class="button">
+                  <a href="{{ block.settings.button_link }}"> <span>{{ block.settings.button_label | escape }}</span> </a>
+              </div>
+              {% endif %}
+          </div>
+      </div>
+      <div class="banner-image bottom">
+        <a class="bannerbg" href="{{ block.settings.button_link }}" >
+          {% if block.settings.desk_image != blank %}
+            <img class="banner-desk-img lazyload" data-src="{{ block.settings.desk_image | img_url: '1728x1185' }}" src="{{ block.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics" data-bgset="{% include 'bgset', image: block.settings.desk_image %}" > 
+          {% endif %}
+        </a>
+      </div>
+    </div>
+  {% endfor %}
+  
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Veil Collection 2",
+      "de": "Veil Collection 2",
+      "fr": "Veil Collection 2"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	],
+  	"max_blocks": 25,
+	"blocks" : [
+    {
+      "type": "image",
+      "name": {
+        "en": "Veil Section",
+        "de": "Veil Section",
+        "fr": "Veil Section"
+      },
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desk_image",
+          "label": {
+            "en": "Image",
+            "de": "Image",
+            "fr": "Image"
+          }
+        }, 
+        {
+          "type": "checkbox",
+          "id": "new_badge",
+          "label": {
+          "en": "Enable new badge",
+          "de": "Enable new badge",
+          "fr": "Enable new badge"
+          },
+          "default":   false
+        },
+        {
+          "type": "text",
+          "id": "title_sub",
+          "label": {
+          "en": "Small Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+          },
+          "default": {
+          "en": "Image with text overlay",
+          "de": "Foto mit überlegtem Text",
+          "fr": "Image avec superposition de texte"
+          }
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": {
+            "en": "Heading",
+            "de": "Titel",
+            "fr": "En-tête"
+          },
+          "default": {
+            "en": "Image with text overlay",
+            "de": "Foto mit überlegtem Text",
+            "fr": "Image avec superposition de texte"
+          }
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": {
+            "en": "Button label",
+            "de": "Button-Etikett",
+            "fr": "Texte du bouton"
+          }
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": {
+            "en": "Button link",
+            "de": "Button-Etikett",
+            "fr": "Lien du bouton"
+          }
+        }
+	  ]
+     }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Veil Collection 2",
+          "de": "Veil Collection 2",
+          "fr": "Veil Collection 2"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

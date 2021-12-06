@@ -1,0 +1,53 @@
+{%- layout none -%}
+{%- section 'ra-quickshop-template' -%}
+<script>
+jQuery(document).ready(function(e) {
+    $(".single-option-selector").change(function() {
+        //console.log($(this).attr('value'));
+        //$varid = $(this).find('option:selected').data('id');
+        //console.log($varid);
+        $varid = $(this).val();
+        var projsondata = JSON.parse(document.getElementById('ProductJson-ra-quickshop-template').innerHTML);
+        var varientdata = '';
+        $.each(projsondata.variants, function(k, v) {
+            /// do stuff
+            if($varid == v.title){
+              varientdata = v;
+            }
+        });
+        $theme = window.theme;
+        var varprice = $theme.Currency.formatMoney(parseInt(varientdata.price));
+        varprice = varprice.substring(1, varprice.length);
+        window.dataLayer.push({
+            "event": "virtualVariantView",
+            "ecommerce": {
+                "currencyCode": "USD",
+                "detail": {
+                    "actionField": {
+                        "list": "{{ collection.title | remove: "'" }}",
+                        "action": "detail"
+                    },
+                    "products": [{
+                        "id": varientdata.sku,
+                        "name": "{{ product.title }}",
+                        "price": varprice,
+                        "variant": varientdata.title,
+                        {% if collection %}
+                            category: "{{ collection.title | remove: "'" }}",
+                        {% else %}
+                            category: "All Products",
+                        {% endif %}
+                    }]
+                }
+            }
+        });
+        /*fbq('trackCustom', 'ProductViewContent', {
+            content_name: "{{ product.title }}",
+            content_ids: [varientdata.sku],
+            content_type: 'product',
+            value: varprice,
+            currency: 'USD'
+        });*/
+    });
+});
+</script>

@@ -1,0 +1,204 @@
+
+<div class="shopify-section arch-brow-collection">
+    <div class="container-fix">
+        <div class="arch-info">
+            <h2>{{ section.settings.title }}</h2>
+            <p>{{ section.settings.heading }}</p>
+        </div>
+        <div class="arch-brow-list browreco-brow-list" id="archData">
+        </div>
+    </div>
+</div>
+<div class="container-fix">
+    <div class="arch-browreco-btn">
+        <a href="#" class="cart-quiz-btn" id="all-to-cart-button">{{ section.settings.cart_btn_label }}</a>
+        <a href="{{ section.settings.quiz_btn_link }}" class="cart-quiz-btn retake-quiz-btn">{{ section.settings.quiz_btn_label }}</a>
+        {% if section.settings.learn_btn_link != blank and section.settings.learn_btn_label != blank %}
+        <a href="{{ section.settings.learn_btn_link }}" class="browreco-learn">{{ section.settings.learn_btn_label }}</a>
+        {% endif %}
+    </div>
+</div>
+<div class="howtoplay-scn">
+    <div class="container-fix">
+        <div class="howtoplay-title-info">
+            <h2>{{ section.settings.how_title }}</h2>
+            <p>{{ section.settings.how_desc }}</p>
+        </div>
+        <div class="howtoplay-list">
+
+            {% for block in section.blocks %}
+                <div class="howtoplay-item">
+                    <div class="howtoplay-img-cont">
+                        <img src="{{ block.settings.apply_image | img_url: '1295x682'  }}" alt="{{ block.settings.apply_title }}" />
+
+                        <div class="howtoplay-title-icon">
+                            <div class="howtoplay-v-title">{{ block.settings.apply_title }}</div> &nbsp;
+                            <span class="howtoplay-v-icon"></span>
+                        </div>
+                    </div>
+                    <div class="video-wrapper"><iframe title="Opens in a new window" class="youtubevidid" src="{{ block.settings.video_link }}" allow="autoplay" width="100%" height="100%" frameborder="0"></iframe></div>
+                </div>
+            {% endfor %}
+
+            {% comment %}
+            <!--div class="howtoplay-item">
+                <div class="howtoplay-img-cont"><img src="https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/uneven-brows-video.jpg" alt="image" />
+                    <div class="howtoplay-title-icon">
+                        <div class="howtoplay-v-title">UNEVEN BROWS</div>
+                        <span class="howtoplay-v-icon"></span>
+                    </div>
+                </div>
+                <div class="video-wrapper"><iframe class="youtubevidid" src="https://player.vimeo.com/video/325910377" allow="autoplay" width="100%" height="100%" frameborder="0"></iframe></div>
+            </div>
+            <div class="howtoplay-item">
+                <div class="howtoplay-img-cont"><img src="https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/sparse-brows-video.jpg" alt="image" />
+                    <div class="howtoplay-title-icon">
+                        <div class="howtoplay-v-title">SPARSE BROWS</div>
+                        <span class="howtoplay-v-icon"></span>
+                    </div>
+                </div>
+                <div class="video-wrapper"><iframe class="youtubevidid" src="https://player.vimeo.com/video/325910377" allow="autoplay" width="100%" height="100%" frameborder="0"></iframe></div>
+            </div>
+            <div class="howtoplay-item">
+                <div class="howtoplay-img-cont"><img src="https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/fair-brows-video.jpg" alt="image" />
+                    <div class="howtoplay-title-icon">
+                        <div class="howtoplay-v-title">FAIR BROWS</div>
+                        <span class="howtoplay-v-icon"></span>
+                    </div>
+                </div>
+                <div class="video-wrapper"><iframe class="youtubevidid" src="https://player.vimeo.com/video/325910377" allow="autoplay" width="100%" height="100%" frameborder="0"></iframe></div>
+            </div-->
+            {% endcomment %}
+
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "name": "Quiz Product Section",
+    "settings": [
+    {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "en": "Title",
+          "de": "Title",
+          "fr": "Title"
+        }
+    },
+    {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading",
+          "de": "Heading",
+          "fr": "Heading"
+        }
+    },
+    {
+        "type": "text",
+        "id": "cart_btn_label",
+        "label": {
+          "en": "Cart Button Label",
+          "de": "Cart Button Label",
+          "fr": "Cart Button Label"
+        }
+    },
+    {
+        "type": "url",
+        "id": "cart_btn_link",
+        "label": {
+          "en": "Cart Button Link",
+          "de": "Cart Button Link",
+          "fr": "Cart Button Link"
+        }
+    },
+    {
+        "type": "text",
+        "id": "quiz_btn_label",
+        "label": {
+          "en": "Quiz Button Label",
+          "de": "Quiz Button Label",
+          "fr": "Quiz Button Label"
+        }
+    },
+    {
+        "type": "url",
+        "id": "quiz_btn_link",
+        "label": {
+          "en": "Quiz Button Link",
+          "de": "Quiz Button Link",
+          "fr": "Quiz Button Link"
+        }
+    },
+    {
+        "type": "text",
+        "id": "lern_btn_label",
+        "label": {
+          "en": "Learn More Button Label",
+          "de": "Learn More Button Label",
+          "fr": "Learn More Button Label"
+        }
+    },
+    {
+        "type": "url",
+        "id": "lern_btn_link",
+        "label": {
+          "en": "Learn More Button Link",
+          "de": "Learn More Button Link",
+          "fr": "Learn More Button Link"
+        }
+    },
+    {
+        "type": "text",
+        "id": "how_title",
+        "label": {
+          "en": "How to Apply Title",
+          "de": "How to Apply Title",
+          "fr": "How to Apply Title"
+        }
+    },
+    {
+        "type": "text",
+        "id": "how_desc",
+        "label": {
+          "en": "How to Apply Description",
+          "de": "How to Apply Description",
+          "fr": "How to Apply Description"
+        }
+    }
+],
+"max_blocks": 6,
+"blocks": [
+    {
+      "type": "howtoapply",
+      "name": {
+        "de": "How To Apply",
+        "en": "How To Apply",
+        "fr": "How To Apply"
+      },
+      "settings": [
+          {
+            "id": "apply_title",
+            "type": "text",
+            "label": "Title"
+          },
+          {
+            "id": "apply_image",
+            "type": "image_picker",
+            "label": "Image"
+          },
+          {
+            "id": "video_link",
+            "type": "url",
+            "label": "Video Link"
+          }
+        ]
+    }
+  ]
+}
+{% endschema %}
+{% stylesheet %}
+{% endstylesheet %}
+{% javascript %}
+{% endjavascript %}

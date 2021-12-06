@@ -1,0 +1,29 @@
+{% layout none %}
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
+   replace:'\/','/' | 
+   replace:'%20',' ' | 
+   replace:'\u0026','&'
+-%}
+
+{% assign handles = pageUrl | split: 'handle=' | last %}
+{% assign h_array = handles | split: ',' %}
+{% capture output %}
+{
+	"products":
+        [
+            {% for handler in h_array %}
+			{% assign item = all_products[handler] %}
+			{% unless item == empty %}
+				{% include 'wlm-product' with item %}
+                {
+					"id"  : "{{item.id}}"
+                    ,"handle":"{{ item.handle }}"					
+                },
+			{% endunless %}
+			{% endfor %}{}
+        ]
+}
+{% endcapture %}
+{{- output | strip_newlines -}}

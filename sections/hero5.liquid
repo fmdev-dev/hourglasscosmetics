@@ -1,0 +1,249 @@
+<div id="section2" class="section newblock fullheightblock homepage-section1 caution-banner estreme-lash-banner">
+  {% if section.settings.desk_link != blank %} 
+  <a class="bannerbg" href="{{ section.settings.desk_link }}" target="_blank"> 
+   	 {% if section.settings.desk_link != blank %}
+     <img class="banner-desk-img" src="{{ section.settings.desk_image | img_url: '1728x881' }}" alt="Hourglass Cosmetics"
+     	{% if section.settings.desk_image %}
+          data-bgset="{% include 'bgset', image: section.settings.desk_image %}"
+        {% endif %}     
+     >
+   	 {% endif %}
+     {% if section.settings.mob_image != blank %}
+     <img class="banner-mob-img" src="{{ section.settings.mob_image | img_url: 'large' }}" alt="Hourglass Cosmetics"
+     	{% if section.settings.mob_image %}
+          data-bgset="{% include 'bgset', image: section.settings.mob_image %}"
+      	{% endif %}     
+      >
+   	 {% endif %}
+   </a>
+   {% endif %}
+  	
+   <div class="banner-content">
+      <div class="content-inner">
+         {% if section.settings.title_sub != blank %}
+         <h2>{{ section.settings.title_sub | escape }}</h2>
+         {% endif %}
+        {% if section.settings.caution_image != blank %}
+         <h3>
+         	<span>
+         		<img src="{{ section.settings.caution_image | img_url: 'large' }}" alt="Caution"
+                {% if section.settings.caution_image %}
+                  data-bgset="{% include 'bgset', image: section.settings.caution_image %}"
+                {% endif %} 
+                >
+         	</span>
+         </h3>
+         {% endif %}
+         {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+         <div class="actions">
+         	<a href="{{ section.settings.button_link }}">
+         		<span>{{ section.settings.button_label | escape }}</span>
+         	</a>
+         </div>
+         {% endif %}
+      </div>
+   </div>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Image Section hero2",
+      "de": "Image Section hero2",
+      "fr": "Image Section hero2"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "url",
+        "id": "desk_link",
+        "label": {
+          "en": "Desktop link",
+          "de": "Desktop link",
+          "fr": "Desktop link"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "caution_image",
+        "label": {
+          "en": "Caution Image",
+          "de": "Caution Image",
+          "fr": "Caution Image"
+        }
+      },
+     {
+      "type": "text",
+      "id": "title_sub",
+      "label": {
+      "en": "Small Heading",
+      "de": "Titel",
+      "fr": "En-tête"
+      },
+      "default": {
+      "en": "Image with text overlay",
+      "de": "Foto mit überlegtem Text",
+      "fr": "Image avec superposition de texte"
+      }
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+        },
+        "default": {
+          "en": "Image with text overlay",
+          "de": "Foto mit überlegtem Text",
+          "fr": "Image avec superposition de texte"
+        }
+      },
+      
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "default": {
+          "en": "<p>Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>",
+          "de": "<p>Nutzen Sie überlegten Text, um Kunden über Ihre Marke zu informieren. Wählen Sie Fotos und Text aus, die zu Ihrer Marke passen.</p>",
+          "fr": "<p>Utilisez la superposition de texte pour donner un aperçu de votre marque à vos clients. Utilisez une image et du texte qui se rapportent au style et à l'histoire de votre marque.</p>"
+        }
+      },
+      {
+        "type": "select",
+        "id": "hero_size",
+        "label": {
+          "en": "Section height",
+          "de": "Bereichs-Höhe",
+          "fr": "Hauteur de la section"
+        },
+        "default": "medium",
+        "options": [
+          {
+            "label": {
+              "en": "Extra Small",
+              "de": "Extra klein",
+              "fr": "Très petite"
+            },
+            "value": "x-small"
+          },
+          {
+            "label": {
+              "en": "Small",
+              "de": "Klein",
+              "fr": "Petite"
+            },
+            "value": "small"
+          },
+          {
+            "label": {
+              "en": "Medium",
+              "de": "Mitte",
+              "fr": "Moyenne"
+            },
+            "value": "medium"
+          },
+          {
+            "label": {
+              "en": "Large",
+              "de": "Groß",
+              "fr": "Grande"
+            },
+            "value": "large"
+          },
+          {
+            "label": {
+              "en": "Extra Large",
+              "de": "Extra groß",
+              "fr": "Très grande"
+            },
+            "value": "x-large"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_size",
+        "label": {
+          "en": "Text size",
+          "de": "Textgröße",
+          "fr": "Taille du texte"
+        },
+        "default": "medium",
+        "options": [
+          {
+            "label": {
+              "en": "Medium",
+              "de": "Mitte",
+              "fr": "Moyenne"
+            },
+            "value": "medium"
+          },
+          {
+            "label": {
+              "en": "Large",
+              "de": "Groß",
+              "fr": "Grande"
+            },
+            "value": "large"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Image Section hero2",
+          "de": "Image Section hero2",
+          "fr": "Image Section hero2"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

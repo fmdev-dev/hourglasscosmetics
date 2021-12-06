@@ -1,0 +1,251 @@
+<div class="infiuncer-page">
+{% if section.settings.video_code != blank %}
+  <span class="video-overlay"></span>
+  <div class="video-popup">
+    <span class="video-close">×</span>
+    <div class="video-popup-inner">
+      <iframe width="800" height="500" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+  {% endif %} 
+{%- assign max_height = 345 -%}
+{%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
+<div class="curator-coll-bnr">
+  <div class="curator-coll-left">
+    <div class="curator-bnr-img">
+          {% if section.settings.desk_image != blank %}
+            <img class="desktop-view lazyload" alt="Influencer" src="{{ section.settings.desk_image | img_url:'100x' }}"  data-src="{{ section.settings.desk_image | img_url:'master' }}">  
+      {% endif %} 
+          {% if section.settings.mob_image != blank %}
+            <img class="mobile-view lazyload" alt="Influencer" src="{{ section.settings.mob_image | img_url:'100x' }}"  data-src="{{ section.settings.mob_image | img_url:'master' }}"> 
+      {% endif %} 
+          
+          
+    </div>
+  </div>
+  <div class="curator-coll-right">
+    <div class="bnr-cont video-show" data-popup="{{section.settings.video_code}}?autoplay=1">
+       {% if section.settings.desk_content_image != blank %}
+            <img class="desktop-view lazyload" alt="Influencer Content" src="{{ section.settings.desk_content_image | img_url:'100x' }}"  data-src="{{ section.settings.desk_content_image | img_url:'master' }}">  
+      {% endif %} 
+          {% if section.settings.mob_content_image != blank %}
+            <img class="mobile-view lazyload" alt="Influencer Content" src="{{ section.settings.mob_content_image | img_url:'100x' }}"  data-src="{{ section.settings.mob_content_image | img_url:'master' }}"> 
+      {% endif %} 
+    </div>
+  </div>
+</div>
+<div class="rte curator-coll influencer-coll">
+  {% for block in section.blocks limit: section.blocks.size %}
+  <div class="rte-collection">  
+    <div class="collection_list">
+      <div class="coll-list-slider">
+          {% for product in collections[block.settings.collection].products %}
+            {% if block.settings.quote_description != "" %}
+              {% if forloop.index == block.settings.quote_position %}
+                <div class="coll-list-item quote-grid">
+                  <a class="full-width-link" href="{{block.settings.quote_url}}"> </a>
+                  <div class="contain">
+                      <span class="coll-list-contain-txt">{{block.settings.quote_description}}</span>
+                    {% if block.settings.quote_image != blank %}
+                      <span class="coll-list-contain-img"><img src="{{ block.settings.quote_image | img_url: 'master' }}" alt="{{ block.settings.collection_title }}"></span>
+                    {% endif %}
+                    {% if block.settings.client_name != blank %}
+                      <span class="coll-list-client-name">{{block.settings.client_name}}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+          {% endif %}
+          <div class="coll-list-item">
+            {% include 'product-card-grid-slider', max_height: max_height %}
+            </div>
+          {% endfor %}
+           
+          {% if block.settings.quote_position > collections[block.settings.collection].products.size %}
+            <div class="coll-list-item quote-grid">
+              <a class="full-width-link" href="{{block.settings.quote_url}}"> </a>
+              <div class="contain">
+                <span class="coll-list-contain-txt">{{block.settings.quote_description}}</span>
+                {% if block.settings.quote_image != blank %}
+                <span class="coll-list-contain-img"><img src="{{ block.settings.quote_image | img_url: 'master' }}" alt="{{ block.settings.collection_title }}"></span>
+                {% endif %}
+                {% if block.settings.client_name != blank %}
+                <span class="coll-list-client-name">{{block.settings.client_name}}</span>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+{{ 'slick.min.js' | asset_url | script_tag }}
+<script type="text/javascript">
+  $('.coll-list-slider').slick({
+        dots: false,
+        infinite: false,
+        autoplay: false,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        loop: false,
+        responsive: [
+          {
+            breakpoint: 1160,
+            settings: {
+              slidesToShow: 3,
+             
+            }
+          },
+          {
+            breakpoint: 992,
+            settings: {
+              slidesToShow: 2,
+             
+            }
+          }
+        ]
+      });
+  $('.bnr-cont.video-show').click(function(){
+    var data_popup = $(this).attr('data-popup');
+    $('.video-popup iframe').attr('src', data_popup);    
+     $('body').addClass('infiuncer-video');
+
+    });
+
+    $('.video-popup .video-close').click(function(){
+       $('.video-popup iframe').attr('src', ''); 
+     $('body').removeClass('infiuncer-video');
+    });
+</script>
+{% schema %}
+  {
+    "name": "Influencer Collection",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+    {
+        "type": "image_picker",
+        "id": "desk_content_image",
+        "label": {
+          "en": "Desktop Content Image",
+          "de": "Desktop Content Image",
+          "fr": "Desktop Content Image"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "mob_content_image",
+        "label": {
+          "en": "Mobile Content Image",
+          "de": "Mobile Content Image",
+          "fr": "Mobile Content Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "video_code",
+        "label": {
+          "en": "Video Code",
+          "de": "Video Code",
+          "fr": "Video Code"
+        }
+      }
+   ],
+   "blocks": [
+      {
+        "type": "featured_collection",
+        "name": {
+          "en": "Collection",
+          "de": "Kategorie",
+          "fr": "Collection"
+        },
+        "settings": [
+          {
+            "label": {
+              "en": "Collection",
+              "de": "Kategorie",
+              "fr": "Collection"
+            },
+            "id": "collection",
+            "type": "collection"
+          },
+          {
+      "type": "header",
+      "content": "Quote Grid"
+          },
+          {
+            "type": "textarea",
+            "id": "quote_description",
+            "label": {
+              "en": "Quote",
+              "de": "Quote",
+              "fr": "Quote"
+            }
+          },
+          {
+            "type": "url",
+            "id": "quote_url",
+            "label": {
+              "en": "URL",
+              "de": "URL",
+              "fr": "URL"
+            }
+          },
+          {
+            "type": "text",
+            "id": "client_name",
+            "label": {
+              "en": "Name",
+              "de": "Name",
+              "fr": "Name"
+            }
+          },
+      {
+            "type": "image_picker",
+            "id": "quote_image",
+            "label": {
+              "en": "Image",
+              "de": "Image",
+              "fr": "Image"
+            }
+          },
+          {
+            "type": "range",
+            "id": "quote_position",
+            "label": {
+              "en": "Position",
+              "de": "Position",
+              "fr": "Position"
+            },
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "default": 1
+          }     
+
+        ]
+      }
+    ]
+  }
+{% endschema %}
+

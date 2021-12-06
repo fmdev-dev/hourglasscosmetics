@@ -1,0 +1,243 @@
+<!-- DO NOT REMOVE THE FOLLOWING COMMENT -->
+<!-- (c) Copyright 2014 Caroline Hill. All Rights Reserved. Contact Mlle Caroline Schnapp at mllegeorgesand@gmail.com -->
+<!-- DO NOT REMOVE THE ABOVE COMMENT -->
+
+{% if linklists.gift-wrapping.links.size > 0 and linklists.gift-wrapping.links.first.type == 'product_link' %}
+
+  <div id="is-a-gift" style="clear: left; margin: 30px 0" class="clearfix rte">
+    <p>
+      <input type="hidden" name="attributes[gift-wrapping]" value="" />
+      <input id="gift-wrapping" type="checkbox" name="attributes[gift-wrapping]" value="yes" {% if cart.attributes.gift-wrapping %} checked="checked"{% endif %} style="float: none" />
+      <label for="gift-wrapping" style="display:inline; padding-left: 5px; float: none;">
+         {{ section.settings.gift_wrapper_text }} <!--ADD A COMPLIMENTARY GIFT BOX TO MY ORDER-->
+      </label>
+    </p>
+    <!--p>
+      <label style="display:block" for="gift-note">Gift message (free and optional):</label>
+      <textarea name="attributes[gift-note]" id="gift-note">{{ cart.attributes.gift-note }}</textarea>
+    </p-->
+  </div>
+
+{% assign id = linklists.gift-wrapping.links.first.object.variants.first.id %}
+
+{% assign gift_wraps_in_cart = 0 %}
+{% for item in cart.items %}
+  {% if item.id == id %}
+    {% assign gift_wraps_in_cart = item.quantity %}
+    {% assign gift_wraps_product_id = item.product_id %}
+    {% assign gift_wraps_product_title = item.title %}
+    {% assign gift_wraps_product_price = item.final_price %}
+    {% assign gift_wraps_product_vendor = item.vendor %}
+    {% assign gift_wraps_product_sku = item.sku %}
+    {% assign gift_wraps_product_url = item.url | split: '/products/' %}
+  	{% assign gift_wraps_product_url = gift_wraps_product_url[1] | split: '?'  %} {% assign gift_wraps_product_handle = gift_wraps_product_url[0] %}
+    {% assign gift_wraps_product_variant_id = item.variant_id %}
+    {% assign gift_wraps_product_variants = item.options_with_values %}
+  {% endif %}
+{% endfor %}
+
+{% assign gift_wraps_product_dimension11 = "" %}
+{% for vari in gift_wraps_product_variants %}
+	{% if vari.name == 'Color' or vari.name == 'Shade' %}
+	  {% assign gift_wraps_product_dimension11 = vari.name %}
+    {% else %} 		
+	  {% assign gift_wraps_product_dimension11 = "Not Applicable" %}
+    {% endif %}
+{% endfor %}
+
+
+<style>
+  #updates_{{ id }} { display: none; }
+ 
+</style>
+
+<script>
+
+Shopify.Cart = Shopify.Cart || {};
+
+Shopify.Cart.GiftWrap = {};
+
+  /*-------START SET COOKIE--------*/
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+  /*-------START GET COOKIE--------*/
+  function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+  }
+  /*-------START EXPIRE COOKIE--------*/
+  function expireCokie(name){           
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'; 
+  }
+  
+Shopify.Cart.GiftWrap.set = function() {
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/update.js', 
+    data: { updates: { {{ id }}: 1 }, attributes: { 'gift-wrapping': true } }, 
+    dataType: 'json',
+    success: function(data) { 
+      location.href = '/cart';
+      setCookie('gift_wrapper_cart','add_to_cart');        
+    }
+  });
+}
+  // ----------------ADD TO DATALAYER---------------------
+  var gift_wrapper_cart = getCookie('gift_wrapper_cart');
+  if(gift_wrapper_cart=='add_to_cart')
+  {
+    var var_id = "{{ gift_wraps_product_variant_id }}";
+    var var_handle = "{{ gift_wraps_product_handle }}";
+    var collectiontitle = window.getCollNameCookie(var_id,var_handle);
+    window.dataLayer.push(
+      {
+        "event": "addToCart",
+        "pageType": 'Cart Page',
+        "ecommerce": {
+          add:{
+            products:[
+              {
+                "id": '{{ gift_wraps_product_id }}',
+                "name": '{{ gift_wraps_product_title }}',
+                "price": '{{ gift_wraps_product_price | divided_by: 100 }}',
+                "brand": '{{ gift_wraps_product_vendor }}',
+                "category": collectiontitle,
+                "variant": '{{ gift_wraps_product_sku }}',
+                "quantity":  1,
+                "dimension10": "Cart Page",
+                "dimension11": '{{ gift_wraps_product_dimension11 }}',
+                "dimension12": "Cart Page"
+              }
+            ]
+          }
+        }
+      });
+    expireCokie('gift_wrapper_cart');
+  }
+
+
+Shopify.Cart.GiftWrap.remove = function() {
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/update.js', 
+    data: { updates: { {{ id }}: 0 }, attributes: { 'gift-wrapping': '' } }, 
+    dataType: 'json',
+    success: function() { 
+      
+      var var_id = "{{ gift_wraps_product_variant_id }}";
+      var var_handle = "{{ gift_wraps_product_handle }}";
+      var collectiontitle = window.getCollNameCookie(var_id,var_handle);
+      window.dataLayer.push(
+      {
+          "event": "removeFromCart",
+          "pageType": 'Cart Page',
+          "ecommerce": {
+            add:{
+              products:[
+                {
+                  "id": '{{ gift_wraps_product_id }}',
+                  "name": '{{ gift_wraps_product_title }}',
+                  "price": '{{ gift_wraps_product_price | divided_by: 100 }}',
+                  "brand": '{{ gift_wraps_product_vendor }}',
+                  "category": collectiontitle,
+                  "variant": '{{ gift_wraps_product_sku }}',
+                  "quantity":  1,
+                  "dimension10": "Cart Page",
+                  "dimension11": '{{ gift_wraps_product_dimension11 }}',
+                  "dimension12": "Cart Page"
+                }
+              ]
+            }
+          }
+      });
+      
+      location.href = '/cart'; 
+    }
+  });
+}
+
+$('.th_pb_remove_cart_item').click(function(){  
+	var handle = $(this).attr('handle');
+  	if(handle=="hourglass-gift-box")
+    {
+      var var_id = "{{ gift_wraps_product_variant_id }}";
+      var var_handle = "{{ gift_wraps_product_handle }}";
+      console.log(var_id+"---"+var_handle);
+      var collectiontitle = window.getCollNameCookie(var_id,var_handle);
+      window.dataLayer.push(
+      {
+          "event": "removeFromCart",
+          "pageType": 'Cart Page',
+          "ecommerce": {
+            add:{
+              products:[
+                {
+                  "id": '{{ gift_wraps_product_id }}',
+                  "name": '{{ gift_wraps_product_title }}',
+                  "price": '{{ gift_wraps_product_price | divided_by: 100 }}',
+                  "brand": '{{ gift_wraps_product_vendor }}',
+                  "category": collectiontitle,
+                  "variant": '{{ gift_wraps_product_sku }}',
+                  "quantity":  1,
+                  "dimension10": "Cart Page",
+                  "dimension11": '{{ gift_wraps_product_dimension11 }}',
+                  "dimension12": "Cart Page"
+                }
+              ]
+            }
+          }
+      });
+    }
+});
+
+// If we have nothing but gift-wrap items in the cart.
+{% if cart.items.size == 1 and gift_wraps_in_cart > 0 %}
+jQuery(function() {
+  Shopify.Cart.GiftWrap.remove();
+});
+// If we have more than one gift-wrap item in the cart.
+{% elsif gift_wraps_in_cart > 1 %}
+jQuery(function() {
+  Shopify.Cart.GiftWrap.set();
+});
+// If we have a gift-wrap item in the cart but our gift-wrapping cart attribute has not been set.
+{% elsif gift_wraps_in_cart > 0 and cart.attributes.gift-wrapping == blank  %}
+jQuery(function() {
+  Shopify.Cart.GiftWrap.set();
+});
+// If we have no gift-wrap item in the cart but our gift-wrapping cart attribute has been set.
+{% elsif gift_wraps_in_cart == 0 and cart.attributes.gift-wrapping != blank  %}
+jQuery(function() {
+  Shopify.Cart.GiftWrap.set();
+});
+{% endif %}
+
+// When the gift-wrapping checkbox is checked or unchecked.
+jQuery(function() {
+  jQuery('[name="attributes\[gift-wrapping\]"]').change(function() {
+    if (jQuery(this).is(':checked')) {
+      Shopify.Cart.GiftWrap.set();    
+    }
+    else {
+      Shopify.Cart.GiftWrap.remove();
+    }
+  });
+});
+ 
+</script>
+
+{% else %}
+
+<p style="clear: left; margin: 30px 0" class="rte">
+  You attempted to add a gift-wrapping script to your shopping cart, but it won't work because you don't have 
+  a link list with handle <code>gift-wrapping</code> which, in turn, contains a link
+  to your gift-wrapping product. Please review the steps outlined 
+  <a href="http://docs.shopify.com/manual/configuration/store-customization/page-specific/cart-page/add-a-gift-wrap-option">here</a>.
+</p>
+
+{% endif %}

@@ -1,0 +1,147 @@
+<div class="pair-with-scn">
+    <div class="container-fix">
+        <h2 id="pairwith-section">{{ section.settings.title }}</h2>
+        <p>{{ section.settings.heading }}</p>
+        <div class="pair-with-list">
+            
+            {% for block in section.blocks %}
+            	{% assign product = all_products[block.settings.pair_handle] %}
+            	<a href="{{ product.url }}" class="pairwith-item">            		
+            		{%- assign featured_image = block.settings.pair_image -%}
+					{%- assign featured_image_alt = product.title -%}
+					<div class="pairwith-img">
+					 <img src="{{ featured_image | img_url: '388x423' }}" alt="{{ featured_image_alt | escape }}" />
+					</div>
+	                <div class="pairwith-info">
+	                    <span class="pairwith-item-title">{{ product.title }}</span>
+	                    {% if product.price_max == product.price_min %}
+	                    <span
+{% comment %} START Global-e VAT tag {% endcomment %}
+{% if product.selected_or_first_available_variant.taxable == false %}data-product-vat="0" {% endif %}
+{% if product.selected_or_first_available_variant.metafields.GlobalE.product_meta != blank %} data-product-meta='{{product.selected_or_first_available_variant.metafields.GlobalE.product_meta | json | escape}}' {% endif %}
+{% comment %}END Global-e VAT tag {% endcomment %} 
+ class="pairwith-item-price">{{ product.price | money }}</span>
+	                    {% else %}
+	                    <span class="pairwith-item-price">{{ product.price_min | money }} - {{ product.price_max | money }}</span>
+	                    {% endif %}
+	                </div>
+	            </a>
+            {% endfor %}
+
+
+            {% comment %}
+            <!--a href="#" class="pairwith-item">
+                <div class="pairwith-img">
+                    <img src="https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/pair-with1.jpg" alt="image" />
+                </div>
+                <div class="pairwith-info">
+                    <span class="pairwith-item-title">VANISH™ SEAMLESS FINISH FOUNDATION STICK</span>
+                    <span class="pairwith-item-price">$46.00</span>
+                </div>
+            </a>
+            <a href="#" class="pairwith-item">
+                <div class="pairwith-img">
+                    <img src="https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/pair-with2.jpg" alt="image" />
+                </div>
+                <div class="pairwith-info">
+                    <span class="pairwith-item-title">VEIL™ MINERAL PRIMER</span>
+                    <span class="pairwith-item-price">$20.00 - $75.00</span>
+                </div>
+            </a>
+            <a href="#" class="pairwith-item">
+                <div class="pairwith-img">
+                    <img src="https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/pair-with3.jpg" alt="image" />
+                </div>
+                <div class="pairwith-info">
+                    <span class="pairwith-item-title">CAUTION™ EXTREME LASH MASCARA </span>
+                    <span class="pairwith-item-price">$29.00</span>
+                </div>
+            </a>
+            <a href="#" class="pairwith-item">
+                <div class="pairwith-img">
+                    <img src="https://cdn.shopify.com/s/files/1/0016/7116/8064/t/7/assets/pair-with4.jpg" alt="image" />
+                </div>
+                <div class="pairwith-info">
+                    <span class="pairwith-item-title">VEIL™ TRANSLUCENT SETTING POWDER</span>
+                    <span class="pairwith-item-price">$46.00</span>
+                </div>
+            </a-->
+            {% endcomment %}
+
+
+        </div>
+        <div class="shop-bestsellers-btn"><a href="{{ section.settings.btn_link }}">{{ section.settings.btn_label }}</a></div>
+        
+    </div>
+</div>
+
+
+
+{% schema %}
+{
+    "name": "Quiz Product Section 2",
+    "settings": [
+    {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "en": "Title",
+          "de": "Title",
+          "fr": "Title"
+        }
+    },
+    {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading",
+          "de": "Heading",
+          "fr": "Heading"
+        }
+    },
+    {
+        "type": "text",
+        "id": "btn_label",
+        "label": {
+          "en": "Bestseller Button Label",
+          "de": "Bestseller Button Label",
+          "fr": "Bestseller Button Label"
+        }
+    },
+    {
+        "type": "url",
+        "id": "btn_link",
+        "label": {
+          "en": "Bestseller Button Link",
+          "de": "Bestseller Button Link",
+          "fr": "Bestseller Button Link"
+        }
+    }
+],
+"max_blocks": 6,
+"blocks": [
+    {
+      "type": "pairwith",
+      "name": {
+        "de": "Pair With Section",
+        "en": "Pair With Section",
+        "fr": "Pair With Section"
+      },
+      "settings": [
+          {
+            "id": "pair_handle",
+            "type": "text",
+            "label": "Product Handle"
+          },
+          {
+            "id": "pair_image",
+            "type": "image_picker",
+            "label": "Product Image"
+          }
+        ]
+    }
+  ]
+
+}
+{% endschema %}
+

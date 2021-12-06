@@ -1,0 +1,73 @@
+<div class="ambient-coming-soon-section">
+  	<div class="newsletter-left-section">
+      {% if section.settings.desk_image != blank %}
+      	<img class="desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: 'master' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics Newsletter">
+      {% endif %}
+    </div>
+  	<div class="ambient-right-section newsletter-subscription-ection">
+        <div class="content-area">
+          
+          	{% if section.settings.title != blank %}
+            	<h1 class="title">{{ section.settings.title  }}</h1>
+          	{% endif %}
+          	{% if section.settings.description != blank %}
+            	<div class="description">{{ section.settings.description }}</div>
+          	{% endif %}
+          	<div class="klaviyo-form-area">
+          		<div class="klaviyo-form-YA3JKV"></div>
+            </div>
+          
+        </div>
+    </div>
+  {% if section.settings.mob_image != blank %}
+  	<img class="mob-img lazyload" data-src="{{ section.settings.mob_image | img_url: 'large' }}" src="{{ section.settings.mob_image | img_url: '50x50' }}" alt="Hourglass Cosmetics Newsletter" >
+  {% endif %}
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Ambient Coming soon",
+      "de": "Ambient Coming soon",
+      "fr": "Ambient Coming Soon"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Desktop Image",
+          "de": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": {
+          "en": "Mobile Image",
+          "de": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      },
+     {
+      "type": "textarea",
+      "id": "title",
+      "label": {
+          "en": "Heading",
+          "de": "Heading",
+          "fr": "Heading"
+      	}
+     },
+     {
+      "type": "textarea",
+      "id": "description",
+      "label": {
+          "en": "Description",
+          "de": "Description",
+          "fr": "Description"
+      	}
+     }
+    ]
+  }
+{% endschema %}

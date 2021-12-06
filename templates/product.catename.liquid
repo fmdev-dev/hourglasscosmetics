@@ -1,0 +1,1 @@
+{%- layout none -%}{% if collection %}{% assign product_collection = collection %}{% else %}{% assign product_collection = product.collections.first %}{% endif %}{{ product_collection.title }}

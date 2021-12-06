@@ -1,0 +1,137 @@
+<div class="caution-product-section" style="text-align: left;">
+   <a class="caution-product-bannerbg" href="/products/caution-extreme-lash-mascara" target="_blank" rel="noopener noreferrer"> <img alt="Extreme Lash Mascara - Shop Now" src="//cdn.shopify.com/s/files/1/0081/1660/0950/files/caution-product-bg.jpg?v=1548067074" /> <img alt="Extreme Lash Mascara - Shop Now" class="caution-product-small-img" src="//cdn.shopify.com/s/files/1/0081/1660/0950/files/caution-product-bg-small.jpg?v=1548067220" /> </a>
+   <div class="caution-product-wrapper">
+      <div class="caution-product-caption">
+         <h1 style="text-align: left;"><img alt="Extreme Lash Mascara - Shop Now" src="//cdn.shopify.com/s/files/1/0081/1660/0950/files/caution-title.png?v=1548067276" style="float: none;" /></h1>
+         <h2>Extreme Lash Mascara</h2>
+         <p>An all-in-one mascara that delivers endless length, intense volume and sky-high lift for extreme, dramatic lashes</p>
+         <a class="defaultn-style" href="#video_caution">Learn More</a> 
+         <a class="defaultn-style" href="#catalog-section">Shop Now</a>
+      </div>
+   </div>
+</div>
+<div class="feature-benefits border-tb section-pd">
+   <div class="container-fix">
+      <div class="caution-feature">
+         <h3>Features</h3>
+         <ul class="list-style-bullets">
+            <li>4D Amplifier™ brush combines 2 brushes in 1 to deliver volume, length, lift and definition for extreme lashes</li>
+            <li>Saturates lashes from root-to-tip for the most volume in a single stroke</li>
+            <li>Perfectly coats the bottom lashes without smudging onto the lower lashline</li>
+            <li>Tapered end reaches even the smallest lashes in the corners of the eyes</li>
+            <li>Smooth, buildable, ultra-black formula creates dramatic but weightless lashes that don‘t smudge or flake</li>
+         </ul>
+      </div>
+      <div class="caution-benefits">
+         <h3>Benefits</h3>
+         <p>Based on a 1 week consumer test of 32 participants:</p>
+         <div class="h4">100%</div>
+         <p>Said this mascara made their lashes look fuller and more volumized</p>
+         <div class="h4">94%</div>
+         <p>said this mascara brush easily targets every lash for a bold effect</p>
+         <div class="h4">94%<span style="display:none;">test</span></div>
+         <p>Said this mascara didn’t flake</p>
+      </div>
+      <div class="caution-gif" style="text-align: left;"><img alt="Caution mascara wand" src="{{ 'Caution-mascara-wand.gif' | asset_url }}
+" style="float: none;" /></div>
+   </div>
+</div>
+<div class="caution-vedio-section border-bottom section-pd" id="video_caution">
+   <div class="container-fix">
+      <div class="flex-content">
+         {% comment %}-----ORIGINAL VIDEO LINE---<div class="video-left-div" style="text-align: left;"><iframe id="caution-video" src="https://www.youtube.com/embed/jJmR24CScTo?rel=0&amp;controls=0&amp;showinfo=0&amp;modestbranding=0&amp;autoplay=1" width="520" height="360" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe> <img alt="Caution mascara wand" src="//cdn.shopify.com/s/files/1/0081/1660/0950/files/caution-video-poster-img.jpg?v=1548067448" style="float: none;" /></div>{% endcomment %}
+         <div class="video-left-div" style="text-align: left;"><div id="caution-video"></div>{%- comment -%}<iframe id="caution-video" src="https://www.youtube.com/embed/jJmR24CScTo?enablejsapi=1&origin=https://stagehourglasscosmetics.myshopify.com" width="520" height="360" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"></iframe>{%- endcomment -%}<img alt="Caution mascara wand" src="//cdn.shopify.com/s/files/1/0081/1660/0950/files/caution-video-poster-img.jpg?v=1548067448" style="float: none;" /></div>
+         <div class="how-to-use-product">
+            <h3>HOW TO USE</h3>
+            <ul class="list-style-bullets">
+               <li>Starting at the base of the lashes, pull mascara brush through from root to tip</li>
+               <li>Layer until desired effect is achieved</li>
+               <li>Removes easily with soap and water</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+window.addEventListener('load', function(){
+   $('.video-left-div').click(function(ev) {
+      var vld = $(this);
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      tag.id = 'youtubeScript';
+      var firstScriptTag = document.getElementsByTagName('script')[1];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      ev.preventDefault();
+
+      var countTarck = [];
+
+      var last_percent = 0, player, timer, display = document.getElementById('timeDisplay');
+
+      window.onYouTubeIframeAPIReady = function() {
+         player = new YT.Player('caution-video', {
+            height: '360',
+            width: '520',
+            videoId: 'jJmR24CScTo',
+           	playerVars: {
+               loop: 1
+            },
+            events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChangeCaution }
+         });
+      }
+      window.onPlayerReady = function(event) {
+         event.target.playVideo();
+         vld.addClass('show_video');
+      }
+      window.onPlayerStateChangeCaution = function(event){
+         if(event.data === 1) { // Started playing
+               timer = setInterval(record,100);
+         } else {
+               clearInterval(timer);
+         }
+         if (event.data === YT.PlayerState.ENDED) {
+         	player.playVideo(); 
+         }
+      }
+
+      function record(){
+         percent = Math.round(player.getCurrentTime() / player.getDuration() * 100);
+         if( last_percent != percent ){
+            if( percent == 1 || percent == 25 || percent == 50 || percent == 75 || percent == 100 ){
+               callDataLayerPush( percent, 'Caution Mascara Tips and Tricks', 'https://www.youtube.com/embed/jJmR24CScTo');
+            }
+            last_percent = percent;
+         }
+      }
+
+      function callDataLayerPush( per, title, url){
+         
+         var flag = true;
+         if( countTarck.indexOf(per) !== -1 ){
+            flag = false;
+         }
+         
+         if(flag){
+            var videoAction = per;
+            if( per == 1 ){
+                  videoAction = 'Play';
+            }else if ( per == 100 ){
+                  videoAction = 'Complete';
+            }else{
+                  videoAction = per+'%';
+            }
+            
+            window.dataLayer.push({
+                  'event': 'videoTrack',
+                  'videoAction': videoAction,
+                  'videoName': title,
+                  'videoPlayer': 'Youtube',
+                  'videoURL': url
+            });
+            countTarck.push(per);
+         }
+      }
+      //var currentSrc = jQuery('#caution-video').attr("src") + "&autoplay=1&loop=1";
+      //$('#caution-video').attr("src", currentSrc);
+   });
+});
+</script>

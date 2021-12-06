@@ -1,0 +1,85 @@
+<script data-cfasync="false" type="text/javascript">if (typeof Shopify === "undefined") var Shopify = {}; Shopify.cart = {{ cart | json }};</script> 
+<div id="sca-fg-owl-carousel">
+  <div id="freegift_cart_container" class="sca-fg-cart-container" style="display: none;">
+    <div id="freegift_message" class="owl-carousel"></div>
+  </div> 
+</div>
+<div id="sca_fg_cart">
+{% comment %}
+  The contents of the cart.liquid template can be found in /sections/cart-template.liquid
+{% endcomment %}
+{% section 'cart-template' %}
+</div>
+<script>
+function removeallpalettes(sproduct_id) {
+  var cartdata = {{ cart.items | json }};
+  var updateData = {};
+  $.each( cartdata, function( key, value ) {
+    if( value.product_id == 6729558753478 || value.product_id == 6729581527238 ){
+      updateData[value.key] = 0;
+    }
+  });
+  $.ajax({
+   type: 'POST',
+   url: '/cart/update.js',
+   data: {
+     updates: updateData
+   },
+   dataType: 'json',
+   success: function(cart){ 
+     window.location.reload(true);
+   },
+   error: function(err){ 
+     console.error('Error', err)
+   }
+  });
+}
+
+</script>
+<script type="text/javascript" src="https://static-us.afterpay.com/javascript/present-afterpay.js"></script>
+
+    <script>
+      const apConfig = {
+        priceSelector: '#CartForm > div.needhelp-cart-totals > div.cart-totals-wrapper > div > div > div:nth-child(2) > span.cart__subtotal-title',
+        locale: 'en_US',
+        currency: 'USD',
+        afterpayLogoColor: 'black',
+        showUpperLimit: false,
+        amount: {{ cart.total_price | json }},
+        minMaxThreshold: {
+          min: 3500,
+          max: 100000,
+        },
+      };
+      
+      $( document ).ready(function() {
+  		new presentAfterpay(apConfig).init();
+		});
+
+    </script>
+<style type="text/css">
+
+       p.afterpay-paragraph {
+            font-size: 13px;
+         	text-align: left;
+            margin-top: 0px;
+            //margin-bottom: 0px; 
+            //margin-right: 0px;
+            //margin-left: 0px;
+        }
+       img.afterpay-logo {
+            width: 80px !important;
+    	   height: auto !important;
+        }
+
+        @media only screen and (max-width : 480px) {
+            .afterpay-paragraph {
+                font-size: 10px;
+            }
+            .afterpay-logo{
+                height: auto !important;
+                width: auto !important;
+            }
+        }
+
+</style>

@@ -1,0 +1,379 @@
+<div class="section fullheightblock cruelty-free-section" id="section2">
+  <div class="hometop-scn">
+   
+    <div class="hometop-container">      
+      <a href="{{section.settings.image_line_link}}">
+   <div id="hometop-container">  
+      {% for block in section.blocks %}
+        <div class="hometop-item">
+          <img class="lazyload" width="424" height="525" data-src="{{ block.settings.image | img_url: '395x489' }}" src="{{ block.settings.image | img_url: '50x50' }}" alt="Cruelty Free Beauty">
+        </div>
+      {% endfor %}
+        </div>
+       </a>  
+    </div>
+  </div>  
+  <div class="cruelty-free-beauty">
+    <div class="cruelty-free-fix">
+      {% if section.settings.h1title != blank %}
+        <h2>{{ section.settings.h1title }}</h2>
+      {% endif %}
+      <h3 class="requiredtag"></h3>
+      {% if section.settings.h4title != blank %}
+        <h4>{{ section.settings.h4title }}</h4>
+      {% endif %}
+      <div class="offer-nohuman-rights">
+        {% if section.settings.normaltitle != blank %}
+        <span class="offer-purchaser-txt">{{ section.settings.normaltitle }}</span>
+        {% endif %}
+
+        {% if section.settings.title_image != blank %}
+          <span class="nohuman-rights-logo">
+            <img width="392" height="40" src="{{ section.settings.title_image | img_url: '392x40' }}" alt="Cruelty Free Beauty" />
+          </span>
+        {% endif %}
+      </div>
+      {% if section.settings.linetext != blank %}
+        <a href="{{ section.settings.line_link }}" class="join-movement-btn">{{ section.settings.linetext }}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+ jQuery(window).resize(function() {
+            if (jQuery(window).width() < 1000) {
+              jQuery('#hometop-container .hometop-item:first').addClass('showing');
+                var slides = document.querySelectorAll('#hometop-container .hometop-item');
+        var currentSlide = 0;
+        var slideInterval = setInterval(nextSlide,3000);
+        function nextSlide() {
+            slides[currentSlide].className = 'hometop-item';
+            currentSlide = (currentSlide+1)%slides.length;
+            slides[currentSlide].className = 'hometop-item showing';
+        }
+
+            }
+            jQuery(window).trigger('resize')
+        })
+
+</script>
+{% schema %}
+  {
+    "name": {
+      "en": "Cruelty Free Section",
+      "de": "Cruelty Free Section",
+      "fr": "Cruelty Free Section"
+    },
+    "class": "index-section index-section--flush",
+    "max_blocks": 4,
+    "settings": [
+      {
+        "type": "text",
+        "id": "h1title",
+        "label": {
+          "en": "H1 Heading",
+          "de": "H1Titel",
+          "fr": "H1 En-tête"
+        },
+        "default": {
+          "en": "CRUELTY FREE LUXURY BEAUTY",
+          "de": "CRUELTY FREE LUXURY BEAUTY",
+          "fr": "CRUELTY FREE LUXURY BEAUTY"
+        }
+      },
+      {
+        "type": "text",
+        "id": "h4title",
+        "label": {
+          "en": "H4 Heading",
+          "de": "H4 Titel",
+          "fr": "H4 En-tête"
+        },
+        "default": {
+          "en": "PROTECTING ANIMAL RIGHTS IN BEAUTY AND BEYOND.",
+          "de": "PROTECTING ANIMAL RIGHTS IN BEAUTY AND BEYOND.",
+          "fr": "PROTECTING ANIMAL RIGHTS IN BEAUTY AND BEYOND."
+        }
+      },
+      {
+        "type": "text",
+        "id": "normaltitle",
+        "label": {
+          "en": "Normal Title",
+          "de": "Normal Title",
+          "fr": "Normal En-tête"
+        },
+        "default": {
+          "en": "1% OF ALL PURCHASES DONATED TO",
+          "de": "1% OF ALL PURCHASES DONATED TO",
+          "fr": "1% OF ALL PURCHASES DONATED TO"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "title_image",
+        "label": {
+          "en": "Title Image",
+          "de": "Title Image",
+          "fr": "Title Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "linetext",
+        "label": {
+          "en": "Line text",
+          "de": "Line text",
+          "fr": "Line text"
+        },
+        "default": {
+          "en": "1% OF ALL PURCHASES DONATED TO",
+          "de": "1% OF ALL PURCHASES DONATED TO",
+          "fr": "1% OF ALL PURCHASES DONATED TO"
+        }
+      },
+      {
+        "type": "url",
+        "id": "line_link",
+        "label": {
+          "en": "Line URL",
+          "de": "Line URL",
+          "fr": "Line URL"
+        }
+      },
+    {
+        "type": "url",
+        "id": "image_line_link",
+        "label": {
+          "en": "Image Line URL",
+          "de": "Image Line URL",
+          "fr": "Image Line URL"
+        }
+      },
+    {
+        "type": "text",
+        "id": "video_link",
+        "label": {
+          "en": "Mobile Video link",
+          "de": "Mobile Video link",
+          "fr": "Mobile Video link"
+          }
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": {
+          "en": "Image slide",
+          "de": "Foto-Slide",
+          "fr": "Diapositive (image)"
+        },
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": {
+              "en": "Image",
+              "de": "Foto",
+              "fr": "Image"
+            }
+          },
+          {
+            "type": "select",
+            "id": "alignment",
+            "label": {
+              "en": "Image alignment",
+              "de": "Fotoausrichtung",
+              "fr": "Alignement de l'image"
+            },
+            "default": "top",
+            "options": [
+              {
+                "value": "top",
+                "label": {
+                  "en": "Top",
+                  "de": "Oben",
+                  "fr": "Haut"
+                }
+              },
+              {
+                "value": "center",
+                "label": {
+                  "en": "Middle",
+                  "de": "Mitte",
+                  "fr": "Milieu"
+                }
+              },
+              {
+                "value": "bottom",
+                "label": {
+                  "en": "Bottom",
+                  "de": "Unten",
+                  "fr": "Bas"
+                }
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": {
+              "en": "Heading",
+              "de": "Titel",
+              "fr": "En-tête"
+            },
+            "default": {
+              "en": "Image slide",
+              "de": "Foto-Slide",
+              "fr": "Diapositive (image)"
+            }
+          },
+          {
+            "type": "text",
+            "id": "subheading",
+            "label": {
+              "en": "Subheading",
+              "de": "Untertitel",
+              "fr": "Sous-titre"
+            },
+            "default": {
+              "en": "Tell your brand's story through video and images",
+              "de": "Erzählen Sie Ihre Geschichte mit Videos und Fotos",
+              "fr": "Racontez votre histoire avec des vidéos et des images"
+            }
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": {
+              "en": "Slide link",
+              "de": "Slide-Link",
+              "fr": "Lien de la diapositive"
+            }
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "name": {
+          "en": "Video slide",
+          "de": "Video-Slide",
+          "fr": "Diapositive (vidéo)"
+        },
+        "settings": [
+          {
+            "type": "video_url",
+            "id": "video_url",
+            "label": {
+              "en": "Video link",
+              "de": "Video-Link",
+              "fr": "Lien de la vidéo"
+            },
+            "accept": ["youtube"],
+            "default": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc"
+          },
+          {
+            "type": "select",
+            "id": "video_type",
+            "label": {
+              "en": "Style",
+              "de": "Stil",
+              "fr": "Style"
+            },
+            "options": [
+              {
+                "value": "chrome",
+                "label": {
+                  "en": "Image with play button",
+                  "de": "Foto mit Play Button",
+                  "fr": "Image avec bouton de lecture"
+                }
+              },
+              {
+                "value": "background-chrome",
+                "label": {
+                  "en": "Background video with play button",
+                  "de": "Hintergrund-Video mit Play Button",
+                  "fr": "Vidéo d'arrière-plan avec bouton de lecture"
+                }
+              },
+              {
+                "value": "background",
+                "label": {
+                  "en": "Background video",
+                  "de": "Hintergrund-Video",
+                  "fr": "Vidéo d'arrière-plan"
+                }
+              }
+            ]
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": {
+              "en": "Image",
+              "de": "Foto",
+              "fr": "Image"
+            },
+            "info": {
+              "en": "Fallback when autoplaying video is not supported on mobile devices",
+              "de": "Ersatz, falls Video nicht automatisch auf Mobilgeräten abspielt",
+              "fr": "Image affichée lorsque la vidéo n'est pas supportée sur les appareils mobiles"
+            }
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": {
+              "en": "Heading",
+              "de": "Titel",
+              "fr": "En-tête"
+            },
+            "default": {
+              "en": "Video slide",
+              "de": "Video-Slide",
+              "fr": "Diapositive (vidéo)"
+            }
+          },
+          {
+            "type": "text",
+            "id": "subheading",
+            "label": {
+              "en": "Subheading",
+              "de": "Untertitel",
+              "fr": "Sous-titre"
+            },
+            "default": {
+              "en": "Tell your brand's story through video and images",
+              "de": "Erzählen Sie Ihre Geschichte mit Videos und Fotos",
+              "fr": "Racontez votre histoire avec des vidéos et des images"
+            }
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+      "name": {
+        "en": "Cruelty Free Section",
+        "de": "Cruelty Free Section",
+        "fr": "Cruelty Free Section"
+      },
+      "category": {
+        "en": "Image",
+        "de": "Foto",
+        "fr": "Image"
+      },
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+    ]
+  }
+{% endschema %}

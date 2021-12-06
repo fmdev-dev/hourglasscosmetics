@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="33" viewBox="0 0 35 33">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Hamburger_White);
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #fff;
+      }
+    </style>
+    <clipPath id="clip-Hamburger_White">
+      <rect width="35" height="33"/>
+    </clipPath>
+  </defs>
+  <g id="Hamburger_White" data-name="Hamburger–White" class="cls-1">
+    <g id="Group_1" data-name="Group 1" transform="translate(8 9)">
+      <line id="Line_5696" data-name="Line 5696" class="cls-2" x2="19.523" transform="translate(0 0)"/>
+      <path id="Path_8548" data-name="Path 8548" class="cls-2" d="M0,0H19.523" transform="translate(0 7.741)"/>
+      <line id="Line_5698" data-name="Line 5698" class="cls-2" x2="19.523" transform="translate(0 15.482)"/>
+    </g>
+  </g>
+</svg>

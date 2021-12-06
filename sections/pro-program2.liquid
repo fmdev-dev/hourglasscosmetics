@@ -1,0 +1,51 @@
+<div class="recognizes-importance">
+		<div class="recognizes-importance-inner">
+			<div class="recognizes-left">
+				 <img class="image lazyload desktop-view" data-src="{{ section.settings.recognizesdesktop | img_url: 'master' }}" src="{{ section.settings.recognizesdesktop | img_url: '100x' }}" alt="{{ section.settings.recognizesDesc }}">
+                 <img class="image lazyload mobile-view" data-src="{{ section.settings.recognizesmobile | img_url: 'master' }}" src="{{ section.settings.recognizesmobile | img_url: '100x' }}" alt="{{ section.settings.recognizesDesc }}">
+				<span class="recognizes-desc">{{ section.settings.recognizesDesc }}</span>
+			</div>
+			<div class="recognizes-right">
+				 <img class="image lazyload desktop-view" data-src="{{ section.settings.importancedesktop | img_url: 'master' }}" src="{{ section.settings.importancedesktop | img_url: '100x' }}" alt="{{ section.settings.recognizesDesc }}">
+               <img class="image lazyload mobile-view" data-src="{{ section.settings.importancemobile | img_url: 'master' }}" src="{{ section.settings.importancemobile | img_url: '100x' }}" alt="{{ section.settings.recognizesDesc }}">
+			</div>
+		</div>
+	</div>
+{% schema %} 
+  {
+  "name": "Pro Program 2",
+  "settings": [
+      
+	  {
+        "type": "image_picker",
+        "id": "recognizesdesktop",
+        "label": { "en": "Recognizes Desktop Image" }
+      },  
+      
+	   {
+        "type": "image_picker",
+        "id": "recognizesmobile",
+        "label": { "en": "Recognizes Mobile Image" }
+      },
+	  {
+           "type":"text",
+           "id":"recognizesDesc",
+           "label":{ 
+              "en":"Description"
+              
+           }
+      },
+	  {
+        "type": "image_picker",
+        "id": "importancedesktop",
+        "label": { "en": "Importance Desktop Image" }
+      },  
+      
+	   {
+        "type": "image_picker",
+        "id": "importancemobile",
+        "label": { "en": "Importance Mobile Image" }
+      }
+  ]
+}
+{% endschema %}

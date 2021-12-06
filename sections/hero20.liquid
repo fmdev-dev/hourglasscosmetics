@@ -1,0 +1,105 @@
+<div class="section fullheightblock veil-collection-3-section">
+    <div class="banner-image left">
+      <a class="bannerbg" href="{{ section.settings.button_link }}" >
+        {% if section.settings.desk_image != blank %}
+          <img class="banner-desk-img lazyload" data-src="{{ section.settings.desk_image | img_url: '1728x1185' }}" src="{{ section.settings.desk_image | img_url: '100x100' }}" alt="Hourglass Cosmetics" data-bgset="{% include 'bgset', image: section.settings.desk_image %}" > 
+        {% endif %}
+      </a>
+  	</div>
+    <div class="banner-content right">
+        <div class="content-inner">
+          	{% if section.settings.title_sub != blank %}
+            	<div class="sub-heading">{{ section.settings.title_sub | escape }}</div>
+          	{% endif %}
+          	{% if section.settings.heading != blank %}
+            	<div class="heading">{{ section.settings.heading }}</div>
+          	{% endif %}          
+            {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+            <div class="button">
+                <a href="{{ section.settings.button_link }}"> <span>{{ section.settings.button_label | escape }}</span> </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Veil Collection 3",
+      "de": "Veil Collection 3",
+      "fr": "Veil Collection 3"
+    },
+    "class": "index-section index-section--flush",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": {
+          "en": "Image",
+          "de": "Image",
+          "fr": "Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title_sub",
+        "label": {
+        "en": "Small Heading",
+        "de": "Titel",
+        "fr": "En-tête"
+        },
+        "default": {
+        "en": "Image with text overlay",
+        "de": "Foto mit überlegtem Text",
+        "fr": "Image avec superposition de texte"
+        }
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête"
+        },
+        "default": {
+          "en": "Image with text overlay",
+          "de": "Foto mit überlegtem Text",
+          "fr": "Image avec superposition de texte"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button label",
+          "de": "Button-Etikett",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button link",
+          "de": "Button-Etikett",
+          "fr": "Lien du bouton"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Veil Collection 3",
+          "de": "Veil Collection 3",
+          "fr": "Veil Collection 3"
+        },
+        "category": {
+          "en": "Advanced layout",
+          "de": "Komplizierteres Layout",
+          "fr": "Mise en page avancée"
+        }
+      }
+    ]
+  }
+{% endschema %}

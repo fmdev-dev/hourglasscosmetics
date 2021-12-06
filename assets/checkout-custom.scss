@@ -1,0 +1,72 @@
+@font-face{font-family:'Gotham';src:url(Gotham-BoldItalic.eot);src:url(Gotham-BoldItalic.eot?#iefix) format("embedded-opentype"),url(Gotham-BoldItalic.woff) format("woff"),url(Gotham-BoldItalic.ttf) format("truetype");font-weight:700;font-style:italic}
+@font-face{font-family:'Gotham Book';src:url(Gotham-Book.eot);src:url(Gotham-Book.eot?#iefix) format("embedded-opentype"),url(Gotham-Book.woff) format("woff"),url(Gotham-Book.ttf) format("truetype");font-weight:400;font-style:normal}
+@font-face{font-family:'Gotham';src:url(Gotham-Bold.eot);src:url(Gotham-Bold.eot?#iefix) format("embedded-opentype"),url(Gotham-Bold.woff) format("woff"),url(Gotham-Bold.ttf) format("truetype");font-weight:700;font-style:normal}
+@font-face{font-family:'Gotham';src:url(Gotham-Light.eot);src:url(Gotham-Light.eot?#iefix) format("embedded-opentype"),url(Gotham-Light.woff) format("woff"),url(Gotham-Light.ttf) format("truetype");font-weight:300;font-style:normal}
+@font-face{font-family:'Gotham';src:url(Gotham-Medium.eot);src:url(Gotham-Medium.eot?#iefix) format("embedded-opentype"),url(Gotham-Medium.woff) format("woff"),url(Gotham-Medium.ttf) format("truetype");font-weight:500;font-style:normal}
+@font-face{font-family:'Gotham Book';src:url(Gotham-BookItalic.eot);src:url(Gotham-BookItalic.eot?#iefix) format("embedded-opentype"),url(Gotham-BookItalic.woff) format("woff"),url(Gotham-BookItalic.ttf) format("truetype");font-weight:400;font-style:italic}
+@font-face{font-family:'Gotham';src:url(Gotham-MediumItalic.eot);src:url(Gotham-MediumItalic.eot?#iefix) format("embedded-opentype"),url(Gotham-MediumItalic.woff) format("woff"),url(Gotham-MediumItalic.ttf) format("truetype");font-weight:500;font-style:italic}
+.checkout-page{font-family: "Gotham", "Helvetica Neue", Verdana, Arial, sans-serif; background:transparent; color: #000; }
+.checkout-page * {box-sizing: border-box;}
+.checkout-page h2{font-family: "Gotham", "Helvetica Neue", Verdana, Arial, sans-serif;}
+.checkout-page .checkout-hd{display:none;}
+.checkout-page, .checkout-page .heading-1{     font-family: "Gotham", "Helvetica Neue", Verdana, Arial, sans-serif;   width: 100%;}
+.checkout-page table th, .checkout-page table td{ color: #000; border:none}
+.checkout-page .btn{ height: auto; line-height:normal;}
+.checkout-page .page--no-banner .main, .checkout-page .page--no-banner .sidebar{padding-top: 3em;} 
+.checkout-page .field__input{ font-size:13px;}
+.floating-labels .sidebar .field__label, .sidebar .field__input{color: #000;}
+.checkout-page .floating-labels .main .field__label{font-size:13px;}
+.checkout-page .main .field__input, .floating-labels .main .field__label, .sidebar .order-summary__emphasis, .display-table .radio__label, .display-table .checkbox__label{ color: #000;}
+.checkout-page .main .field__input::placeholder, .sidebar .field__input::placeholder{color: #000; opacity: 1; }
+.checkout-page .main .field__input:-ms-input-placeholder, .sidebar .field__input:-ms-input-placeholder{ color: #000;}
+.checkout-page .main .field__input::-ms-input-placeholder, .sidebar .field__input::-ms-input-placeholder { color: #000;}
+body .modal-backdrop h2{ color: #000; font-weight:300; text-transform: uppercase;}
+.checkout-page .modal__close-button, .checkout-page .breadcrumb__item--current{ color: #000; }
+body .modal-backdrop .modal__content p{    font-weight: 300;
+font-size: 14px;
+letter-spacing: .01em;
+line-height: 2.1em;
+color: #000;
+font-family: 'Gotham','Helvetica Neue',Verdana,Arial,sans-serif;
+font-style: normal; line-height: 22px;}
+.checkout-page .review-block__label{ padding-right: 0.2em;}
+.floating-labels .main .field__label, .layout-flex--loose-horizontal .layout-flex__item span, .floating-labels .sidebar .field__label{ font-weight:300;}
+.checkout-additional-custom-section-bottom .heading{    font-size: 1.28571em;
+line-height: 1.3em;
+font-family: "Gotham", "Helvetica Neue", Verdana, Arial, sans-serif; vertical-align: middle;
+color: #333;}
+.checkout-additional-custom-section-bottom .heading:after{ content: '';
+background: url(cart-question-icon.png) no-repeat;background-size: 100% 100%;width: 22px;vertical-align: middle;height: 22px;margin-left: 3px;display: inline-block;}    
+.checkout-additional-custom-section-bottom .content{background: #f7f7f7;padding:16px 20px;border: #dcdcdc 1px solid;border-radius: 4px;margin-top: 10px;font-weight: 300;margin-bottom: 30px;}
+.checkout-additional-custom-section-bottom .content p+p{ margin-top: 1em;}
+.floating-labels .section--remember-me .field--half { width: 56%;}
+.total-line-table .total-line--reduction .total-line__name span:first-child{ display: none; }
+.total-line-table .total-line--reduction .total-line__name .reduction-code svg {display: none;}
+.total-line-table .total-line__name .reduction-code{margin-left: 0;}
+.total-line-table .total-line__name .reduction-code span{ display: none !important;}
+.total-line-table .total-line__name .reduction-code span:last-child{display: block !important;}
+/*Sale Item Showing the Discounts*/
+.product-table td .order-compare_price {font-size: 12px; color:#717171; text-decoration: line-through;}
+.product-table td .reduction-code__text {font-size: 12px;}
+.checkout-page table th, .checkout-page table td {padding-left: px;}
+/*Sale Item Showing the Discounts*/
+@media screen and (max-width: 599px){
+.floating-labels .section--remember-me .field--half { width: 85%;}
+}
+@media screen and (max-width: 374px){
+.floating-labels .section--remember-me .field--half { width: 100%;}
+}
+
+
+.checkout_continue_btn_disable { opacity: 0.3; }
+.stateErrorMsg { font-weight: 300; color: red; margin-top: 20px; }
+.stateErrorMsg a { color: red; text-decoration: underline; }
+/**Limit on Checkout Fields start**/
+.count-limit { display:none !important; font-size: 12px;}
+.character-limit-wrap .field__message.count-limit { display:block !important;}
+
+button#continue_button.disabled {
+    pointer-events: none;
+    opacity:0.5;
+}
+/**Limit on Checkout Fields end**/

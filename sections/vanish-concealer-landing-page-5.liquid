@@ -1,0 +1,89 @@
+<div class="vanish-concealer-landing-page-5-bnr" style="background-color:black;">
+    <div class="vclp5-container-fix">
+      <a href="{{ section.settings.button_link }}">
+        <div class="vclp5-dtl">
+            <div class="vclp5-img">
+              {% if section.settings.desktop_image != blank %}
+                  <img class="vclp5-image-desktop lazyload" data-src="{{ section.settings.desktop_image| img_url : 'master' }}" src="{{ section.settings.desktop_image| img_url : '50x50' }}" alt="Vanish airbrush concealer" >
+              {% endif %}    
+              {% if section.settings.mobile_image != blank %}
+                  <img class="vclp5-image-mobile lazyload" data-src="{{ section.settings.mobile_image| img_url : 'master' }}" src="{{ section.settings.mobile_image| img_url : '50x50' }}" alt="Vanish airbrush concealer" >
+              {% endif %}
+            </div>
+            <div class="vclp5-cont">
+                <h3>{{ section.settings.title }} <span>{{ section.settings.heading }}</span></h3>
+                               
+                {% if section.settings.button_label != blank and section.settings.button_link != blank %} 
+                  <a href="{{ section.settings.button_link }}" class="ispshow-btn">{{ section.settings.button_label }}</a>
+                {% endif %}
+
+            </div>
+        </div>
+      </a>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": {
+      "en": "Instant Skin Perfection",
+      "de": "Instant Skin Perfection",
+      "fr": "Instant Skin Perfection"
+    },
+    "settings": [
+	    {
+        "type": "text", 
+        "id": "title",
+        "label": {
+          "en": "Title",
+          "de": "Title",
+          "fr": "Title"
+        }
+      },      
+      {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading",
+          "de": "Heading",
+          "fr": "Heading"
+        }
+      },     
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+          "en": "Button Label",
+          "de": "Button Label",
+          "fr": "Button Label"
+        }
+      },   
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": {
+          "en": "Button Link",
+          "de": "Button Link",
+          "fr": "Button Link"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "desktop_image",
+        "label": {
+          "de": "Desktop Image",
+          "en": "Desktop Image",
+          "fr": "Desktop Image"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": {
+          "de": "Mobile Image",
+          "en": "Mobile Image",
+          "fr": "Mobile Image"
+        }
+      }
+    ]
+  }
+{% endschema %}
